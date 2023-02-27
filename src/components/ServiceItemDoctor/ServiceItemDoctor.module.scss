@@ -1,0 +1,50 @@
+.wrapper {
+    width: 278px;
+    height: 245px;
+    border: 1px solid #eee;
+    text-align: center;
+    padding: 10px 5px;
+    display: inline-block;
+    position: relative;
+    vertical-align: top !important;
+    white-space: normal !important;
+    background: rgba(255, 255, 255, 1);
+    overflow: hidden;
+    margin: 5px;
+
+    &:hover .doctor-name {
+        color: #45c3d2;
+    }
+    &:hover {
+        box-shadow: 0 0.1rem 2rem 0.5rem rgba(0, 0, 0, 0.05);
+    }
+}
+
+.header {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    margin: 0px auto;
+    margin-bottom: 10px;
+}
+
+.doctor-avatar {
+    width: auto;
+    display: inline;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.doctor-name {
+    color: #111;
+    white-space: pre-wrap;
+    font-size: 1.3rem;
+}
+
+.doctor-description {
+    display: block;
+    color: #555;
+    font-size: 12px;
+}

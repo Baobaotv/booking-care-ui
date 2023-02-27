@@ -1,0 +1,62 @@
+.wrapper {
+    background: #f5f5f5;
+    position: relative;
+    max-width: 100%;
+    padding: 50px 0 34px;
+}
+
+.content__bookingcare {
+    display: flex;
+    /* margin-top: 72px; */
+    justify-content: center;
+}
+// .content__bookingcare-img {
+//     height: 286px;
+//     width: 194px;
+//     margin-right: 30px;
+// }
+.content__bookingcare-heading {
+    font-size: 2.4rem;
+    color: #333333;
+    margin: 0 0 10px;
+    margin-top: 30px;
+    padding-left: 30px;
+    font-weight: 600;
+}
+
+.content__bookingcare-item {
+    font-size: 1.4rem;
+    margin: 0 0 5px;
+    padding-left: 30px;
+    color: #333333;
+}
+.content-icon {
+    color: #45c3d2;
+    margin: 0 12px 0 0;
+    font-size: 1.6rem;
+}
+.bookingcare-install {
+    margin: 1rem 0 1rem 0;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+.bookingcare-install-img1 {
+    width: 120px;
+    margin-right: 1rem;
+}
+.bookingcare-install-img2 {
+    width: 120px;
+}
+.link {
+    color: rgb(8, 8, 8);
+    font-size: 1.3rem;
+    margin-top: 3rem;
+    display: block;
+    padding-left: 30px;
+    font-style: italic;
+    color: #45c3d2;
+}
+.link strong {
+    color: #45c3d2;
+}

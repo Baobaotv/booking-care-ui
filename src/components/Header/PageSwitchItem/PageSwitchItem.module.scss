@@ -1,0 +1,23 @@
+.header_nav-item {
+    color: var(--black-color);
+    margin-right: 20px;
+    transition: transform linear 0.1s;
+    will-change: transform;
+    &:hover {
+        transform: translateY(-1px);
+        cursor: pointer;
+    }
+}
+
+.header_nav-link {
+    color: var(--black--color);
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.header_nav-item span {
+    display: block;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 300;
+}
