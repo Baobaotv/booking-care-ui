@@ -1,0 +1,36 @@
+.service-redirect {
+    text-align: center;
+    padding: 5px 5px;
+    color: #333;
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    // min-width: 150px;
+    font-size: 1.6rem;
+    transition: transform linear 0.1s;
+    will-change: transform;
+    &:hover .service-icon {
+        box-shadow: 0 0.1rem 2rem 0.5rem rgba(0, 0, 0, 0.05);
+        transform: scale(1.2);
+    }
+}
+
+.service-icon {
+    background: #fff;
+    border-radius: 50%;
+    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    width: 50px;
+    height: 50px;
+    margin: 2px auto;
+    position: relative;
+}
+
+.img-service {
+    width: 32px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

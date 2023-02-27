@@ -1,0 +1,32 @@
+// Slick
+.slick-prev {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%);
+    background-color: var(--white-color);
+    color: #000;
+    border-radius: 50%;
+    z-index: 2;
+    padding: 4px 14px;
+    border: 1px solid #ebebeb;
+    font-size: 2rem;
+}
+.slick-prev:hover,
+.slick-next:hover {
+    background: #ebebeb;
+    cursor: pointer;
+}
+.slick-next {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(50%);
+    background-color: var(--white-color);
+    color: #000;
+    border-radius: 50%;
+    z-index: 2;
+    padding: 4px 14px;
+    border: 1px solid #ebebeb;
+    font-size: 2rem;
+}

@@ -1,0 +1,100 @@
+.header_nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* padding: 1.5rem 9%; */
+    height: 73px;
+    z-index: 4;
+}
+
+.header_nav-logo {
+    display: flex;
+    font-size: 2.5rem;
+    line-height: 73px;
+    align-items: center;
+}
+
+.header_nav-logo img {
+    height: 40px;
+    width: 160px;
+}
+
+.header_nav-logo-link {
+    color: var(--white-color);
+}
+
+.header_nav-logo-link span {
+    color: var(--primary-color);
+}
+
+.header_nav-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_nav-icon {
+    line-height: 73px;
+    font-size: 2.5rem;
+    color: var(--black-color);
+    cursor: pointer;
+}
+
+.header_nav-icon:hover {
+    color: red;
+}
+
+.header_nav_login {
+    line-height: 73px;
+    font-size: 15px;
+}
+
+.login-list {
+    display: flex;
+    list-style: none;
+    cursor: pointer;
+}
+
+.login-item {
+    color: var(--black--color);
+    margin-right: 10px;
+}
+
+.header_nav_login {
+    position: relative;
+}
+
+.update__Thongtin {
+    position: absolute;
+    background-color: #cccccc;
+    border-radius: 5px;
+    display: none;
+    width: 180px;
+}
+
+.list__thongtin {
+    list-style: none;
+}
+
+.thongtin__item {
+    margin: 1rem;
+    text-align: left;
+}
+
+.thongtin__item a {
+    color: #242424;
+}
+
+.logo {
+    display: flex;
+}
