@@ -1,0 +1,14 @@
+.wrapper {
+    flex-direction: row;
+    padding-top: 16px;
+    z-index: 1;
+    padding-bottom: 20px;
+    display: flex;
+    color: rgba(69, 195, 210, 1);
+}
+
+.link-to-home {
+    margin-right: 3px;
+    color: rgba(69, 195, 210, 1);
+    cursor: pointer;
+}

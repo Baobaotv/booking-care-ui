@@ -5,12 +5,13 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 import PageSwitchItem from './PageSwitchItem';
+import config from '~/config/config';
 
 const cx = classNames.bind(styles);
 
 function Header() {
     return (
-        <header className="">
+        <header className={cx('header')}>
             <div className={cx('grid', 'wide')}>
                 <div className={cx('header_nav')}>
                     <div className={cx('icon-bar')}>
@@ -28,7 +29,7 @@ function Header() {
                             description={'Tìm bác sĩ theo chuyên khoa'}
                         ></PageSwitchItem>
                         <PageSwitchItem
-                            to={'/benh-vien'}
+                            to={config.routes.hospital}
                             title={'Cơ Sở Y Tế'}
                             description={'Chọn bệnh viện phòng khám'}
                         ></PageSwitchItem>

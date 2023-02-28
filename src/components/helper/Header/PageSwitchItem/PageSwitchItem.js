@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 function PageSwitchItem({ to, title, description }) {
     return (
         <div className={cx('header_nav-item')}>
-            <Link href={to} className={cx('header_nav-link')}>
+            <Link to={to} className={cx('header_nav-link')}>
                 {title}
             </Link>
             <span>{description}</span>
