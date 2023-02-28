@@ -1,0 +1,12 @@
+.wrapper {
+    margin-top: 73px;
+    margin-bottom: 30px;
+}
+
+.hospital_column {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    align-items: center;
+    padding-bottom: 30px;
+}
