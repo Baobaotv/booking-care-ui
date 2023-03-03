@@ -12,5 +12,8 @@ const images = {
     cucCNTT: require('~/assets/images/communication/cuc-cong-nghe-thong-tin-bo-y-te.png'),
     app: require('~/assets/images/bookingcare-app.png'),
     boCongThuong: require('~/assets/images/bo-cong-thuong.svg').default,
+    backgroundHospital: require('~/assets/images/background-hospital.png'),
+    hospitalAvatar: require('~/assets/images/hospital-avatar.png'),
+    doctorAvatar: require('~/assets/images/avatarDoctor.jpg'),
 };
 export default images;

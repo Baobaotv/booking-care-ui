@@ -7,6 +7,7 @@ const routes = {
     search: '/search',
     live: '/live',
     hospital: '/benh-vien',
+    hospitalDetail: '/benh-vien/chi-tiet',
 };
 
 const services = [

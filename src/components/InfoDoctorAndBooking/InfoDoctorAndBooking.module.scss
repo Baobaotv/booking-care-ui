@@ -1,0 +1,129 @@
+.wrapper {
+    display: flex;
+    margin: auto auto 10px;
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    box-shadow: rgb(32 33 36 / 28%) 0px 1px 6px;
+}
+
+.info-doctor {
+    display: flex;
+    width: 50%;
+    padding: 15px;
+}
+
+.info-doctor-avatar {
+    height: 80px;
+    width: 80px;
+    border-radius: 40px;
+    overflow: hidden;
+}
+
+.info-doctor-avatar img {
+    // color: transparent;
+    object-fit: cover;
+    width: 100%;
+}
+
+.info-doctor-content {
+    padding-left: 15px;
+}
+
+.info-doctor-name {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: rgb(69, 195, 210);
+    display: block;
+}
+
+// hospital-booking
+
+.hospital-booking {
+    padding: 15px 15px 0 15px;
+    width: 50%;
+    border-left: 1px solid #3333;
+}
+
+.hospital-booking-wrapper-time {
+    padding-bottom: 15px;
+}
+
+.hospital-booking-time {
+    border: none;
+    padding: 4px;
+    position: relative;
+    color: rgb(69, 195, 210);
+    font-weight: 600;
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 134px;
+        right: 0;
+        bottom: 0;
+        height: 0.5px;
+        background-color: black;
+    }
+}
+
+.hospital-booking-time-title {
+    text-transform: uppercase;
+    color: rgb(51, 51, 51);
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.hospital-booking-time-icon {
+    margin-right: 5px;
+}
+
+.hospital-booking-action {
+    display: flex;
+    flex-direction: row;
+}
+
+.hospital-booking-action-tutorial {
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #3333;
+}
+
+.hospital-booking-action-icon-select {
+    padding: 0 4px;
+}
+
+.hospital-info {
+}
+
+.hospital-info-address {
+    padding: 10px 0;
+    border-bottom: 1px solid #3333;
+}
+
+.hospital-info-address p {
+    color: rgb(102, 102, 102);
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.hospital-info-cost {
+    display: flex;
+    padding: 10px 0;
+    align-items: center;
+}
+
+.hospital-info-cost p {
+    color: rgb(102, 102, 102);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.hospital-info-cost span {
+    color: rgb(102, 102, 102);
+    font-size: 1.6rem;
+}
