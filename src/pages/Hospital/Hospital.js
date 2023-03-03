@@ -14,14 +14,14 @@ function Hospital() {
                 <LinkToPage title={'Cơ sở y tế'}></LinkToPage>
                 <SearchHospital></SearchHospital>
                 <div className={cx('hospital_column')}>
-                    <ServiceItemDoctor></ServiceItemDoctor>
-                    <ServiceItemDoctor></ServiceItemDoctor>
-                    <ServiceItemDoctor></ServiceItemDoctor>
-                    <ServiceItemDoctor></ServiceItemDoctor>
-                    <ServiceItemDoctor></ServiceItemDoctor>
-                    <ServiceItemDoctor></ServiceItemDoctor>
-                    <ServiceItemDoctor></ServiceItemDoctor>
-                    <ServiceItemDoctor></ServiceItemDoctor>
+                    <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
+                    <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
+                    <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
+                    <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
+                    <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
+                    <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
+                    <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
+                    <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
                 </div>
             </div>
             <Pagination></Pagination>

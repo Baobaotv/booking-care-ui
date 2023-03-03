@@ -6,9 +6,10 @@ import images from '~/assets/images';
 
 const cx = classNames.bind(styles);
 
-function ServiceItemDoctor() {
+function ServiceItemDoctor({ type }) {
+    const to = type === 'hospital' ? '/benh-vien/chi-tiet' : '/bac-si/id';
     return (
-        <Link to="/bac-si/{id}" className={cx('wrapper')} tabindex="0">
+        <Link to={to} className={cx('wrapper')}>
             <div className={cx('header')}>
                 <img
                     className={cx('doctor-avatar')}

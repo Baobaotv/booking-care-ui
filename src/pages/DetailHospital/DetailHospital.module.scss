@@ -1,0 +1,215 @@
+.wrapper {
+    margin-top: 73px;
+    margin-bottom: 30px;
+}
+
+.image-title {
+    position: relative;
+}
+
+.image-title img {
+    width: 100%;
+    height: auto;
+}
+
+// Hospital information detail
+
+.hospital-information {
+    box-shadow: rgb(32 33 36 / 28%) 0px 1px 6px;
+    width: 1200px;
+    padding-top: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hospital-information-content {
+    display: flex;
+}
+
+.hospital-avatar {
+    width: 112px;
+    height: 112px;
+    margin-right: 30px;
+    margin-left: 30px;
+    background-color: rgb(255, 255, 255);
+}
+
+.hospital-avatar img {
+    height: 100%;
+    width: 100%;
+    inset: 0px;
+    object-fit: contain;
+    color: transparent;
+}
+
+.hospital-information-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.hospital-information-title h1 {
+    font-size: 2.6rem;
+    color: rgb(40, 49, 63);
+    font-weight: 700;
+}
+
+.hospital-information-title span {
+    font-size: 18px;
+    color: rgb(40, 49, 63);
+    font-weight: 400;
+}
+
+.hospital-action {
+    display: flex;
+    justify-content: space-around;
+}
+
+.hospital-action-introduce,
+.introduce-action-book {
+    padding: 0px 42px 5px 42px;
+    font-size: 1.6rem;
+    font-weight: 600;
+
+    &:hover {
+        cursor: pointer;
+        transform: translateY(-2px);
+    }
+}
+
+.hospital-action-introduce.selected,
+.introduce-action-book.selected {
+    color: #45c3d2;
+}
+
+// END Hospital information detail
+
+// Case Action Show Introduce
+
+.hospital-introduce {
+    display: none;
+}
+
+.hospital-introduce.selected {
+    display: block;
+}
+
+.hospital-title {
+    padding: 10px 20px;
+    background-color: rgb(255, 236, 178);
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 15px;
+}
+
+.hospital-content {
+    padding-top: 90px;
+}
+
+.hospital-short-description {
+    padding: 20px;
+    background-color: rgb(212, 239, 252);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.hospital-doctors {
+    margin-top: 30px;
+}
+
+.hospital-doctors-title {
+    border-bottom: 1px solid #3333;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.hospital-doctors-title h3 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.heading__search {
+    text-decoration: none;
+    border-radius: 4px;
+    background: #ebebeb;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 10px 15px;
+    color: #282e41;
+}
+
+.hospital-doctors-content {
+    padding-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 -5px;
+}
+
+.hospital-description {
+    margin-top: 30px;
+}
+
+.hospital-description-title {
+    border-bottom: 1px solid #3333;
+    padding-bottom: 10px;
+}
+
+.hospital-description-title h3 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.hospital-description-content {
+    padding-top: 25px;
+}
+
+.hospital-location {
+    margin-top: 30px;
+}
+
+.hospital-location-title {
+    border-bottom: 1px solid #3333;
+    padding-bottom: 10px;
+}
+
+.hospital-location-title h3 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.hospital-location-content {
+    padding-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+// Case Action Book Schedule
+
+.hospital-book-schedule {
+    display: none;
+}
+
+.hospital-book-schedule.selected {
+    display: block;
+}
+
+.hospital-book-doctors {
+    margin: 30px 0;
+}
+
+.hospital-book-title {
+    border-bottom: 1px solid #3333;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.hospital-book-title h3 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
