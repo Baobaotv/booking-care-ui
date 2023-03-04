@@ -5,7 +5,11 @@ import styles from './ButtonBooking.module.scss';
 const cx = classNames.bind(styles);
 
 function ButtonBooking({ title }) {
-    return <Link className={cx('btn-booking')}>{title}</Link>;
+    return (
+        <Link to={'/dat-lich-kham'} className={cx('btn-booking')}>
+            {title}
+        </Link>
+    );
 }
 
 export default ButtonBooking;

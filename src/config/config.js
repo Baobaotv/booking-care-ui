@@ -8,6 +8,9 @@ const routes = {
     live: '/live',
     hospital: '/benh-vien',
     hospitalDetail: '/benh-vien/chi-tiet',
+    booking: '/dat-lich-kham',
+    handbook: '/cam-nang',
+    handbookList: '/cam-nang/danh-sach-bai-viet',
 };
 
 const services = [
