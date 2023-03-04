@@ -15,5 +15,10 @@ const images = {
     backgroundHospital: require('~/assets/images/background-hospital.png'),
     hospitalAvatar: require('~/assets/images/hospital-avatar.png'),
     doctorAvatar: require('~/assets/images/avatarDoctor.jpg'),
+    handbookAvatar: require('~/assets/images/avatar-cam-nang.png'),
+    handbookProcessDoctor: require('~/assets/images/process-handbook-doctor.webp'),
+    handbookProcessSearch: require('~/assets/images/handbookProcessSearch.webp'),
+    handbookProcessUpdate: require('~/assets/images/handbookProcessUpdate.webp'),
+    handbookProcessTeam: require('~/assets/images/handbookProcessTeam.webp'),
 };
 export default images;

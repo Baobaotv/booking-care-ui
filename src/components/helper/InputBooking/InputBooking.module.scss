@@ -1,0 +1,19 @@
+.wrapper {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.input-icon {
+    padding: 2px 4px 0 2px;
+    opacity: 0.6;
+}
+
+.wrapper input,
+.wrapper textarea {
+    border-radius: 4px;
+    border: none;
+    flex: 1;
+}

@@ -1,0 +1,57 @@
+.wrapper {
+    width: 278px;
+    border: 1px solid #eee;
+    text-align: center;
+    padding: 10px 5px;
+    display: inline-block;
+    position: relative;
+    vertical-align: top !important;
+    white-space: normal !important;
+    background: rgba(255, 255, 255, 1);
+    overflow: hidden;
+    margin: 5px;
+
+    &:hover .doctor-name {
+        color: #45c3d2;
+    }
+    &:hover {
+        box-shadow: 0 0.1rem 2rem 0.5rem rgba(0, 0, 0, 0.05);
+    }
+}
+
+.handbook-avatar {
+    aspect-ratio: 1.91083 / 1;
+}
+
+.handbook-avatar img {
+    position: absolute;
+    width: 100%;
+    inset: 0px;
+    object-fit: cover;
+    color: transparent;
+}
+
+.handbook-title {
+    -webkit-line-clamp: 3;
+    padding-right: 15px;
+    padding-left: 15px;
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgb(17, 17, 17);
+    margin-top: 8px;
+}
+
+.handbook-short-description {
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: rgb(40, 49, 63);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}

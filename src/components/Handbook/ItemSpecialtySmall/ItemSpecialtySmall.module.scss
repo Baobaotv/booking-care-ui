@@ -1,0 +1,29 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    width: 165px;
+    height: 210px;
+    margin: 20px 15px;
+    justify-content: space-evenly;
+    box-shadow: rgb(32 33 36 / 28%) 0px 1px 6px;
+}
+
+.specialty-avatar {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.specialty-avatar img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.specialty-name {
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
+}

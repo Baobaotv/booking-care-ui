@@ -1,14 +1,11 @@
 .content__handbook {
     text-decoration: none;
+    display: block;
+    width: 50%;
     margin: 0 10px;
     &:hover {
         transform: translateY(-2px);
     }
-}
-
-.content__handbook-item img {
-    border-radius: 5px;
-    width: 50%;
 }
 
 .content__handbook-item {
@@ -16,13 +13,32 @@
     justify-content: space-around;
 }
 
-.content__handbook-text {
-    font-size: 1.6rem;
-    font-weight: 500;
-    color: #000;
+.content__handbook-item img {
+    border-radius: 5px;
+    width: 50%;
+}
+
+.content__handbook-description {
     margin-left: 16px;
 }
 
-.content__handbook-text:hover {
+.content__handbook-title {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #000;
+}
+
+.content__handbook-title:hover {
     color: #009966;
+}
+
+.content__handbook-short-description {
+    padding-top: 10px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: rgb(40, 49, 63);
 }
