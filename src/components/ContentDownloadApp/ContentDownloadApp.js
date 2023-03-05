@@ -28,7 +28,7 @@ function ContentDownloadApp() {
                                 Nhận Hướng Dẫn Đi Khám Chi Tiết
                             </li>
                         </ul>
-                        <a href="" className={cx('bookingcare-install')}>
+                        <a href="/" className={cx('bookingcare-install')}>
                             <img
                                 src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg//assets/39f189e19764dab688d3850742f13718.png"
                                 alt=""
@@ -40,7 +40,7 @@ function ContentDownloadApp() {
                                 className={cx('bookingcare-install-img2')}
                             />
                         </a>
-                        <a href="" className={cx('link')}>
+                        <a href="/" className={cx('link')}>
                             Hoặc mở liên kết : <strong>https://bookingcare.vn/app</strong>
                         </a>
                     </div>

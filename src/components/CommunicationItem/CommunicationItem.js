@@ -4,7 +4,7 @@ import styles from './CommunicationItem.module.scss';
 const cx = classNames.bind(styles);
 function CommunicationItem({ content }) {
     return (
-        <a target={'_blank'} title={content.title} href={content.href}>
+        <a title={content.title} href={content.href} rel="noreferrer">
             <i
                 className={cx('comunicate-icon')}
                 style={{

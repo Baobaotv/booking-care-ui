@@ -1,10 +1,4 @@
-import {
-    faCalendar,
-    faCalendarDay,
-    faCalendarDays,
-    faCalendarWeek,
-    faHandPointUp,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faHandPointUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import images from '~/assets/images';
