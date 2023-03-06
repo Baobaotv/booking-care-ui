@@ -14,4 +14,4 @@ jobs:
     steps:
       # ten step
       - name: runHelloWord
-      - run: echo hello word
+        run: echo hello word
