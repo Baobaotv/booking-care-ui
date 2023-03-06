@@ -1,17 +1,29 @@
-# ten cua wordflow
-name: hello word 
-# chay khi nao
-on: 
+name: hello world
+on:
+
   push:
-    branch: [main, develop]
-# lam nhung viec gigit 
+    paths:
+      - '!README.md'
+      - '!docs/**'
+      - '**.js'
+    branches:
+      - 'main'
+      - 'release/**'
+      - '!dev/**'
+  pull_request:
+    type: [opened, reopened, synchronize]
+
+  workflow_dispatch:
 jobs:
-  # job_id
   say-hello:
-    # chay tren nen tang nao
-    runs-on: unbuntu-latest 
-    # chay gom nhung buoc nao
+    runs-on: ubuntu-latest
     steps:
-      # ten step
-      - name: runHelloWord
-        run: echo hello word
+      - if: ${{github.event_name == 'pull_request'}}
+        uses: mheap/github-action-required-labels@v1
+        with:
+          mode: exactly
+          count: 0
+          labels: "do not build"
+      - run: echo "TODAY=$(date +%y-%m-%d)" >> $GITHUB_ENV
+      - run: echo Hello world, today is $TODAY
+      - run: docker image ls     
