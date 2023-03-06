@@ -1,0 +1,17 @@
+# ten cua wordflow
+name: hello word 
+# chay khi nao
+on: 
+  push:
+    branch: [main, develop]
+# lam nhung viec gigit 
+jobs:
+  # job_id
+  say-hello:
+    # chay tren nen tang nao
+    runs-on: unbuntu-latest 
+    # chay gom nhung buoc nao
+    steps:
+      # ten step
+      - name: runHelloWord
+      - run: echo hello word
