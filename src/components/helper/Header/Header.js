@@ -6,6 +6,7 @@ import styles from './Header.module.scss';
 import images from '~/assets/images';
 import PageSwitchItem from './PageSwitchItem';
 import config from '~/config/config';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -17,10 +18,10 @@ function Header() {
                     <div className={cx('icon-bar')}>
                         <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
                     </div>
-                    <a href="/home" className={cx('header_nav-logo')}>
+                    <Link to="/" className={cx('header_nav-logo')}>
                         {' '}
                         <img src={images.logo} alt="logo" />
-                    </a>
+                    </Link>
 
                     <div className={cx('header_nav-list', 'hide-on-tablet-mobile')}>
                         <PageSwitchItem
