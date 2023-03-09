@@ -7,6 +7,9 @@
 .pagination-item {
     margin: 0 15px;
     border-radius: 2px;
+    &:hover {
+        box-shadow: 0 0.1rem 2rem 0.5rem rgba(0, 0, 0, 0.05);
+    }
 }
 
 .pagination-item__active {

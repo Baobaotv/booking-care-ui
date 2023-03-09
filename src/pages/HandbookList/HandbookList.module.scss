@@ -1,0 +1,23 @@
+.wrapper {
+    margin-top: var(--header-height);
+    margin-bottom: 30px;
+}
+
+.handbook-list-title {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    margin-bottom: 33px;
+    border-bottom: 1px solid rgb(218, 216, 216);
+}
+
+.handbook-list-title h2 {
+    font-size: 2.4rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.handbook-list {
+    margin: 10px 0 30px 0;
+}
