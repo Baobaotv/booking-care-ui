@@ -9,6 +9,7 @@ import ItemSpecialtySmall from '~/components/Handbook/ItemSpecialtySmall';
 import LinkToPage from '~/components/helper/LinkToPage';
 import ServiceItemHandbook from '~/components/ServiceItemHandbook';
 import SlickButton from '~/components/SlickButton/SlickButton';
+import config from '~/config';
 import styles from './Handbook.module.scss';
 
 const cx = classNames.bind(styles);
@@ -44,12 +45,12 @@ function Handbook() {
                     <h2>Danh mục cẩm nang</h2>
                 </div>
                 <div className={cx('hand-book-latest-posts')}>
-                    <ItemSpecialtySmall></ItemSpecialtySmall>
-                    <ItemSpecialtySmall></ItemSpecialtySmall>
-                    <ItemSpecialtySmall></ItemSpecialtySmall>
-                    <ItemSpecialtySmall></ItemSpecialtySmall>
-                    <ItemSpecialtySmall></ItemSpecialtySmall>
-                    <ItemSpecialtySmall></ItemSpecialtySmall>
+                    <ItemSpecialtySmall to={config.routes.handbookList}></ItemSpecialtySmall>
+                    <ItemSpecialtySmall to={config.routes.handbookList}></ItemSpecialtySmall>
+                    <ItemSpecialtySmall to={config.routes.handbookList}></ItemSpecialtySmall>
+                    <ItemSpecialtySmall to={config.routes.handbookList}></ItemSpecialtySmall>
+                    <ItemSpecialtySmall to={config.routes.handbookList}></ItemSpecialtySmall>
+                    <ItemSpecialtySmall to={config.routes.handbookList}></ItemSpecialtySmall>
                     <SlickButton type="next"></SlickButton>
                 </div>
                 <div className={cx('hand-book-production-process')}>

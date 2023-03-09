@@ -3,11 +3,12 @@ import classNames from 'classnames/bind';
 
 import styles from './ServiceItemHandbook.module.scss';
 import images from '~/assets/images';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 function ServiceItemHandbook() {
     return (
-        <Link className={cx('content__handbook')}>
+        <Link className={cx('content__handbook')} to={config.routes.handbookDetail}>
             <div className={cx('content__handbook-item')}>
                 <img src={images.serviceItemRedirect} alt="" />
                 <dv className={cx('content__handbook-description')}>

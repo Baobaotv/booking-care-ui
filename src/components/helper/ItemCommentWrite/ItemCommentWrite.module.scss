@@ -1,0 +1,31 @@
+.wrapper {
+    display: flex;
+    margin-bottom: 15px;
+}
+.comment-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.comment-avatar img {
+    object-fit: contain;
+    width: 100%;
+}
+
+.comment-info {
+    background-color: #eff2f5;
+    padding: 8px 12px;
+    border-radius: 16px;
+    position: relative;
+    width: 60%;
+}
+
+.comment-input {
+    border: none;
+    background-color: #eff2f5;
+    padding: 5px 5px;
+    width: 100%;
+}

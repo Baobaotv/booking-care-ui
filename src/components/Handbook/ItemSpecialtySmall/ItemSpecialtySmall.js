@@ -5,9 +5,9 @@ import images from '~/assets/images';
 
 const cx = classNames.bind(styles);
 
-function ItemSpecialtySmall() {
+function ItemSpecialtySmall({ to }) {
     return (
-        <Link className={cx('wrapper')}>
+        <Link className={cx('wrapper')} to={to}>
             <div className={cx('specialty-avatar')}>
                 <img src={images.serviceItemRedirect} alt="specialty-avatar"></img>
             </div>

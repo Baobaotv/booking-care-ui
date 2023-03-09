@@ -1,0 +1,20 @@
+.wrapper {
+    display: flex;
+    padding: 10px 5px;
+    box-shadow: 0 0.1rem 2rem 0.5rem rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+    &:hover .handbook-title {
+        color: #45c3d2;
+    }
+}
+
+.hospital-avatar {
+    width: 250px;
+    padding-right: 10px;
+}
+
+.handbook-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    padding-bottom: 4px;
+}

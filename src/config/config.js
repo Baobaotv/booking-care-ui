@@ -11,6 +11,7 @@ const routes = {
     booking: '/dat-lich-kham',
     handbook: '/cam-nang',
     handbookList: '/cam-nang/danh-sach-bai-viet',
+    handbookDetail: '/cam-nang/chi-tiet-bai-viet',
 };
 
 const services = [
