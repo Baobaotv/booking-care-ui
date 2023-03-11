@@ -10,4 +10,9 @@
     &:hover {
         background-color: rgb(69, 195, 210);
     }
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    max-height: 42px;
+    min-width: 140px;
 }

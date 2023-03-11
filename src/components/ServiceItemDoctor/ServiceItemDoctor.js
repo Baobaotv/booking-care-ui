@@ -3,11 +3,12 @@ import classNames from 'classnames/bind';
 
 import styles from './ServiceItemDoctor.module.scss';
 import images from '~/assets/images';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
 function ServiceItemDoctor({ type }) {
-    const to = type === 'hospital' ? '/benh-vien/chi-tiet' : '/bac-si/id';
+    const to = type === 'hospital' ? config.routes.hospitalDetail : config.routes.doctorDetail;
     return (
         <Link to={to} className={cx('wrapper')}>
             <div className={cx('header')}>
