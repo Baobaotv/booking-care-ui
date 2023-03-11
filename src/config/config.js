@@ -12,6 +12,8 @@ const routes = {
     handbook: '/cam-nang',
     handbookList: '/cam-nang/danh-sach-bai-viet',
     handbookDetail: '/cam-nang/chi-tiet-bai-viet',
+    doctor: '/bac-si',
+    doctorDetail: '/bac-si/chi-tiet-bac-si',
 };
 
 const services = [

@@ -35,7 +35,7 @@ function Header() {
                             description={'Chọn bệnh viện phòng khám'}
                         ></PageSwitchItem>
                         <PageSwitchItem
-                            to={'/bac-si'}
+                            to={config.routes.doctor}
                             title={'Bác Sĩ'}
                             description={'Chọn bác sĩ giỏi'}
                         ></PageSwitchItem>
