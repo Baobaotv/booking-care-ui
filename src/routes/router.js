@@ -14,6 +14,8 @@ import Doctor from '~/pages/Doctor';
 import DoctorDetail from '~/pages/DoctorDetail';
 import Specialty from '~/pages/Specialty';
 import SpecialtyDetail from '~/pages/SpecialtyDetail';
+import Login from '~/pages/Login';
+import EmptyLayout from '~/Layout/EmptyLayout';
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -30,6 +32,8 @@ const publicRoutes = [
     { path: config.routes.doctorDetail, component: DoctorDetail },
     { path: config.routes.specialty, component: Specialty },
     { path: config.routes.specialtyDetail, component: SpecialtyDetail },
+    { path: config.routes.login, component: Login, layout: EmptyLayout },
+    { path: config.routes.register, component: Login, layout: EmptyLayout },
 ];
 
 const privateRoutes = [];

@@ -49,12 +49,12 @@ function Header() {
                     <div className={cx('header_nav_login')}>
                         {/* Start Case User login is fail */}
                         <div className={cx('login-list')}>
-                            <a href="/login" className={cx('login-item', 'js-dangNhap')}>
+                            <Link to={config.routes.login} className={cx('login-item', 'js-dangNhap')}>
                                 Đăng Nhập
-                            </a>{' '}
-                            <a href="/register" className={cx('login-item', 'js-dangKy')}>
+                            </Link>{' '}
+                            <Link to={config.routes.register} className={cx('login-item', 'js-dangKy')}>
                                 Đăng Ký
-                            </a>
+                            </Link>
                         </div>
                         {/* END Case User login is fail */}
 

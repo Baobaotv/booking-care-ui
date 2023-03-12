@@ -1,0 +1,134 @@
+.wrapper {
+    display: flex;
+    height: 100vh;
+    min-height: 700px;
+}
+
+.account-information {
+    width: 50%;
+    height: 100%;
+    background-color: rgb(246, 247, 252);
+}
+
+.account-information {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.account-information-content {
+    max-width: 58.3333%;
+}
+
+.account-title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    padding-bottom: 8px;
+}
+
+.account-desc {
+    color: #b3b3b3;
+    font-weight: 300;
+    padding-bottom: 24px;
+}
+
+.account-info-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.account-info-title {
+    display: block;
+    font-weight: 500;
+    font-size: 1.8rem;
+    padding-bottom: 8px;
+}
+
+.account-info-input-input {
+    border: none;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    height: 54px;
+    background: #fff;
+    width: 100%;
+    padding: 6px 12px;
+}
+
+.account-info-action-more {
+    display: flex;
+    justify-content: space-between;
+}
+
+.account-info-action-more a {
+    color: #45c3d2;
+    font-style: italic;
+    margin-bottom: 48px;
+}
+
+.account-info-btn {
+    height: 54px;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 100%;
+    background-color: #45c3d2;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 4px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.wrapper-a {
+    position: relative;
+}
+
+.background-img {
+    width: 50%;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    height: 100%;
+    transition: transform 0.6s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background-img.register {
+    transform: translateX(-100%);
+}
+
+.background-img.login {
+    transform: translateX(0%);
+}
+
+.introduce-action {
+    max-width: 58%;
+    color: #fff;
+}
+.introduce-action .introduce-title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    padding-bottom: 8px;
+}
+
+.introduce-action .introduce-btn {
+    margin-top: 30px;
+    background-color: transparent;
+    border: 1px solid #fff;
+
+    &:hover .introduce-icon {
+        display: inline;
+    }
+}
+
+.introduce-icon {
+    display: none;
+    color: var(--white-color);
+    margin: 0 15px;
+}

@@ -16,6 +16,9 @@ const routes = {
     doctorDetail: '/bac-si/chi-tiet-bac-si',
     specialty: '/chuyen-khoa',
     specialtyDetail: '/chuyen-khoa/chi-tiet-chuyen-khoa',
+    login: '/dang-nhap',
+    register: '/dang-ki',
+    forgotPassword: '/quen-mat-khau',
 };
 
 const services = [
