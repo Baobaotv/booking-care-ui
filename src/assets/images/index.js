@@ -21,5 +21,6 @@ const images = {
     handbookProcessUpdate: require('~/assets/images/handbookProcessUpdate.webp'),
     handbookProcessTeam: require('~/assets/images/handbookProcessTeam.webp'),
     specialtyDetailBackground: require('~/assets/images/specialty-detail-background.jpeg'),
+    loginBackground: require('~/assets/images/login-background.webp'),
 };
 export default images;
