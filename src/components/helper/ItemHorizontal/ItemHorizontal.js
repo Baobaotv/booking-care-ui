@@ -2,12 +2,13 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import images from '~/assets/images';
 import config from '~/config';
-import styles from './ItemHandbookHorizontal.module.scss';
+import styles from './ItemHorizontal.module.scss';
 const cx = classNames.bind(styles);
 
-function ItemHandbookHorizontal() {
+function ItemHorizontal({ type }) {
+    let linkRedirect = type === 'handbook' ? config.routes.handbookDetail : config.routes.specialtyDetail;
     return (
-        <Link className={cx('wrapper')} to={config.routes.handbookDetail}>
+        <Link className={cx('wrapper')} to={linkRedirect}>
             <img className={cx('hospital-avatar')} src={images.handbookAvatar} alt="handbook-avatar"></img>
             <div className={cx('handbook-information')}>
                 <p className={cx('handbook-title')}>8 bác sĩ Thần kinh giỏi và nhiều kinh nghiệm ở Hà Nội (Phần 1) </p>
@@ -20,4 +21,4 @@ function ItemHandbookHorizontal() {
     );
 }
 
-export default ItemHandbookHorizontal;
+export default ItemHorizontal;

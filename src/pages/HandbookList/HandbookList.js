@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import ItemHandbookHorizontal from '~/components/Handbook/ItemHandbookHorizontal/ItemHandbookHorizontal';
+import ItemHorizontal from '~/components/helper/ItemHorizontal/ItemHorizontal';
 import SearchHandbook from '~/components/Handbook/SearchHandbook';
 import LinkToPage from '~/components/helper/LinkToPage';
 import Pagination from '~/components/helper/Pagination';
@@ -20,11 +20,11 @@ function HandBookList({ specialty }) {
                     <SearchHandbook></SearchHandbook>
                 )}
                 <div className={cx('handbook-list')}>
-                    <ItemHandbookHorizontal></ItemHandbookHorizontal>
-                    <ItemHandbookHorizontal></ItemHandbookHorizontal>
-                    <ItemHandbookHorizontal></ItemHandbookHorizontal>
-                    <ItemHandbookHorizontal></ItemHandbookHorizontal>
-                    <ItemHandbookHorizontal></ItemHandbookHorizontal>
+                    <ItemHorizontal type={'handbook'}></ItemHorizontal>
+                    <ItemHorizontal type={'handbook'}></ItemHorizontal>
+                    <ItemHorizontal type={'handbook'}></ItemHorizontal>
+                    <ItemHorizontal type={'handbook'}></ItemHorizontal>
+                    <ItemHorizontal type={'handbook'}></ItemHorizontal>
                 </div>
             </div>
             <Pagination></Pagination>

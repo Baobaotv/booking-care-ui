@@ -9,9 +9,11 @@ import DetailHospital from '~/pages/DetailHospital';
 import Booking from '~/pages/Booking';
 import Handbook from '~/pages/Handbook';
 import HandbookList from '~/pages/HandbookList';
-import HanbookDetail from '~/pages/HandbookDetail';
+import HandbookDetail from '~/pages/HandbookDetail';
 import Doctor from '~/pages/Doctor';
 import DoctorDetail from '~/pages/DoctorDetail';
+import Specialty from '~/pages/Specialty';
+import SpecialtyDetail from '~/pages/SpecialtyDetail';
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -23,9 +25,11 @@ const publicRoutes = [
     { path: config.routes.booking, component: Booking },
     { path: config.routes.handbook, component: Handbook },
     { path: config.routes.handbookList, component: HandbookList },
-    { path: config.routes.handbookDetail, component: HanbookDetail },
+    { path: config.routes.handbookDetail, component: HandbookDetail },
     { path: config.routes.doctor, component: Doctor },
     { path: config.routes.doctorDetail, component: DoctorDetail },
+    { path: config.routes.specialty, component: Specialty },
+    { path: config.routes.specialtyDetail, component: SpecialtyDetail },
 ];
 
 const privateRoutes = [];

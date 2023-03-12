@@ -25,7 +25,7 @@ function Header() {
 
                     <div className={cx('header_nav-list', 'hide-on-tablet-mobile')}>
                         <PageSwitchItem
-                            to={'/chuyen-khoa'}
+                            to={config.routes.specialty}
                             title={'Chuyên Khoa'}
                             description={'Tìm bác sĩ theo chuyên khoa'}
                         ></PageSwitchItem>
