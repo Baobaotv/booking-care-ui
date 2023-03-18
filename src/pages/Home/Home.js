@@ -9,16 +9,22 @@ import ContentDownloadApp from '~/components/ContentDownloadApp';
 
 const cx = classNames.bind(styles);
 
-function Home() {
+function Home({
+    recentHandbooks,
+    doctorOnline,
+    featuredHospitals,
+    featuredSpecialty,
+    featuredDoctors,
+    featuredHandbooks,
+}) {
     return (
         <>
             <Slider></Slider>
             <div className={cx('grid wide')}>
                 <div className={cx('content__slider-img')}>
-                    <ServiceItemRedirect></ServiceItemRedirect>
-                    <ServiceItemRedirect></ServiceItemRedirect>
-                    <ServiceItemRedirect></ServiceItemRedirect>
-                    <ServiceItemRedirect></ServiceItemRedirect>
+                    {recentHandbooks.map((item) => {
+                        return <ServiceItemRedirect type={'handbook'} data={item} key={item.id}></ServiceItemRedirect>;
+                    })}
                 </div>
             </div>
 
@@ -26,24 +32,37 @@ function Home() {
             <ContentWithBackground
                 title={'Bác sĩ từ xa qua Video'}
                 online={true}
-                listDataItem={[1, 2, 3, 4]}
+                type="doctor"
+                listDataItem={doctorOnline}
             ></ContentWithBackground>
 
             {/* Chuyen khoa nổi bật */}
-            <ContentNotBackground title={'Chuyên khoa phổ biến'} listDataItem={[1, 2, 3, 4]}></ContentNotBackground>
+            <ContentNotBackground
+                title={'Chuyên khoa phổ biến'}
+                listDataItem={featuredSpecialty}
+                type={'specialty'}
+            ></ContentNotBackground>
 
             {/* Cơ sở y tế nổi bật */}
-            <ContentWithBackground title={'Cơ sở y tế nổi bật'} listDataItem={[1, 2, 3, 4]}></ContentWithBackground>
+            <ContentWithBackground
+                title={'Cơ sở y tế nổi bật'}
+                listDataItem={featuredHospitals}
+                type="hospital"
+            ></ContentWithBackground>
 
             {/* Bác sĩ nổi bật */}
             <ContentNotBackground
                 title={'Bác sĩ nổi bật'}
-                listDataItem={[1, 2, 3, 4]}
+                listDataItem={featuredDoctors}
                 type={'doctor'}
             ></ContentNotBackground>
 
             {/* Cẩm nang */}
-            <ContentWithBackground title={'Cẩm nang'} listDataItem={[1, 2]} type={'handbook'}></ContentWithBackground>
+            <ContentWithBackground
+                title={'Cẩm nang'}
+                listDataItem={featuredHandbooks}
+                type={'handbook'}
+            ></ContentWithBackground>
 
             {/* Truyền thông: video ytb */}
             <ContentWithCommunication title={'Truyền thông nói về BookingCare'}></ContentWithCommunication>

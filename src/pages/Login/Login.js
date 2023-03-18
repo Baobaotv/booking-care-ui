@@ -9,7 +9,7 @@ import styles from './Login.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Login({ type }) {
+function Login({ type, actionSignIn, actionSignup }) {
     const [account, setAccount] = useState(type);
 
     return (
@@ -27,6 +27,7 @@ function Login({ type }) {
                                 <input
                                     className={cx('account-info-input-input')}
                                     placeholder="Tài khoản của bạn"
+                                    id="usernameLogin"
                                 ></input>
                             </div>
                             <div className={cx('account-info-input')}>
@@ -35,13 +36,16 @@ function Login({ type }) {
                                     className={cx('account-info-input-input')}
                                     placeholder="Mật khẩu của bạn"
                                     type="password"
+                                    id="passwordLogin"
                                 ></input>
                             </div>
                             <div className={cx('account-info-action-more')}>
                                 <Link to={config.routes.forgotPassword}>Quên mật khẩu</Link>
                             </div>
                         </div>
-                        <button className={cx('account-info-btn')}>Đăng nhập</button>
+                        <button className={cx('account-info-btn')} onClick={actionSignIn}>
+                            Đăng nhập
+                        </button>
                     </div>
                 </div>
                 <div className={cx('account-information')}>
@@ -53,7 +57,11 @@ function Login({ type }) {
                         <div className={cx('account-information-form')}>
                             <div className={cx('account-info-input')}>
                                 <label className={cx('account-info-title')}>Họ và tên</label>
-                                <input className={cx('account-info-input-input')} placeholder="Họ và tên"></input>
+                                <input
+                                    className={cx('account-info-input-input')}
+                                    placeholder="Họ và tên"
+                                    id="fullNameSignUp"
+                                ></input>
                             </div>
                             <div className={cx('account-info-input')}>
                                 <label className={cx('account-info-title')}>Email</label>
@@ -61,6 +69,7 @@ function Login({ type }) {
                                     className={cx('account-info-input-input')}
                                     placeholder="Nhập email của bạn"
                                     type="password"
+                                    id="emailSignUp"
                                 ></input>
                             </div>
                             <div className={cx('account-info-input')}>
@@ -68,6 +77,7 @@ function Login({ type }) {
                                 <input
                                     className={cx('account-info-input-input')}
                                     placeholder="Nhập số điện thoại của bạn"
+                                    id="phoneSignUp"
                                 ></input>
                             </div>
                             <div className={cx('account-info-input')}>
@@ -76,6 +86,7 @@ function Login({ type }) {
                                     className={cx('account-info-input-input')}
                                     placeholder="Nhập mật khẩu"
                                     type="password"
+                                    id="passwordSignUp"
                                 ></input>
                             </div>
                             <div className={cx('account-info-input')}>

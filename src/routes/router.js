@@ -1,4 +1,3 @@
-import Home from '~/pages/Home/Home';
 import Following from '~/pages/Following';
 import Upload from '~/pages/Upload';
 
@@ -16,9 +15,10 @@ import Specialty from '~/pages/Specialty';
 import SpecialtyDetail from '~/pages/SpecialtyDetail';
 import Login from '~/pages/Login';
 import EmptyLayout from '~/Layout/EmptyLayout';
+import HomeContainer from '~/pages/Home';
 
 const publicRoutes = [
-    { path: config.routes.home, component: Home },
+    { path: config.routes.home, component: HomeContainer },
     { path: config.routes.following, component: Following },
     { path: config.routes.upload, component: Upload, layout: HeaderOnly },
     { path: config.routes.hospital, component: Hospital },

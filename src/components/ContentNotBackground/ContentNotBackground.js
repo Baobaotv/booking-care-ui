@@ -21,7 +21,7 @@ function ContentNotBackground({ listDataItem, online, title, type }) {
                 </div>
                 <div className={cx('content__list-video')}>
                     {listDataItem.map((item, index) => {
-                        return <ServiceRedirect key={index} online={online}></ServiceRedirect>;
+                        return <ServiceRedirect key={index} online={online} type={type} data={item}></ServiceRedirect>;
                     })}
                 </div>
                 <SlickButton type="next"></SlickButton>

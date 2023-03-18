@@ -5,33 +5,64 @@ import styles from './ServiceItemRedirect.module.scss';
 import images from '~/assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faVideo } from '@fortawesome/free-solid-svg-icons';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
-function ServiceItemRedirect({ online = false }) {
+function ServiceItemRedirect({ online = false, type, data }) {
+    const content = {};
+    switch (type) {
+        case 'handbook': {
+            content.to = config.routes.handbookDetail + '?id=' + data.id;
+            content.title = data.title;
+            content.img = data.img;
+            content.desc = data.description;
+            break;
+        }
+        case 'doctor': {
+            content.to = config.routes.doctorDetail + '?id=' + data.id;
+            content.title = data.name;
+            content.img = data.img;
+            content.desc = data.shortDescription;
+            break;
+        }
+        case 'hospital': {
+            content.to = config.routes.hospitalDetail + '?id=' + data.id;
+            content.title = data.name;
+            content.img = data.img;
+            content.desc = data.location;
+            break;
+        }
+        case 'specialty': {
+            content.to = config.routes.specialtyDetail + '?id=' + data.id;
+            content.title = data.name;
+            content.img = data.img;
+            content.desc = data.description;
+            break;
+        }
+        default: {
+            content.to = '/';
+            content.title = 'Ưu đãi 50% phí khám với bác sĩ tại Phòng khám Mediplus';
+            content.img = images.serviceItemRedirect;
+            content.desc = 'Giảm 50% phí khám ban đầu với các chuyên khoa Cơ xương khớp, Tim mạch và Tiêu hóa';
+            break;
+        }
+    }
     return (
         <div className={cx('wrapper')}>
-            <Link
-                to={'https://bookingcare.vn/cam-nang/uu-dai-50-phi-kham-voi-bac-si-tai-phong-kham-mediplus-p2722.html'}
-                className={cx('service-item-link')}
-            >
+            <Link to={content.to} className={cx('service-item-link')}>
                 {online && (
                     <div className={cx('icon-online')}>
                         <FontAwesomeIcon icon={faVideo}></FontAwesomeIcon>
                     </div>
                 )}
-                <div
-                    className={cx('service-item-background')}
-                    style={{ backgroundImage: `url(${images.serviceItemRedirect})` }}
-                >
-                    <label>Ưu đãi</label>
+                <div className={cx('service-item-background')} style={{ backgroundImage: `url(${content.img})` }}>
+                    {/* <label>Ưu đãi</label> */}
                 </div>
                 <div className={cx('content')}>
-                    <h3>Ưu đãi 50% phí khám với bác sĩ tại Phòng khám Mediplus</h3>
+                    <h3>{content.title}</h3>
                     <div className={cx('description')}>
-                        <ul>
-                            <li>Giảm 50% phí khám ban đầu với các chuyên khoa Cơ xương khớp, Tim mạch và Tiêu hóa</li>
-                        </ul>
+                        <span dangerouslySetInnerHTML={{ __html: content.desc }}></span>
                     </div>
                     <button className={cx('content-btn')}>
                         XEM CHI TIẾT

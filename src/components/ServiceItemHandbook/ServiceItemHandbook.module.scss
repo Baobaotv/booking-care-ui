@@ -9,7 +9,7 @@
 
 .content__handbook-item {
     display: flex;
-    justify-content: space-around;
+    // justify-content: space-around;
 }
 
 .content__handbook-item img {
@@ -40,4 +40,9 @@
     font-size: 1.2rem;
     font-weight: 400;
     color: rgb(40, 49, 63);
+}
+
+.content__handbook-short-description span * {
+    font-weight: 300 !important;
+    font-size: 1.4rem !important;
 }

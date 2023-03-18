@@ -7,21 +7,39 @@ import config from '~/config';
 
 const cx = classNames.bind(styles);
 
-function ServiceItemDoctor({ type }) {
-    const to = type === 'hospital' ? config.routes.hospitalDetail : config.routes.doctorDetail;
+function ServiceItemDoctor({ type, data }) {
+    const content = {};
+    switch (type) {
+        case 'doctor': {
+            content.to = config.routes.doctorDetail + '?id=' + data.id;
+            content.title = data.name;
+            content.img = data.img;
+            content.desc = 'Bác sĩ chuyên khoa: ' + data.specializedName;
+            break;
+        }
+        case 'hospital': {
+            content.to = config.routes.hospitalDetail + '?id=' + data.id;
+            content.title = data.name;
+            content.img = data.img;
+            content.desc = data.location;
+            break;
+        }
+        default: {
+            content.to = '/';
+            content.title = 'Ưu đãi 50% phí khám với bác sĩ tại Phòng khám Mediplus';
+            content.img = images.serviceItemRedirect;
+            content.desc = 'Giảm 50% phí khám ban đầu với các chuyên khoa Cơ xương khớp, Tim mạch và Tiêu hóa';
+            break;
+        }
+    }
     return (
-        <Link to={to} className={cx('wrapper')}>
+        <Link to={content.to} className={cx('wrapper')}>
             <div className={cx('header')}>
-                <img
-                    className={cx('doctor-avatar')}
-                    alt="Bác sĩ Chuyên khoa II Trần Minh Khuyên"
-                    src={images.serviceItemRedirect}
-                />
+                <img className={cx('doctor-avatar')} alt="Bác sĩ Chuyên khoa II Trần Minh Khuyên" src={content.img} />
             </div>
-            <h3 className={cx('doctor-name')}>Bác sĩ Chuyên khoa II Trần Minh Khuyên</h3>
+            <h3 className={cx('doctor-name')}>{content.title}</h3>
             <h4 className={cx('doctor-description')}>
-                <span>Sức khỏe tâm thần</span>
-                <span>Tư vấn, trị liệu Tâm lý</span>
+                <span>{content.desc}</span>
             </h4>
         </Link>
     );

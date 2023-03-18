@@ -7,6 +7,9 @@
         box-shadow: 0 0.1rem 2rem 0 rgba(0, 0, 0, 0.05);
         transform: translateY(-2px);
     }
+    padding: 4px;
+    background-color: #fff;
+    height: 292px;
 }
 
 .service-item-link {
@@ -49,12 +52,21 @@
 }
 
 .description {
-    margin: 10px 0 10px 0;
+    margin: 10px;
     color: #444;
 }
 
-.description ul {
-    margin: 10px 0px 10px 25px;
+.description span {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.description span * {
+    font-size: 1.2rem !important;
+    font-weight: 400 !important;
+    text-align: start !important;
 }
 
 .content-btn {
