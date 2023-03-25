@@ -1,31 +1,52 @@
 import { faCalendarDays, faHandPointUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import { useEffect, useState } from 'react';
 import images from '~/assets/images';
 import ButtonBooking from '../helper/ButtonBooking';
 import styles from './InfoDoctorAndBooking.module.scss';
-
+import workTimeService from '~/service/WorkTimeService';
+import util from '~/Util';
 const cx = classNames.bind(styles);
 
-function InfoDoctorAndBooking() {
+function InfoDoctorAndBooking({ data }) {
+    const [date, setDate] = useState(util.formatDate(new Date()));
+    const [worTimeOfDoctor, setWorTimeOfDoctor] = useState([]);
+    const doctorId = data.id;
+
+    useEffect(() => {
+        if (!data) return;
+        const getAllWorkTimeByDoctorIdAndDate = async (doctorId, date) => {
+            const result = await workTimeService.getAllTimeOfDoctorByDate(doctorId, date).then((response) => response);
+            setWorTimeOfDoctor(result);
+        };
+        getAllWorkTimeByDoctorIdAndDate(doctorId, date);
+    }, [date]);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('info-doctor')}>
                 <div className={cx('info-doctor-avatar')}>
-                    <img src={images.doctorAvatar} alt={'avatar-doctor'} />
+                    <img src={data.img || images.doctorAvatar} alt={'avatar-doctor'} />
                 </div>
                 <div className={cx('info-doctor-content')}>
-                    <span className={cx('info-doctor-name')}>Bác sĩ Docter Name</span>
+                    <span className={cx('info-doctor-name')}>{data.name}</span>
                     <div className={cx('info-doctor-short-description')}>
-                        <p>Tốt nghiệp Bác sĩ Thần kinh Cột sống tại Life Chiropractic College - Hoa Kỳ</p>
-                        <p>Chữa bệnh Thần kinh Cột sống không dùng thuốc hay phẫu thuật</p>
-                        <p>Bác sĩ nhận khám và điều trị cả trẻ em, người lớn</p>
+                        <p dangerouslySetInnerHTML={{ __html: data.shortDescription }}></p>
                     </div>
                 </div>
             </div>
             <div className={cx('hospital-booking')}>
                 <div className={cx('hospital-booking-wrapper-time')}>
-                    <input type="date" id="date" className={cx('hospital-booking-time')} />
+                    <input
+                        type="date"
+                        id="date"
+                        className={cx('hospital-booking-time')}
+                        value={date}
+                        onChange={(e) => {
+                            setDate(e.target.value);
+                        }}
+                    />
                 </div>
                 <p className={cx('hospital-booking-time-title')}>
                     <FontAwesomeIcon
@@ -35,8 +56,29 @@ function InfoDoctorAndBooking() {
                     Lịch Khám
                 </p>
                 <div className={cx('hospital-booking-action')}>
-                    <ButtonBooking title={'Đăng kí khám(Ca sáng)'}></ButtonBooking>
-                    <ButtonBooking title={'Đăng kí khám(Ca chiều)'}></ButtonBooking>
+                    {!!worTimeOfDoctor
+                        ? worTimeOfDoctor.map((item, index) => {
+                              return (
+                                  <ButtonBooking
+                                      title={item.name + '(' + item.time + ')'}
+                                      key={index}
+                                      date={date}
+                                      doctorId={data.id}
+                                      workTimeId={item.id}
+                                  ></ButtonBooking>
+                              );
+                          })
+                        : data.lstWorkTime.map((item, index) => {
+                              return (
+                                  <ButtonBooking
+                                      title={item.name + '(' + item.time + ')'}
+                                      key={index}
+                                      date={date}
+                                      doctorId={data.id}
+                                      workTimeId={item.id}
+                                  ></ButtonBooking>
+                              );
+                          })}
                 </div>
                 <div className={cx('hospital-booking-action-tutorial')}>
                     <p>
@@ -51,7 +93,7 @@ function InfoDoctorAndBooking() {
                 <div className={cx('hospital-info')}>
                     <div className={cx('hospital-info-address')}>
                         <p>Địa chỉ khám</p>
-                        <span>99 Nguyễn Du, Phường Bến Thành, Quận 1, Tp Hồ Chí Minh</span>
+                        <span>{data.hospitalLocation}</span>
                     </div>
                     <div className={cx('hospital-info-cost')}>
                         <p> Giá khám: </p>

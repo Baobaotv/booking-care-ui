@@ -42,11 +42,31 @@ const getFeaturedDoctor = async (body) => {
     return response;
 };
 
+const getDoctorOfSpecialty = async (id, currentPage = config.pageableDefault.pageDefault) => {
+    const response = await fetch(
+        config.baseUrl +
+            'user/specialzed/' +
+            id +
+            '?page=' +
+            currentPage +
+            '&size=' +
+            config.pageableDefault.sizeDefault,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        },
+    ).then(async (response) => await response.json());
+    return response;
+};
+
 const api = {
     signIn,
     signup,
     getListDoctorOnline,
     getFeaturedDoctor,
+    getDoctorOfSpecialty,
 };
 
 export default api;

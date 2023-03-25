@@ -126,13 +126,20 @@ const communicationContents = [
     },
 ];
 
-const baseUrl = 'http://192.168.1.239:8080/api/';
+// const baseUrl = 'http://192.168.1.239:8080/api/';
+const baseUrl = 'http://192.168.1.4:8080/api/';
+
+const pageableDefault = {
+    pageDefault: 0,
+    sizeDefault: 6,
+};
 
 const config = {
     routes,
     services,
     communicationContents,
     baseUrl,
+    pageableDefault,
 };
 
 export default config;

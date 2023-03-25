@@ -20,11 +20,12 @@
     opacity: 0.9;
 }
 
-.pagination-item__active .pagination-item__link {
+.pagination-item__active .pagination-item__btn {
     color: var(--white-color);
 }
 
-.pagination-item__link {
+.pagination-item__btn {
+    background-color: transparent;
     color: #939393;
     text-decoration: none;
     min-width: 40px;
@@ -33,4 +34,12 @@
     font-size: 1.6rem;
     text-align: center;
     line-height: 30px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.pagination-item__btn.pagination-item__btn-in-active:hover {
+    cursor: not-allowed;
 }

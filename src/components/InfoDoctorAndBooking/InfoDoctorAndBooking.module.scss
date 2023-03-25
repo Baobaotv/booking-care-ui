@@ -83,6 +83,7 @@
 .hospital-booking-action {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .hospital-booking-action-tutorial {
@@ -126,4 +127,8 @@
 .hospital-info-cost span {
     color: rgb(102, 102, 102);
     font-size: 1.6rem;
+}
+
+.info-doctor-short-description * {
+    font-size: 1.5rem !important;
 }

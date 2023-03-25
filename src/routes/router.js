@@ -11,11 +11,11 @@ import HandbookList from '~/pages/HandbookList';
 import HandbookDetail from '~/pages/HandbookDetail';
 import Doctor from '~/pages/Doctor';
 import DoctorDetail from '~/pages/DoctorDetail';
-import Specialty from '~/pages/Specialty';
-import SpecialtyDetail from '~/pages/SpecialtyDetail';
+import SpecialtyDetailContainer from '~/pages/SpecialtyDetail';
 import Login from '~/pages/Login';
 import EmptyLayout from '~/Layout/EmptyLayout';
 import HomeContainer from '~/pages/Home';
+import SpecialtyContainer from '~/pages/Specialty';
 
 const publicRoutes = [
     { path: config.routes.home, component: HomeContainer },
@@ -30,8 +30,8 @@ const publicRoutes = [
     { path: config.routes.handbookDetail, component: HandbookDetail },
     { path: config.routes.doctor, component: Doctor },
     { path: config.routes.doctorDetail, component: DoctorDetail },
-    { path: config.routes.specialty, component: Specialty },
-    { path: config.routes.specialtyDetail, component: SpecialtyDetail },
+    { path: config.routes.specialty, component: SpecialtyContainer },
+    { path: config.routes.specialtyDetail, component: SpecialtyDetailContainer },
     { path: config.routes.login, component: Login, layout: EmptyLayout },
     { path: config.routes.register, component: Login, layout: EmptyLayout },
 ];
