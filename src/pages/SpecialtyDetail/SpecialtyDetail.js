@@ -7,7 +7,7 @@ import styles from './SpecialtyDetail.module.scss';
 
 const cx = classNames.bind(styles);
 
-function SpecialtyDetail() {
+function SpecialtyDetail({ specialDetail, doctorOfSpecialties, onClickPage }) {
     return (
         <div className={cx('wrapper')}>
             <div
@@ -20,10 +20,10 @@ function SpecialtyDetail() {
                     <div className={cx('grid', 'wide')}>
                         <LinkToPage title={'Chuyên khoa/ Chi tiết'}></LinkToPage>
                         <div className={cx('specialty-title')}>
-                            <p>Cơ xương khớp</p>
+                            <p>{specialDetail && specialDetail.name}</p>
                         </div>
                         <div className={cx('specialty-des-content')}>
-                            <p>Danh sách các bác sĩ uy tín đầu ngành Cơ Xương Khớp tại Việt Nam:</p>
+                            <p dangerouslySetInnerHTML={{ __html: !!specialDetail && specialDetail.description }}></p>
                             <p>Danh sách các bác sĩ uy tín đầu ngành Cơ Xương Khớp tại Việt Nam:</p>
                             <p>Danh sách các bác sĩ uy tín đầu ngành Cơ Xương Khớp tại Việt Nam:</p>
                             <p>Danh sách các bác sĩ uy tín đầu ngành Cơ Xương Khớp tại Việt Nam:</p>
@@ -51,13 +51,19 @@ function SpecialtyDetail() {
                     </div>
                     <hr></hr>
                     <div className={cx('specialty-doctor-content')}>
-                        <InfoDoctorAndBooking></InfoDoctorAndBooking>
-                        <InfoDoctorAndBooking></InfoDoctorAndBooking>
-                        <InfoDoctorAndBooking></InfoDoctorAndBooking>
-                        <InfoDoctorAndBooking></InfoDoctorAndBooking>
-                        <InfoDoctorAndBooking></InfoDoctorAndBooking>
+                        {!!doctorOfSpecialties &&
+                            doctorOfSpecialties.content.map((item, index) => {
+                                return <InfoDoctorAndBooking key={index} data={item}></InfoDoctorAndBooking>;
+                            })}
                     </div>
-                    <Pagination></Pagination>
+                    {!!doctorOfSpecialties && (
+                        <Pagination
+                            totalPages={doctorOfSpecialties.totalPages}
+                            pageSize={doctorOfSpecialties.size}
+                            currentPage={doctorOfSpecialties.number}
+                            onClickPage={onClickPage}
+                        ></Pagination>
+                    )}
                 </div>
             </div>
         </div>
