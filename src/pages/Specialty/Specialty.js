@@ -27,11 +27,6 @@ function Specialty({ data, onClickPage }) {
                                 ></ItemHandbookHorizontal>
                             );
                         })}
-                    {/* <ItemHandbookHorizontal></ItemHandbookHorizontal>
-                    <ItemHandbookHorizontal></ItemHandbookHorizontal>
-                    <ItemHandbookHorizontal></ItemHandbookHorizontal>
-                    <ItemHandbookHorizontal></ItemHandbookHorizontal>
-                    <ItemHandbookHorizontal></ItemHandbookHorizontal> */}
                 </div>
             </div>
             <Pagination

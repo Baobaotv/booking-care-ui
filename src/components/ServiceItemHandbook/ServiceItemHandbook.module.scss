@@ -1,20 +1,27 @@
 .content__handbook {
     text-decoration: none;
     display: block;
-    margin: 0 10px;
+    padding: 0 10px;
+
+    height: 168px;
     &:hover {
         transform: translateY(-2px);
     }
 }
 
+.content__handbook.content__handbook-handbook {
+    width: 50%;
+}
+
 .content__handbook-item {
     display: flex;
-    // justify-content: space-around;
+    height: inherit;
 }
 
 .content__handbook-item img {
     border-radius: 5px;
     width: 50%;
+    height: inherit;
 }
 
 .content__handbook-description {
@@ -35,7 +42,7 @@
     padding-top: 10px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
     overflow: hidden;
     font-size: 1.2rem;
     font-weight: 400;

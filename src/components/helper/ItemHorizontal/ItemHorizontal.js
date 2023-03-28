@@ -12,6 +12,11 @@ function ItemHorizontal({ data, type }) {
         content.title = data.name;
         content.desc = data.description;
         content.img = data.img;
+    } else if (type === 'handbook') {
+        content.to = config.routes.handbookDetail + '?id=' + data.id;
+        content.title = data.title;
+        content.desc = data.description;
+        content.img = data.img;
     } else {
         content.to = config.routes.specialtyDetail + '?id=';
         content.title = '8 bác sĩ Thần kinh giỏi và nhiều kinh nghiệm ở Hà Nội (Phần 1)';

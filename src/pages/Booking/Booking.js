@@ -1,26 +1,27 @@
 import { faCalendarAlt, faCirclePlus, faLocationDot, faPhone, faUserPen } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import images from '~/assets/images';
 import InputBooking from '~/components/helper/InputBooking';
 import styles from './Booking.module.scss';
 const cx = classNames.bind(styles);
 
-function Booking() {
+function Booking({ user, workTime, date, form, typeCheckHealth, onChangeCheckHealth, onSubmit }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('info-doctor')}>
                 <div className={cx('wrapper-content')}>
                     <div className={cx('info-doctor-content')}>
                         <div className={cx('info-doctor-avatar')}>
-                            <img src={images.doctorAvatar} alt={'doctor-avatar'}></img>
+                            <img src={!!user ? user.img : images.avatarDefault} alt={'doctor-avatar'}></img>
                         </div>
                         <div className={cx('info-doctor-description')}>
                             <h1 className={cx('info-doctor-title')}>Đặt lịch khám</h1>
-                            <h2 className={cx('info-doctor-name')}>
-                                Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng
-                            </h2>
-                            <span className={cx('info-doctor-time-book')}>17:00 - 17:30 - Thứ 7 - 04/03/2023</span>
+                            <h2 className={cx('info-doctor-name')}>Bác sĩ: {!!user ? user.name : ''}</h2>
+                            <span className={cx('info-doctor-time-book')}>
+                                Ca khám - {!!workTime && workTime.time} - Ngày - {date}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -29,7 +30,7 @@ function Booking() {
                 <div className={cx('wrapper-content')}>
                     <div>
                         <label className={cx('info-book-cost')}>
-                            <input type="radio" checked="checked" name="price" value="54" />
+                            <input type="radio" checked="checked" name="price" value="54" readOnly />
                             <span>Giá khám</span>
                             <div>300.000đ</div>
                         </label>
@@ -45,7 +46,11 @@ function Booking() {
                         </div>
                     </div>
                     <div className={cx('info-book-wrapper-input')}>
-                        <InputBooking placeholder={'Họ và tên bệnh nhân'} icon={faUserPen}></InputBooking>
+                        <InputBooking
+                            placeholder={'Họ và tên bệnh nhân'}
+                            icon={faUserPen}
+                            ref={form.current.nameScheduler}
+                        ></InputBooking>
                         <div className={cx('info-book-patient-input-note')}>
                             Hãy ghi rõ Họ Và Tên, viết hoa những chữ cái đầu tiên, ví dụ: Trần Văn Phú
                         </div>
@@ -61,32 +66,59 @@ function Booking() {
                         </div>
                     </div>
                     <div className={cx('info-book-wrapper-input')}>
-                        <InputBooking placeholder={'Số điện thoại liên hệ'} icon={faPhone}></InputBooking>
+                        <InputBooking
+                            placeholder={'Số điện thoại liên hệ'}
+                            icon={faPhone}
+                            ref={form.current.phoneScheduer}
+                        ></InputBooking>
                     </div>
                     <div className={cx('info-book-wrapper-input')}>
-                        <InputBooking placeholder={'Năm sinh'} icon={faCalendarAlt}></InputBooking>
+                        <InputBooking
+                            placeholder={'Năm sinh'}
+                            icon={faCalendarAlt}
+                            ref={form.yearOfBirth}
+                        ></InputBooking>
                     </div>
-                    <div className={cx('info-book-wrapper-input')}>
-                        <InputBooking placeholder={'Tỉnh thành'} icon={faLocationDot}></InputBooking>
+                    {/* <div className={cx('info-book-wrapper-input')}>
+                        <InputBooking placeholder={'Tỉnh thành'} icon={faLocationDot} ></InputBooking>
                     </div>
                     <div className={cx('info-book-wrapper-input')}>
                         <InputBooking placeholder={'Quận huyện'} icon={faLocationDot}></InputBooking>
+                    </div> */}
+                    <div className={cx('info-book-wrapper-input')}>
+                        <InputBooking
+                            placeholder={'Địa chỉ'}
+                            icon={faLocationDot}
+                            ref={form.current.location}
+                        ></InputBooking>
                     </div>
                     <div className={cx('info-book-wrapper-input')}>
-                        <InputBooking placeholder={'Địa chỉ'} icon={faLocationDot}></InputBooking>
-                    </div>
-                    <div className={cx('info-book-wrapper-input')}>
-                        <InputBooking placeholder={'Ly do khám'} icon={faCirclePlus} type={'textarea'}></InputBooking>
+                        <InputBooking
+                            placeholder={'Ly do khám'}
+                            icon={faCirclePlus}
+                            type={'textarea'}
+                            ref={form.current.reason}
+                        ></InputBooking>
                     </div>
                     <div className={cx('info-book-payment')}>
                         <p className={cx('info-book-payment-title')}>Hình thức thanh toán</p>
                         <div className={cx('info-book-select-audience')}>
                             <div className={cx('info-book-for-me')}>
-                                <input type={'radio'} name="payment"></input>
+                                <input
+                                    type={'radio'}
+                                    name="payment"
+                                    checked={typeCheckHealth === 'OFF'}
+                                    onChange={() => onChangeCheckHealth('OFF')}
+                                ></input>
                                 <label>Thanh toán tại cơ sở y tế</label>
                             </div>
                             <div className={cx('info-book-for-other')}>
-                                <input type={'radio'} name="payment"></input>
+                                <input
+                                    type={'radio'}
+                                    name="payment"
+                                    checked={typeCheckHealth === 'ON'}
+                                    onChange={() => onChangeCheckHealth('ON')}
+                                ></input>
                                 <label>Thanh toán online</label>
                             </div>
                         </div>
@@ -123,7 +155,9 @@ function Booking() {
                         </ul>
                     </div>
 
-                    <button className={cx('info-book-btn')}>Xác nhận đặt lịch khám</button>
+                    <button className={cx('info-book-btn')} onClick={onSubmit}>
+                        Xác nhận đặt lịch khám
+                    </button>
 
                     <p className={cx('terms-of-use')}>
                         Bằng việc xác nhận đặt khám, bạn đã hoàn toàn đồng ý với

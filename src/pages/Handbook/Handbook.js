@@ -9,12 +9,11 @@ import ItemSpecialtySmall from '~/components/Handbook/ItemSpecialtySmall';
 import LinkToPage from '~/components/helper/LinkToPage';
 import ServiceItemHandbook from '~/components/ServiceItemHandbook';
 import SlickButton from '~/components/SlickButton/SlickButton';
-import config from '~/config';
 import styles from './Handbook.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Handbook() {
+function Handbook({ recentHandbooks, featuredHandbooks, specialties }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('grid', 'wide')}>
@@ -27,31 +26,31 @@ function Handbook() {
                     </div>
                 </div>
                 <div className={cx('hand-book-latest-posts')}>
-                    <ItemHandbookNormal></ItemHandbookNormal>
-                    <ItemHandbookNormal></ItemHandbookNormal>
-                    <ItemHandbookNormal></ItemHandbookNormal>
-                    <ItemHandbookNormal></ItemHandbookNormal>
-                    <SlickButton type="next"></SlickButton>
+                    {recentHandbooks.map((item, index) => {
+                        return <ItemHandbookNormal key={index} data={item}></ItemHandbookNormal>;
+                    })}
                 </div>
                 <div className={cx('handbook-title')}>
                     <h2>Bài viết nổi bật</h2>
                 </div>
                 <div className={cx('hand-book-latest-posts')}>
-                    <ServiceItemHandbook></ServiceItemHandbook>
-                    <ServiceItemHandbook></ServiceItemHandbook>
+                    {!!featuredHandbooks &&
+                        featuredHandbooks.map((item, index) => {
+                            return (
+                                <ServiceItemHandbook key={index} data={item} layout={'handbook'}></ServiceItemHandbook>
+                            );
+                        })}
                     <SlickButton type="next"></SlickButton>
                 </div>
                 <div className={cx('handbook-title')}>
                     <h2>Danh mục cẩm nang</h2>
                 </div>
                 <div className={cx('hand-book-latest-posts')}>
-                    <ItemSpecialtySmall to={config.routes.handbookList}></ItemSpecialtySmall>
-                    <ItemSpecialtySmall to={config.routes.handbookList}></ItemSpecialtySmall>
-                    <ItemSpecialtySmall to={config.routes.handbookList}></ItemSpecialtySmall>
-                    <ItemSpecialtySmall to={config.routes.handbookList}></ItemSpecialtySmall>
-                    <ItemSpecialtySmall to={config.routes.handbookList}></ItemSpecialtySmall>
-                    <ItemSpecialtySmall to={config.routes.handbookList}></ItemSpecialtySmall>
-                    <SlickButton type="next"></SlickButton>
+                    {!!specialties.content &&
+                        specialties.content.map((item, index) => {
+                            return <ItemSpecialtySmall key={index} data={item}></ItemSpecialtySmall>;
+                        })}
+                    {!!specialties.content && specialties.content.length > 6 && <SlickButton type="next"></SlickButton>}
                 </div>
                 <div className={cx('hand-book-production-process')}>
                     <div className={cx('hand-book-process-title')}>

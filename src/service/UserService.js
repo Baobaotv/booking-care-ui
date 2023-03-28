@@ -61,12 +61,48 @@ const getDoctorOfSpecialty = async (id, currentPage = config.pageableDefault.pag
     return response;
 };
 
+const getDoctorOfHospital = async (id, currentPage = config.pageableDefault.pageDefault) => {
+    const response = await fetch(
+        config.baseUrl + 'user/hospital/' + id + '?page=' + currentPage + '&size=' + config.pageableDefault.sizeDefault,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        },
+    ).then(async (response) => await response.json());
+    return response;
+};
+
+const getDoctorById = async (id) => {
+    const response = await fetch(config.baseUrl + 'user/doctor/' + id, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(async (response) => await response.json());
+    return response;
+};
+
+const getAllDoctor = async (currentPage = config.pageableDefault.pageDefault, size = 8) => {
+    const response = await fetch(config.baseUrl + 'user/doctor?page=' + currentPage + '&size=' + size, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(async (response) => await response.json());
+    return response;
+};
+
 const api = {
     signIn,
     signup,
     getListDoctorOnline,
     getFeaturedDoctor,
     getDoctorOfSpecialty,
+    getDoctorById,
+    getDoctorOfHospital,
+    getAllDoctor,
 };
 
 export default api;

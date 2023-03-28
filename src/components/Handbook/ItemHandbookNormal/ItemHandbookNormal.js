@@ -6,19 +6,17 @@ import styles from './ItemHandbookNormal.module.scss';
 
 const cx = classNames.bind(styles);
 
-function ItemHandbookNormal() {
+function ItemHandbookNormal({ data }) {
     return (
         <Link className={cx('wrapper')} to={config.routes.handbookDetail}>
             <div className={cx('handbook-avatar')}>
-                <img src={images.handbookAvatar} alt="Handbook avatar"></img>
+                <img src={!!data ? data.img : images.handbookAvatar} alt="Handbook avatar"></img>
             </div>
-            <p className={cx('handbook-title')}>
-                Khám Tai Mũi Họng tại Bệnh viện Nam Sài Gòn có tốt không? Review chi tiết
-            </p>
-            <p className={cx('handbook-short-description')}>
-                Cùng BookingCare tìm hiểu về các thông tin thăm khám, chất lượng dịch vụ và phản hồi của bệnh nhân về
-                chuyên khoa Tai Mũi Họng tại Bệnh viện Đa khoa Nam Sài Gòn.
-            </p>
+            <p className={cx('handbook-title')}>{!!data && data.title}</p>
+            <p
+                className={cx('handbook-short-description')}
+                dangerouslySetInnerHTML={{ __html: !!data && data.description }}
+            ></p>
         </Link>
     );
 }

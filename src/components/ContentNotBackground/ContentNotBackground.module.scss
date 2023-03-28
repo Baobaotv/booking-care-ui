@@ -36,10 +36,17 @@
 }
 
 .content__list-video {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 20px;
     align-items: center;
     width: 100%;
     margin-top: 20px;
+}
+
+.slick-arrow {
+    background-color: red;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: black !important;
+    background-color: red !important;
 }

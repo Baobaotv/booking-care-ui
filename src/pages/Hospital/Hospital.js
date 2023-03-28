@@ -7,24 +7,33 @@ import SearchHospital from '~/components/SearchHospital/SearchHospital';
 
 const cx = classNames.bind(styles);
 
-function Hospital() {
+function Hospital({ hospitals, onClickPage }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('grid', 'wide')}>
                 <LinkToPage title={'Cơ sở y tế'}></LinkToPage>
                 <SearchHospital></SearchHospital>
                 <div className={cx('hospital_column')}>
+                    {!!hospitals.content &&
+                        hospitals.content.map((item, index) => {
+                            return <ServiceItemDoctor type={'hospital'} key={index} data={item}></ServiceItemDoctor>;
+                        })}
+                    {/* <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
                     <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
                     <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
                     <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
                     <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
                     <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
                     <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
-                    <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
-                    <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor>
+                    <ServiceItemDoctor type={'hospital'}></ServiceItemDoctor> */}
                 </div>
             </div>
-            <Pagination></Pagination>
+            <Pagination
+                totalPages={hospitals.totalPages}
+                pageSize={hospitals.size}
+                currentPage={hospitals.number}
+                onClickPage={onClickPage}
+            ></Pagination>
         </div>
     );
 }

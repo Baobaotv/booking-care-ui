@@ -3,16 +3,27 @@ import { Link } from 'react-router-dom';
 import ServiceItemRedirect from '~/components/ServiceItemRedirect';
 import SlickButton from '~/components/SlickButton/SlickButton';
 import ServiceItemDoctor from '../ServiceItemDoctor';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import styles from './ContentNotBackground.module.scss';
 const cx = classNames.bind(styles);
 
-function ContentNotBackground({ listDataItem, online, title, type }) {
+function ContentNotBackground({ listDataItem, online, title, type, _slider }) {
     const ServiceRedirect = type === 'doctor' ? ServiceItemDoctor : ServiceItemRedirect;
+    let settings = {
+        infinite: false,
+        speed: 1000,
+        arrows: true,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        prevArrow: <SlickButton type="prev"></SlickButton>,
+        nextArrow: <SlickButton type="next"></SlickButton>,
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('grid', 'wide')}>
-                <SlickButton type="prev"></SlickButton>
                 <div className={cx('content__heading')}>
                     <p className={cx('heading')}>{title}</p>
                     <Link to={'/bac-si'} className={cx('heading__search')}>
@@ -20,11 +31,20 @@ function ContentNotBackground({ listDataItem, online, title, type }) {
                     </Link>
                 </div>
                 <div className={cx('content__list-video')}>
-                    {listDataItem.map((item, index) => {
-                        return <ServiceRedirect key={index} online={online} type={type} data={item}></ServiceRedirect>;
-                    })}
+                    <Slider {...settings}>
+                        {listDataItem.map((item, index) => {
+                            return (
+                                <ServiceRedirect
+                                    key={index}
+                                    online={online}
+                                    type={type}
+                                    data={item}
+                                    _slider={true}
+                                ></ServiceRedirect>
+                            );
+                        })}
+                    </Slider>
                 </div>
-                <SlickButton type="next"></SlickButton>
             </div>
         </div>
     );

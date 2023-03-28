@@ -5,7 +5,6 @@ import config from '~/config/config';
 import HeaderOnly from '~/Layout/HeaderOnly';
 import Hospital from '~/pages/Hospital';
 import DetailHospital from '~/pages/DetailHospital';
-import Booking from '~/pages/Booking';
 import Handbook from '~/pages/Handbook';
 import HandbookList from '~/pages/HandbookList';
 import HandbookDetail from '~/pages/HandbookDetail';
@@ -16,6 +15,7 @@ import Login from '~/pages/Login';
 import EmptyLayout from '~/Layout/EmptyLayout';
 import HomeContainer from '~/pages/Home';
 import SpecialtyContainer from '~/pages/Specialty';
+import Booking from '~/pages/Booking';
 
 const publicRoutes = [
     { path: config.routes.home, component: HomeContainer },

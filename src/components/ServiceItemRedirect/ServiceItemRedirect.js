@@ -9,8 +9,9 @@ import config from '~/config';
 
 const cx = classNames.bind(styles);
 
-function ServiceItemRedirect({ online = false, type, data }) {
+function ServiceItemRedirect({ online = false, type, data, _slider }) {
     const content = {};
+    const _class = !!_slider ? cx('wrapper', 'wrapper_slider') : cx('wrapper');
     switch (type) {
         case 'handbook': {
             content.to = config.routes.handbookDetail + '?id=' + data.id;
@@ -49,7 +50,7 @@ function ServiceItemRedirect({ online = false, type, data }) {
         }
     }
     return (
-        <div className={cx('wrapper')}>
+        <div className={_class}>
             <Link to={content.to} className={cx('service-item-link')}>
                 {online && (
                     <div className={cx('icon-online')}>
