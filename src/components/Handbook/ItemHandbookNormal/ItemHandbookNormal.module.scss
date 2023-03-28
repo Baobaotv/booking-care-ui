@@ -21,6 +21,8 @@
 
 .handbook-avatar {
     aspect-ratio: 1.91083 / 1;
+    height: 145px;
+    overflow: hidden;
 }
 
 .handbook-avatar img {
@@ -29,6 +31,7 @@
     inset: 0px;
     object-fit: cover;
     color: transparent;
+    height: inherit;
 }
 
 .handbook-title {
@@ -54,4 +57,10 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
+}
+
+.handbook-short-description * {
+    font-size: 1.1rem !important;
+    font-weight: 400 !important;
+    color: rgb(40, 49, 63) !important;
 }

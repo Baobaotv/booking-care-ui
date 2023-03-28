@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 const ACTION_SHOW_INTRODUCE = 1;
 const ACTION_BOOK_SCHEDULE = 2;
 
-function DetailHospital() {
+function DetailHospital({ hospital, doctorsBooking, onClickPage }) {
     const [action, setAction] = useState(ACTION_SHOW_INTRODUCE);
 
     return (
@@ -26,8 +26,8 @@ function DetailHospital() {
                             <img src={images.hospitalAvatar} alt={'Avatar'}></img>
                         </div>
                         <div className={cx('hospital-information-title')}>
-                            <h1>Bệnh viện Đa khoa An Việt</h1>
-                            <span>Số 1E Trường Chinh - Thanh Xuân - Hà Nội</span>
+                            <h1>{!!hospital && hospital.name}</h1>
+                            <span>{!!hospital && hospital.location}</span>
                         </div>
                     </div>
                     <div className={cx('hospital-action')}>
@@ -98,10 +98,20 @@ function DetailHospital() {
                                 </div>
                             </div>
                             <div className={cx('hospital-doctors-content')}>
+                                {!!doctorsBooking &&
+                                    doctorsBooking.content.slice(0, 4).map((item, index) => {
+                                        return (
+                                            <ServiceItemDoctor
+                                                data={item}
+                                                key={index}
+                                                type={'doctor'}
+                                            ></ServiceItemDoctor>
+                                        );
+                                    })}
+                                {/* <ServiceItemDoctor></ServiceItemDoctor>
                                 <ServiceItemDoctor></ServiceItemDoctor>
                                 <ServiceItemDoctor></ServiceItemDoctor>
-                                <ServiceItemDoctor></ServiceItemDoctor>
-                                <ServiceItemDoctor></ServiceItemDoctor>
+                                <ServiceItemDoctor></ServiceItemDoctor> */}
                             </div>
                             <div className={cx('hospital-description')}>
                                 <div className={cx('hospital-description-title')}>
@@ -109,11 +119,9 @@ function DetailHospital() {
                                 </div>
                                 <div className={cx('hospital-description-content')}>
                                     <div>
-                                        <p>
-                                            Bệnh viện An Việt là bệnh viện đa khoa tư nhân đã hoạt động được trên 10
-                                            năm. Bệnh viện là địa chỉ khám và điều trị uy tín về một số mặt bệnh chuyên
-                                            khoa như Tai Mũi Họng, Thần kinh, Sản phụ khoa, Nam khoa,...
-                                        </p>
+                                        <p
+                                            dangerouslySetInnerHTML={{ __html: !!hospital ? hospital.description : '' }}
+                                        ></p>
                                         <p>
                                             Đội ngũ bác sĩ của bệnh viện đều là các bác sĩ nhiều năm kinh nghiệm và được
                                             bệnh nhân phản hồi tích cực về quá trình khám và điều trị. Bên cạnh đó, bệnh
@@ -122,7 +130,7 @@ function DetailHospital() {
                                             tính, phòng phẫu thuật đảm bảo vô trùng,...
                                         </p>
                                         <p>
-                                            <strong>Địa chỉ:</strong> Số 1E Trường Chinh, Thanh Xuân, Hà Nội
+                                            <strong>Địa chỉ:</strong> {!!hospital && hospital.location}
                                         </p>
                                         <p>
                                             <strong>Thời gian làm việc: </strong>Thứ 2 đến Chủ Nhật
@@ -171,13 +179,22 @@ function DetailHospital() {
                             <h3>Danh sách bác sĩ</h3>
                         </div>
                         <div className={cx('hospital-book-doctors')}>
+                            {!!doctorsBooking &&
+                                doctorsBooking.content.map((item, index) => {
+                                    return <InfoDoctorAndBooking data={item} key={index}></InfoDoctorAndBooking>;
+                                })}
+                            {/* <InfoDoctorAndBooking></InfoDoctorAndBooking>
                             <InfoDoctorAndBooking></InfoDoctorAndBooking>
                             <InfoDoctorAndBooking></InfoDoctorAndBooking>
                             <InfoDoctorAndBooking></InfoDoctorAndBooking>
-                            <InfoDoctorAndBooking></InfoDoctorAndBooking>
-                            <InfoDoctorAndBooking></InfoDoctorAndBooking>
+                            <InfoDoctorAndBooking></InfoDoctorAndBooking> */}
                         </div>
-                        <Pagination></Pagination>
+                        <Pagination
+                            totalPages={!!doctorsBooking && doctorsBooking.totalPages}
+                            pageSize={!!doctorsBooking && doctorsBooking.size}
+                            currentPage={!!doctorsBooking && doctorsBooking.number}
+                            onClickPage={onClickPage}
+                        ></Pagination>
                     </div>
                 </div>
             </div>

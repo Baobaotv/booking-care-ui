@@ -1,6 +1,5 @@
 .wrapper {
-    width: 247.5px;
-    margin-right: 50px;
+    width: 260.5px;
     transition: transform linear 0.1s;
     will-change: transform;
     &:hover {
@@ -10,6 +9,11 @@
     padding: 4px;
     background-color: #fff;
     height: 292px;
+}
+
+.wrapper.wrapper_slider {
+    border-radius: 4px;
+    margin: 0 20px;
 }
 
 .service-item-link {

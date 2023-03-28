@@ -20,9 +20,31 @@ const getFeaturedHandbook = async (body) => {
     return response;
 };
 
+const searchHandbooks = async (
+    title,
+    specialzedId,
+    page = config.pageableDefault.pageDefault,
+    size = config.pageableDefault.sizeDefault,
+) => {
+    const params = {
+        title: !!title ? title : '',
+        specialzedId: specialzedId,
+        page: page,
+        size: size,
+    };
+    const response = await fetch(config.baseUrl + 'handbook/search?' + new URLSearchParams(params).toString(), {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(async (response) => await response.json());
+    return response;
+};
+
 const api = {
     getListOfRecentHandbook,
     getFeaturedHandbook,
+    searchHandbooks,
 };
 
 export default api;

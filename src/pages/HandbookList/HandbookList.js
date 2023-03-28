@@ -7,7 +7,17 @@ import styles from './HandbookList.module.scss';
 
 const cx = classNames.bind(styles);
 
-function HandBookList({ specialty }) {
+function HandBookList({
+    specialty,
+    specialties,
+    handbooks,
+    onClickPage,
+    specialtyId,
+    title,
+    onChangeTitle,
+    onChangeSpecialty,
+    onClickSearch,
+}) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('grid', 'wide')}>
@@ -17,17 +27,28 @@ function HandBookList({ specialty }) {
                         <h2>Chuyên khoa: {specialty}</h2>
                     </div>
                 ) : (
-                    <SearchHandbook></SearchHandbook>
+                    <SearchHandbook
+                        specialties={specialties}
+                        specialtyId={specialtyId}
+                        onChangeTitle={onChangeTitle}
+                        title={title}
+                        onChangeSpecialty={onChangeSpecialty}
+                        onClickSearch={onClickSearch}
+                    ></SearchHandbook>
                 )}
                 <div className={cx('handbook-list')}>
-                    <ItemHorizontal type={'handbook'}></ItemHorizontal>
-                    <ItemHorizontal type={'handbook'}></ItemHorizontal>
-                    <ItemHorizontal type={'handbook'}></ItemHorizontal>
-                    <ItemHorizontal type={'handbook'}></ItemHorizontal>
-                    <ItemHorizontal type={'handbook'}></ItemHorizontal>
+                    {!!handbooks.content &&
+                        handbooks.content.map((item, index) => {
+                            return <ItemHorizontal key={index} type={'handbook'} data={item}></ItemHorizontal>;
+                        })}
                 </div>
             </div>
-            <Pagination></Pagination>
+            <Pagination
+                totalPages={handbooks.totalPages}
+                pageSize={handbooks.size}
+                currentPage={handbooks.number}
+                onClickPage={onClickPage}
+            ></Pagination>
         </div>
     );
 }

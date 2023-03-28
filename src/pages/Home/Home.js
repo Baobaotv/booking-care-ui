@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
-import Slider from '~/components/Slider';
+import { default as SliderCustom } from '~/components/Slider';
 import ServiceItemRedirect from '~/components/ServiceItemRedirect';
 import ContentWithBackground from '~/components/ContentWithBackground';
 import ContentNotBackground from '~/components/ContentNotBackground';
@@ -19,7 +19,7 @@ function Home({
 }) {
     return (
         <>
-            <Slider></Slider>
+            <SliderCustom></SliderCustom>
             <div className={cx('grid wide')}>
                 <div className={cx('content__slider-img')}>
                     {recentHandbooks.map((item) => {
@@ -55,6 +55,7 @@ function Home({
                 title={'Bác sĩ nổi bật'}
                 listDataItem={featuredDoctors}
                 type={'doctor'}
+                _slider={true}
             ></ContentNotBackground>
 
             {/* Cẩm nang */}
@@ -62,6 +63,7 @@ function Home({
                 title={'Cẩm nang'}
                 listDataItem={featuredHandbooks}
                 type={'handbook'}
+                slideNumber={2}
             ></ContentWithBackground>
 
             {/* Truyền thông: video ytb */}

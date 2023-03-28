@@ -7,7 +7,7 @@ import SearchDoctor from '~/components/SearchDoctor';
 
 const cx = classNames.bind(styles);
 
-function Doctor() {
+function Doctor({ doctors, onClickPage }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('grid', 'wide')}>
@@ -15,17 +15,26 @@ function Doctor() {
                 <SearchDoctor></SearchDoctor>
                 <h3 className={cx('doctor-title')}>Danh sách bác sĩ</h3>
                 <div className={cx('doctor_column')}>
+                    {!!doctors.content &&
+                        doctors.content.map((item, index) => {
+                            return <ServiceItemDoctor key={index} data={item} type={'doctor'}></ServiceItemDoctor>;
+                        })}
+                    {/* <ServiceItemDoctor type={'doctor'}></ServiceItemDoctor>
                     <ServiceItemDoctor type={'doctor'}></ServiceItemDoctor>
                     <ServiceItemDoctor type={'doctor'}></ServiceItemDoctor>
                     <ServiceItemDoctor type={'doctor'}></ServiceItemDoctor>
                     <ServiceItemDoctor type={'doctor'}></ServiceItemDoctor>
                     <ServiceItemDoctor type={'doctor'}></ServiceItemDoctor>
                     <ServiceItemDoctor type={'doctor'}></ServiceItemDoctor>
-                    <ServiceItemDoctor type={'doctor'}></ServiceItemDoctor>
-                    <ServiceItemDoctor type={'doctor'}></ServiceItemDoctor>
+                    <ServiceItemDoctor type={'doctor'}></ServiceItemDoctor> */}
                 </div>
             </div>
-            <Pagination></Pagination>
+            <Pagination
+                totalPages={doctors.totalPages}
+                pageSize={doctors.size}
+                currentPage={doctors.number}
+                onClickPage={onClickPage}
+            ></Pagination>
         </div>
     );
 }
