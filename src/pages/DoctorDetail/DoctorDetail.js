@@ -52,7 +52,6 @@ function DoctorDetail({ doctor }) {
                         <div className={cx('doctor-calendar')}>
                             {!!worTimeOfDoctor
                                 ? worTimeOfDoctor.map((item, index) => {
-                                      console.log(item);
                                       return (
                                           <ButtonBooking
                                               title={item.name + '(' + item.time + ')'}
@@ -70,6 +69,7 @@ function DoctorDetail({ doctor }) {
                                               doctorId={doctor.id}
                                               workTimeId={item.id}
                                               key={index}
+                                              date={date}
                                               title={item.name + '(' + item.time + ')'}
                                           ></ButtonBooking>
                                       );

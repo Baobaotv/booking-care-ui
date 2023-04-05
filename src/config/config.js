@@ -19,6 +19,7 @@ const routes = {
     login: '/dang-nhap',
     register: '/dang-ki',
     forgotPassword: '/quen-mat-khau',
+    paymentResponse: '/thong-tin-thanh-toan',
 };
 
 const services = [
@@ -125,6 +126,11 @@ const communicationContents = [
         img: images.vtv1,
     },
 ];
+const adminUrl = '/admin/home';
+
+const doctorUrl = '/admin/home';
+
+const hostBe = 'http://192.168.1.239:8080';
 
 const baseUrl = 'http://192.168.1.239:8080/api/';
 // const baseUrl = 'http://192.168.1.4:8080/api/';
@@ -139,6 +145,9 @@ const config = {
     services,
     communicationContents,
     baseUrl,
+    adminUrl,
+    doctorUrl,
+    hostBe,
     pageableDefault,
 };
 
