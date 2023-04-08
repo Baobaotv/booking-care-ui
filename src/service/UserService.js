@@ -74,8 +74,9 @@ const getDoctorOfHospital = async (id, currentPage = config.pageableDefault.page
     return response;
 };
 
-const getDoctorById = async (id) => {
-    const response = await fetch(config.baseUrl + 'user/doctor/' + id, {
+const getDoctorById = async (id, date) => {
+    const url = !!date ? config.baseUrl + 'user/doctor/' + id + '?date=' + date :  config.baseUrl + 'user/doctor/' + id;
+    const response = await fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

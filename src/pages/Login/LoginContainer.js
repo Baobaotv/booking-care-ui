@@ -17,7 +17,6 @@ function LoginContainer({ type }) {
             window.location.replace(config.hostBe + config.adminUrl);
         }
         window.location.replace('/');
-        console.log('=========da ghi======');
     };
 
     const actionSignup = (body) => {

@@ -871,22 +871,7 @@ table {
     float: left;
     color: #999;
 }
-.form-chat {
-    position: fixed;
-    bottom: 0px;
-    border-radius: 5px;
-    right: 80px;
-    z-index: 20;
-    background: #ccc;
-    display: none;
-}
-.form-chat.active {
-    display: block;
-}
-.form-chat h2 {
-    margin: 10px;
-    font-size: 1.6rem;
-}
+
 .flexs {
     display: flex;
 }
@@ -896,14 +881,6 @@ table {
     border-radius: 4px;
     outline: none;
     border: transparent;
-}
-.form-chat-header {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    font-size: 1.8rem;
-    color: #000;
-    cursor: pointer;
 }
 .video-call {
     position: fixed;
@@ -953,22 +930,7 @@ table {
     display: none;
 }
 
-/* header chat */
-.header-chat {
-    display: flex;
-    align-items: center;
-    margin: 10px 10px 0 16px;
-}
-.header-chat img {
-    border-radius: 50%;
-    height: 40px;
-}
-.header-chat p {
-    color: #000;
-    font-size: 1.5rem;
-    margin-left: 1.6rem;
-    font-weight: 700;
-}
+
 
 /* abc */
 .closes {
@@ -1037,9 +999,5 @@ h2 {
 .bar {
     font-size: 1.8rem;
 }
-.chieucao-scroll {
-    max-height: 30rem;
-    min-width: 32rem;
-    overflow-y: scroll;
-}
+
 // End css for base

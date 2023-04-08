@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import Booking from './Booking';
 import userService from '~/service/UserService';
+import bookingService from '~/service//BookingService';
 import workTimeService from '~/service/WorkTimeService';
 import paymentService from '~/service/PaymentService';
 import { useSearchParams } from 'react-router-dom';
+import config from '~/config/config';
 
 function BookingContainer() {
     const [searchParams] = useSearchParams();
@@ -43,15 +45,36 @@ function BookingContainer() {
         amount,
     });
     const onSubmit = () => {
+
+        if (!isLogin()) return;
+
         let isValid = isValidData(form.current);
         if (!isValid) return;
         const body = getBodyBooking(form.current);
-        const userInfo = JSON.stringify(localStorage.getItem('token'));
-        localStorage.setItem(userInfo.username + 'booking-info', JSON.stringify(body));
+        const userInfo = JSON.parse(localStorage.getItem('token'));
         if (typePay === 'ON') {
-            createPayment();
+            handleBookingAndCreatePayment(body, userInfo.token, userInfo.username);
         } else {
             alert('submit');
+        }
+    };
+
+    const isLogin =() => {
+        if (!localStorage.getItem('token')) {
+            alert('Vui lòng Đăng nhập để thực hiện chức năng này');
+            return false;
+        }
+        return true;
+    }
+
+    const handleBookingAndCreatePayment = async (body, token, username) => {
+        const result = await bookingService.booking(body, token).then((response) => response);
+        if (result) {
+            localStorage.setItem(username + '_booking_id', result);
+            createPayment();
+        }
+        else {
+            alert('Đã xảy ra lỗi trong quá trình đặt lịch, xin vui lòng thực hiện lại');
         }
     };
 
@@ -64,12 +87,13 @@ function BookingContainer() {
             phonePatient: form.phonePatient.current.value,
             location: form.location.current.value,
             reason: form.reason.current.value,
-            idDoctor: idDoctor,
-            idWorktime: idWorktime,
-            date: date,
+            idDoctor: searchParams.get('doctor-id'),
+            idWorktime: searchParams.get('work-time-id'),
+            date: searchParams.get('date'),
             yearOfBirth: form.yearOfBirth.current.value,
             type: typeCheckHealth,
             amount: form.amount.current.value,
+            statusPayment: config.constant.payment_unPaid
         };
         return body;
     }
@@ -105,21 +129,12 @@ function BookingContainer() {
         return false;
     }
 
-    function handleCreatePayment() {
-        createPayment();
-    }
-
     const createPayment = async () => {
         const body = {
             amount: form.current.amount.current.value,
             bankCode: '',
         };
         const result = await paymentService.createPayment(body).then((response) => response);
-        console.log(result);
-        console.log('code');
-        console.log(result.code);
-        console.log('data');
-        console.log(result.data);
         if (result.code === '00') window.location.replace(result.data);
     };
 

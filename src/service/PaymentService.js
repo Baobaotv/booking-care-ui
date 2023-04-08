@@ -11,11 +11,12 @@ const createPayment = async (body) => {
     return response;
 };
 
-const savePayment = async (body) => {
+const savePayment = async (body, token) => {
     const response = await fetch(config.baseUrl + 'payment/save', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            "Authorization" : `Bearer ${token}`
         },
         body: JSON.stringify(body),
     }).then(async (response) => await response.json());

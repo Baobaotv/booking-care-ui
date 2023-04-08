@@ -6,11 +6,18 @@ import styles from './Header.module.scss';
 import images from '~/assets/images';
 import PageSwitchItem from './PageSwitchItem';
 import config from '~/config/config';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function Header() {
+    const userInfo = JSON.parse(localStorage.getItem('token'));
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        localStorage.clear();
+        navigate('/')
+    } 
+
     return (
         <header className={cx('header')}>
             <div className={cx('grid', 'wide')}>
@@ -47,54 +54,55 @@ function Header() {
                     </div>
 
                     <div className={cx('header_nav_login')}>
-                        {/* Start Case User login is fail */}
-                        <div className={cx('login-list')}>
-                            <Link to={config.routes.login} className={cx('login-item', 'js-dangNhap')}>
-                                Đăng Nhập
-                            </Link>{' '}
-                            <Link to={config.routes.register} className={cx('login-item', 'js-dangKy')}>
-                                Đăng Ký
-                            </Link>
-                        </div>
-                        {/* END Case User login is fail */}
-
-                        {/* Start Case User login is success */}
-                        {/* <div className={cx('login-list')}>
-                            <a href="/home" className={cx('login-item', 'js-dangNhap')} id="test">
-                                Full Name
-                            </a>
-                            <input type="hidden" id="idUser" />
-                            <a href="/logout" className={cx('login-item', 'js-dangKy')}>
-                                Đăng xuất
-                            </a>
-                        </div> */}
-                        {/* Start Case ROLE User : login */}
-                        <div className={cx('update__Thongtin')}>
-                            <ul className={cx('list__thongtin')}>
-                                <li className={cx('thongtin__item')}>
-                                    <a href="/updateProfile">Cập Nhật Thông Tin</a>
-                                </li>
-                                <li className={cx('thongtin__item')}>
-                                    <a href="/showMedical">Xem Lịch Khám</a>
-                                </li>
-                                <li className={cx('thongtin__item')}>
-                                    <a href="/myMessage">Tin nhắn</a>
-                                </li>
-                            </ul>
-                        </div>
-                        {/* Start Case ROLE User : login */}
-
-                        {/* Start Case ROLE Admin : login */}
-                        <div className={cx('update__Thongtin')}>
-                            <ul className={cx('list__thongtin')}>
-                                <li className={cx('thongtin__item')}>
-                                    <a href="/admin/home">Chuyển tới giao diện admin</a>
-                                    <a href="/doctor/home">Chuyển tới giao diện doctor</a>
-                                </li>
-                            </ul>
-                        </div>
-                        {/* END Case ROLE Admin : login */}
-                        {/* END Case User login is success */}
+                        {
+                            !userInfo
+                            ?
+                                <div className={cx('login-list')}>
+                                    <Link to={config.routes.login} className={cx('login-item', 'js-dangNhap')}>
+                                        Đăng Nhập
+                                    </Link>{' '}
+                                    <Link to={config.routes.register} className={cx('login-item', 'js-dangKy')}>
+                                        Đăng Ký
+                                    </Link>
+                                </div>
+                            :
+                             <div className={cx('login-list')}>
+                                <Link to={config.routes.home} className={cx('login-item', 'js-dangNhap', 'user-name')} id="test">
+                                    {userInfo.username}
+                                    {
+                                        userInfo.roles.includes("ROLE_ADMIN") || userInfo.roles.includes("ROLE_DOCTOR")
+                                        ?
+                                            <div className={cx('update__Thongtin')}>
+                                                <ul className={cx('list__thongtin')}>
+                                                    <li className={cx('thongtin__item')}>
+                                                        <a href="/admin/home">Chuyển tới giao diện admin</a>
+                                                        <a href="/doctor/home">Chuyển tới giao diện doctor</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        :
+                                        <div className={cx('update__Thongtin')}>
+                                            <ul className={cx('list__thongtin')}>
+                                                <li className={cx('thongtin__item')}>
+                                                    <a href="/updateProfile">Cập Nhật Thông Tin</a>
+                                                </li>
+                                                <li className={cx('thongtin__item')}>
+                                                    <a href="/showMedical">Xem Lịch Khám</a>
+                                                </li>
+                                                <li className={cx('thongtin__item')}>
+                                                    <a href="/myMessage">Tin nhắn</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    }
+                                    
+                                </Link>
+                                <input type="hidden" id="idUser" />
+                                <button to={config.routes.login} className={cx('login-item', 'logout-btn')} onClick={()=> handleLogout()}>
+                                    Đăng xuất
+                                </button>
+                            </div> 
+                        }
                     </div>
                 </div>
             </div>
