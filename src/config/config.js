@@ -20,6 +20,7 @@ const routes = {
     register: '/dang-ki',
     forgotPassword: '/quen-mat-khau',
     paymentResponse: '/thong-tin-thanh-toan',
+    myMessage: '/tin-nhan-cua-toi',
 };
 
 const services = [

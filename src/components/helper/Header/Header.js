@@ -90,7 +90,7 @@ function Header() {
                                                     <a href="/showMedical">Xem Lịch Khám</a>
                                                 </li>
                                                 <li className={cx('thongtin__item')}>
-                                                    <a href="/myMessage">Tin nhắn</a>
+                                                    <Link to={config.routes.myMessage}>Tin nhắn</Link>
                                                 </li>
                                             </ul>
                                         </div>
