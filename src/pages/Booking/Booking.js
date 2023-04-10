@@ -1,13 +1,27 @@
 import { faCalendarAlt, faCirclePlus, faLocationDot, faPhone, faUserPen } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
-import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import images from '~/assets/images';
 import InputBooking from '~/components/helper/InputBooking';
 import styles from './Booking.module.scss';
 const cx = classNames.bind(styles);
 
-function Booking({ user, workTime, date, form, typeCheckHealth, onChangeCheckHealth, onSubmit }) {
+function Booking({
+    user,
+    workTime,
+    date,
+    form,
+    typeCheckHealth,
+    onChangeCheckHealth,
+    onSubmit,
+    validateMSG,
+    typePersonSchedule,
+    onChangePersonSchedule,
+    typeSex,
+    onChangeSex,
+    typePay,
+    onChangeTypePay,
+}) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('info-doctor')}>
@@ -33,35 +47,90 @@ function Booking({ user, workTime, date, form, typeCheckHealth, onChangeCheckHea
                             <input type="radio" checked="checked" name="price" value="54" readOnly />
                             <span>Giá khám</span>
                             <div>300.000đ</div>
+                            <input type={'hidden'} value={'300000'} ref={form.current.amount} />
                         </label>
                     </div>
                     <div className={cx('info-book-select-audience')}>
                         <div className={cx('info-book-for-me')}>
-                            <input type={'radio'} name="audience"></input>
+                            <input
+                                type={'radio'}
+                                name="audience"
+                                checked={typePersonSchedule === 'forMe'}
+                                onChange={() => onChangePersonSchedule('forMe')}
+                            ></input>
                             <label>Đặt cho mình</label>
                         </div>
                         <div className={cx('info-book-for-other')}>
-                            <input type={'radio'} name="audience"></input>
+                            <input
+                                type={'radio'}
+                                name="audience"
+                                checked={typePersonSchedule === 'forPatient'}
+                                onChange={() => onChangePersonSchedule('forPatient')}
+                            ></input>
                             <label>Đặt cho người thân</label>
                         </div>
                     </div>
+                    {typePersonSchedule === 'forPatient' && (
+                        <>
+                            <p className={cx('title-info')}>{'Thông tin người đặt lịch'}</p>
+                            <div className={cx('info-book-wrapper-input')}>
+                                <InputBooking
+                                    placeholder={'Họ và tên người đặt lịch'}
+                                    icon={faUserPen}
+                                    ref={form.current.nameScheduler}
+                                ></InputBooking>
+                                {!!validateMSG && !!validateMSG.nameScheduler && (
+                                    <p className={cx('error-msg')}>{validateMSG.nameScheduler}</p>
+                                )}
+
+                                <div className={cx('info-book-patient-input-note')}>
+                                    Hãy ghi rõ Họ Và Tên, viết hoa những chữ cái đầu tiên, ví dụ: Trần Văn Phú
+                                </div>
+                            </div>
+                            <div className={cx('info-book-wrapper-input')}>
+                                <InputBooking
+                                    placeholder={'Số điện thoại người đặt lịch'}
+                                    icon={faUserPen}
+                                    ref={form.current.phoneScheduer}
+                                ></InputBooking>
+                                {!!validateMSG && !!validateMSG.phoneScheduer && (
+                                    <p className={cx('error-msg')}>{validateMSG.phoneScheduer}</p>
+                                )}
+                            </div>
+                        </>
+                    )}
                     <div className={cx('info-book-wrapper-input')}>
+                        <p className={cx('title-info')}>{'Thông tin bệnh nhân'}</p>
                         <InputBooking
                             placeholder={'Họ và tên bệnh nhân'}
                             icon={faUserPen}
-                            ref={form.current.nameScheduler}
+                            ref={form.current.namePatient}
                         ></InputBooking>
+                        {!!validateMSG && !!validateMSG.namePatient && (
+                            <p className={cx('error-msg')}>{validateMSG.namePatient}</p>
+                        )}
+
                         <div className={cx('info-book-patient-input-note')}>
                             Hãy ghi rõ Họ Và Tên, viết hoa những chữ cái đầu tiên, ví dụ: Trần Văn Phú
                         </div>
                     </div>
                     <div className={cx('info-book-select-audience')}>
                         <div className={cx('info-book-for-me')}>
-                            <input type={'radio'} name="gender"></input>
+                            <input
+                                type={'radio'}
+                                name="gender"
+                                checked={typeSex === 'Name'}
+                                onChange={() => onChangeSex('Name')}
+                            ></input>
                             <label>Nam</label>
                         </div>
                         <div className={cx('info-book-for-other')}>
-                            <input type={'radio'} name="gender"></input>
+                            <input
+                                type={'radio'}
+                                name="gender"
+                                checked={typeSex === 'Nu'}
+                                onChange={() => onChangeSex('Nu')}
+                            ></input>
                             <label>Nữ</label>
                         </div>
                     </div>
@@ -69,15 +138,21 @@ function Booking({ user, workTime, date, form, typeCheckHealth, onChangeCheckHea
                         <InputBooking
                             placeholder={'Số điện thoại liên hệ'}
                             icon={faPhone}
-                            ref={form.current.phoneScheduer}
+                            ref={form.current.phonePatient}
                         ></InputBooking>
+                        {!!validateMSG && !!validateMSG.phonePatient && (
+                            <p className={cx('error-msg')}>{validateMSG.phonePatient}</p>
+                        )}
                     </div>
                     <div className={cx('info-book-wrapper-input')}>
                         <InputBooking
                             placeholder={'Năm sinh'}
                             icon={faCalendarAlt}
-                            ref={form.yearOfBirth}
+                            ref={form.current.yearOfBirth}
                         ></InputBooking>
+                        {!!validateMSG && !!validateMSG.yearOfBirth && (
+                            <p className={cx('error-msg')}>{validateMSG.yearOfBirth}</p>
+                        )}
                     </div>
                     {/* <div className={cx('info-book-wrapper-input')}>
                         <InputBooking placeholder={'Tỉnh thành'} icon={faLocationDot} ></InputBooking>
@@ -91,6 +166,9 @@ function Booking({ user, workTime, date, form, typeCheckHealth, onChangeCheckHea
                             icon={faLocationDot}
                             ref={form.current.location}
                         ></InputBooking>
+                        {!!validateMSG && !!validateMSG.location && (
+                            <p className={cx('error-msg')}>{validateMSG.location}</p>
+                        )}
                     </div>
                     <div className={cx('info-book-wrapper-input')}>
                         <InputBooking
@@ -99,25 +177,56 @@ function Booking({ user, workTime, date, form, typeCheckHealth, onChangeCheckHea
                             type={'textarea'}
                             ref={form.current.reason}
                         ></InputBooking>
+                        {!!validateMSG && !!validateMSG.reason && (
+                            <p className={cx('error-msg')}>{validateMSG.reason}</p>
+                        )}
                     </div>
                     <div className={cx('info-book-payment')}>
-                        <p className={cx('info-book-payment-title')}>Hình thức thanh toán</p>
+                        <p className={cx('info-book-payment-title')}>Hình thức khám bệnh</p>
                         <div className={cx('info-book-select-audience')}>
                             <div className={cx('info-book-for-me')}>
                                 <input
                                     type={'radio'}
-                                    name="payment"
+                                    name="checkHealth"
                                     checked={typeCheckHealth === 'OFF'}
                                     onChange={() => onChangeCheckHealth('OFF')}
                                 ></input>
-                                <label>Thanh toán tại cơ sở y tế</label>
+                                <label>Khám tại cơ sở y tế</label>
                             </div>
                             <div className={cx('info-book-for-other')}>
                                 <input
                                     type={'radio'}
-                                    name="payment"
+                                    name="checkHealth"
                                     checked={typeCheckHealth === 'ON'}
-                                    onChange={() => onChangeCheckHealth('ON')}
+                                    onChange={() => {
+                                        onChangeCheckHealth('ON');
+                                        onChangeTypePay('ON');
+                                    }}
+                                ></input>
+                                <label>Khám qua video</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx('info-book-payment')}>
+                        <p className={cx('info-book-payment-title')}>Hình thức thanh toán</p>
+                        <div className={cx('info-book-select-audience')}>
+                            {typeCheckHealth === 'OFF' && (
+                                <div className={cx('info-book-for-me')}>
+                                    <input
+                                        type={'radio'}
+                                        name="payment"
+                                        checked={typePay === 'OFF'}
+                                        onChange={() => onChangeTypePay('OFF')}
+                                    ></input>
+                                    <label>Thanh toán tại cơ sở y tế</label>
+                                </div>
+                            )}
+                            <div className={cx('info-book-for-other')}>
+                                <input
+                                    type={'radio'}
+                                    name="payment"
+                                    checked={typePay === 'ON'}
+                                    onChange={() => onChangeTypePay('ON')}
                                 ></input>
                                 <label>Thanh toán online</label>
                             </div>

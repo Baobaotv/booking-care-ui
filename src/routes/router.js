@@ -16,6 +16,8 @@ import EmptyLayout from '~/Layout/EmptyLayout';
 import HomeContainer from '~/pages/Home';
 import SpecialtyContainer from '~/pages/Specialty';
 import Booking from '~/pages/Booking';
+import PaymentResponseContainer from '~/pages/PaymentResponse/PaymentResponseContainer';
+import MyMessageContainer from '~/pages/MyMessage/MyMessageContainer';
 
 const publicRoutes = [
     { path: config.routes.home, component: HomeContainer },
@@ -34,6 +36,8 @@ const publicRoutes = [
     { path: config.routes.specialtyDetail, component: SpecialtyDetailContainer },
     { path: config.routes.login, component: Login, layout: EmptyLayout },
     { path: config.routes.register, component: Login, layout: EmptyLayout },
+    { path: config.routes.paymentResponse, component: PaymentResponseContainer, layout: EmptyLayout },
+    { path: config.routes.myMessage, component: MyMessageContainer },
 ];
 
 const privateRoutes = [];

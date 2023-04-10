@@ -19,6 +19,8 @@ const routes = {
     login: '/dang-nhap',
     register: '/dang-ki',
     forgotPassword: '/quen-mat-khau',
+    paymentResponse: '/thong-tin-thanh-toan',
+    myMessage: '/tin-nhan-cua-toi',
 };
 
 const services = [
@@ -125,9 +127,21 @@ const communicationContents = [
         img: images.vtv1,
     },
 ];
+const adminUrl = '/admin/home';
 
-const baseUrl = 'http://192.168.1.239:8080/api/';
+const doctorUrl = '/admin/home';
+
+const hostBe = 'http://192.168.1.239:8080';
+
+// const baseUrl = 'http://192.168.1.239:8080/api/';
+const baseUrl = 'http://172.16.17.194:8080/api/';
 // const baseUrl = 'http://192.168.1.4:8080/api/';
+
+const constant = {
+    payment_paid: 1,
+    payment_unPaid: 0,
+    payment_error: 2
+}
 
 const pageableDefault = {
     pageDefault: 0,
@@ -139,7 +153,11 @@ const config = {
     services,
     communicationContents,
     baseUrl,
+    adminUrl,
+    doctorUrl,
+    hostBe,
     pageableDefault,
+    constant
 };
 
 export default config;

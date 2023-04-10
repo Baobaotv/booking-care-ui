@@ -6,6 +6,7 @@ import ContentWithBackground from '~/components/ContentWithBackground';
 import ContentNotBackground from '~/components/ContentNotBackground';
 import ContentWithCommunication from '~/components/ContentWithCommunication';
 import ContentDownloadApp from '~/components/ContentDownloadApp';
+import MessageTemplateSmall  from '~/components/MessageTemplateSmall';
 
 const cx = classNames.bind(styles);
 
@@ -71,6 +72,7 @@ function Home({
 
             {/* Dơnload app */}
             <ContentDownloadApp></ContentDownloadApp>
+            <MessageTemplateSmall></MessageTemplateSmall>
         </>
     );
 }

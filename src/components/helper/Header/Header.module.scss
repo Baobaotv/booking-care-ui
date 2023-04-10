@@ -68,16 +68,36 @@
     margin-right: 10px;
 }
 
+.logout-btn {
+    background-color: white;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 .header_nav_login {
     position: relative;
 }
 
+.user-name {
+    position: relative;
+    &:hover .update__Thongtin {
+        display: block;
+    } 
+}
+
 .update__Thongtin {
     position: absolute;
-    background-color: #cccccc;
-    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
     display: none;
     width: 180px;
+    box-shadow: 0 0.1rem 2rem 0.5rem rgba(0, 0, 0, 0.05);
+}
+
+.thongtin__item :hover {
+    color: #45c3d2;
+    font-style: italic;
 }
 
 .list__thongtin {

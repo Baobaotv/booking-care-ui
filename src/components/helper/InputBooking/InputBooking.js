@@ -5,14 +5,14 @@ import styles from './InputBooking.module.scss';
 
 const cx = classNames.bind(styles);
 
-function InputBooking({ placeholder, icon, type, onChangeValue, value }, ref) {
+function InputBooking({ placeholder, icon, type, value }, ref) {
     return (
         <div className={cx('wrapper')}>
             <FontAwesomeIcon icon={icon} className={cx('input-icon')}></FontAwesomeIcon>
             {type === 'textarea' ? (
                 <textarea placeholder={placeholder} ref={ref}></textarea>
             ) : (
-                <input ref={ref} placeholder={placeholder} onChange={(e) => onChangeValue()}></input>
+                <input ref={ref} placeholder={placeholder}></input>
             )}
         </div>
     );

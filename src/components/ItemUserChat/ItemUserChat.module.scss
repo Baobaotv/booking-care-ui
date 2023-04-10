@@ -1,0 +1,45 @@
+.wrapper {
+    display: flex;
+    height: 72px;
+    align-items: center;
+    border-radius: 8px;
+    padding: 0 6px;
+    &:hover {
+        background-color: rgba(204, 204, 204, 0.2);
+        cursor: pointer;
+    }
+}
+
+.wrapper.selected {
+    background-color: rgb(234,243,255);
+}
+
+.avatar-user {
+    border-radius: 50%;
+    height: 45px;
+    border: 1px solid #ccc;
+}
+
+.info-user-status {
+    color: rgb(0,132,255);
+    font-size: 1.2rem;
+}
+
+.info-user-chat {
+    padding: 0 4px;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-name {
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+
+.message {
+    font-size: 1.3rem;
+    font-weight: 500;
+    opacity: 0.6;
+}
