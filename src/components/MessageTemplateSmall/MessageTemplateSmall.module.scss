@@ -3,11 +3,17 @@
     box-shadow: 0 0.1rem 2rem 0.5rem rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     position: fixed;
-    bottom: 0;
+    bottom: 4px;
     right: 30px;
     background-color: white;
     z-index: 10;
-    max-height:440px;
+    max-height: 440px;
+    display: none;
+    transform-origin: bottom right;
+    animation: headerNotifyGrowth ease-in 0.3s;
+}
+.form-chat.show {
+    display: block;
 }
 
 header {
@@ -42,7 +48,7 @@ header {
     height: 40px;
 }
 
-.message-avatar{
+.message-avatar {
     border-radius: 50%;
     height: 34px;
 }
@@ -58,6 +64,25 @@ header {
     max-height: 34rem;
     min-height: 34rem;
     overflow-y: scroll;
+}
+
+.message-not-login.message-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-login {
+    text-align: center;
+}
+
+.btn-login {
+    margin-top: 10px;
+    background-color: rgb(72, 188, 226);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
 }
 
 .answer {
@@ -102,4 +127,15 @@ header {
     border-radius: 14px;
     border: none;
     background-color: #e4e6eb;
+}
+
+@keyframes headerNotifyGrowth {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }

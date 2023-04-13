@@ -133,15 +133,15 @@ const doctorUrl = '/admin/home';
 
 const hostBe = 'http://192.168.1.239:8080';
 
-// const baseUrl = 'http://192.168.1.239:8080/api/';
-const baseUrl = 'http://172.16.17.194:8080/api/';
+const baseUrl = 'http://192.168.1.239:8080/api/';
+// const baseUrl = 'http://172.16.17.194:8080/api/';
 // const baseUrl = 'http://192.168.1.4:8080/api/';
 
 const constant = {
     payment_paid: 1,
     payment_unPaid: 0,
-    payment_error: 2
-}
+    payment_error: 2,
+};
 
 const pageableDefault = {
     pageDefault: 0,
@@ -157,7 +157,7 @@ const config = {
     doctorUrl,
     hostBe,
     pageableDefault,
-    constant
+    constant,
 };
 
 export default config;

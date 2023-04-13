@@ -6,7 +6,8 @@ import ContentWithBackground from '~/components/ContentWithBackground';
 import ContentNotBackground from '~/components/ContentNotBackground';
 import ContentWithCommunication from '~/components/ContentWithCommunication';
 import ContentDownloadApp from '~/components/ContentDownloadApp';
-import MessageTemplateSmall  from '~/components/MessageTemplateSmall';
+import MessageTemplateSmall from '~/components/MessageTemplateSmall';
+import ItemBubbleMessage from '~/components/helper/ItemBubbleMessage';
 
 const cx = classNames.bind(styles);
 
@@ -17,7 +18,12 @@ function Home({
     featuredSpecialty,
     featuredDoctors,
     featuredHandbooks,
+    isShowMessage,
+    onShowMessage,
+    messages,
+    sendMessage,
 }) {
+    console.log(isShowMessage);
     return (
         <>
             <SliderCustom></SliderCustom>
@@ -72,7 +78,13 @@ function Home({
 
             {/* Dơnload app */}
             <ContentDownloadApp></ContentDownloadApp>
-            <MessageTemplateSmall></MessageTemplateSmall>
+            <MessageTemplateSmall
+                isShow={!!isShowMessage}
+                onShowMessage={onShowMessage}
+                messages={messages}
+                sendMessage={sendMessage}
+            ></MessageTemplateSmall>
+            <ItemBubbleMessage isShow={!isShowMessage} onShowMessage={onShowMessage}></ItemBubbleMessage>
         </>
     );
 }

@@ -4,7 +4,7 @@ import interactiveService from '~/service/InteractiveService';
 import messageservice from '~/service/MessageService';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
-// import { stompClient } from '~/components/GlobalEvent';
+import config from '~/config';
 let stompClient = null;
 
 function connectSockJs(userInfo, messages, setMessages) {
@@ -19,7 +19,7 @@ function connectSockJs(userInfo, messages, setMessages) {
 
     const connect = (userInfo) => {
         if (!!userInfo) {
-            var socket = new SockJS('http://172.16.17.194:8080/ws');
+            var socket = new SockJS(config.hostBe + '/ws');
             stompClient = over(socket);
             stompClient.connect({}, onConnected, onError);
         }
