@@ -23,7 +23,18 @@ function Home({
     messages,
     sendMessage,
 }) {
-    console.log(isShowMessage);
+    // navigator.mediaDevices
+    //     .getUserMedia({ video: true, audio: false })
+    //     .then(function (stream) {
+    //         console.log('Stream OK');
+    //         let localStream = stream;
+    //         let selfView = document.getElementById('self');
+    //         selfView.srcObject = localStream;
+    //         selfView.autoplay = true;
+    //     })
+    //     .catch(function (error) {
+    //         console.log('Stream NOT OK: ' + error.name + ': ' + error.message);
+    //     });
     return (
         <>
             <SliderCustom></SliderCustom>
@@ -78,6 +89,12 @@ function Home({
 
             {/* Dơnload app */}
             <ContentDownloadApp></ContentDownloadApp>
+            {/* <video
+                className={cx('modal-self-video')}
+                src={'https://www.youtube.com/64d3fe7e-4737-4642-a11b-97f9e1f685f0'}
+                autoPlay={true}
+                id="self"
+            ></video> */}
             <MessageTemplateSmall
                 isShow={!!isShowMessage}
                 onShowMessage={onShowMessage}

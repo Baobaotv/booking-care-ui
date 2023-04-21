@@ -18,8 +18,6 @@ function ContentWithCommunication({ title }) {
                         height={'315'}
                         src={'https://www.youtube.com/embed/FyDQljKtWnI'}
                         title={'YouTube video player'}
-                        frameborder="0"
-                        allowfullscreen
                     ></iframe>
                     <div className={cx('comunicate-content')}>
                         <ul>
