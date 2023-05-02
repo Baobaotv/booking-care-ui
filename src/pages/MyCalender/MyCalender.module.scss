@@ -1,0 +1,55 @@
+.wrapper {
+    max-width: 1200px;
+    margin: var(--header-height) auto 0;
+}
+
+.content {
+    margin-top: 10px;
+}
+
+.calender-complete {
+    margin: 20px 0px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #337ab7;
+}
+
+.table-content {
+    margin-top: 20px;
+}
+
+table {
+    border: 1px solid rgb(71, 193, 208);
+    border-radius: 8px;
+    width: 100%;
+    min-height: 200px;
+    padding: 20px 8px;
+}
+
+th {
+    border-bottom: 1px solid rgb(71, 193, 208);
+}
+tr:hover {
+    background-color: rgba($color: #000000, $alpha: 0.1);
+}
+
+td {
+    text-align: center;
+    padding: 1.5rem !important;
+}
+
+.btn-action {
+    font-size: 1.6rem;
+    padding: 8px;
+    &:hover {
+        color: rgb(71, 193, 208);
+        cursor: pointer;
+    }
+}
+
+.btn-action + .btn-action {
+    border-left: 1px solid rgba($color: #000000, $alpha: 0.3);
+}
