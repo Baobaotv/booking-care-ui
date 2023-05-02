@@ -18,6 +18,8 @@ import SpecialtyContainer from '~/pages/Specialty';
 import Booking from '~/pages/Booking';
 import PaymentResponseContainer from '~/pages/PaymentResponse/PaymentResponseContainer';
 import MyMessageContainer from '~/pages/MyMessage/MyMessageContainer';
+import UpdateProfile from '~/pages/UpdateProfile';
+import MyCalender from '~/pages/MyCalender';
 
 const publicRoutes = [
     { path: config.routes.home, component: HomeContainer },
@@ -38,6 +40,8 @@ const publicRoutes = [
     { path: config.routes.register, component: Login, layout: EmptyLayout },
     { path: config.routes.paymentResponse, component: PaymentResponseContainer, layout: EmptyLayout },
     { path: config.routes.myMessage, component: MyMessageContainer },
+    { path: config.routes.updateProfile, component: UpdateProfile },
+    { path: config.routes.myCalender, component: MyCalender },
 ];
 
 const privateRoutes = [];

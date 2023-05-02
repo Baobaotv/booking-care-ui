@@ -95,6 +95,30 @@ const getAllDoctor = async (currentPage = config.pageableDefault.pageDefault, si
     return response;
 };
 
+const getInfoCurrentUser = async (token) => {
+    const response = await fetch(config.baseUrl + 'current-login', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(async (response) => await response.json());
+    return response;
+};
+
+const updateProfile = async (data, token) => {
+    const response = await fetch(config.baseUrl + 'updateClient', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/form-data',
+            Authorization: `Bearer ${token}`,
+        },
+        enctype: 'multipart/form-data',
+        body: data,
+    }).then((response) => response.json());
+    return response.data;
+};
+
 const api = {
     signIn,
     signup,
@@ -104,6 +128,8 @@ const api = {
     getDoctorById,
     getDoctorOfHospital,
     getAllDoctor,
+    getInfoCurrentUser,
+    updateProfile,
 };
 
 export default api;

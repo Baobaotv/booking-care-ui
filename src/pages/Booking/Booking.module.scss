@@ -132,7 +132,6 @@ input + label {
     font-weight: 700;
     font-size: 16px;
     width: 100%;
-    cursor: pointer;
     margin-top: 10px;
     border-radius: 4px;
     text-align: center;
@@ -140,6 +139,7 @@ input + label {
 
     &:hover {
         opacity: 0.8;
+        cursor: pointer;
     }
 }
 

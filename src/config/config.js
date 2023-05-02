@@ -21,6 +21,8 @@ const routes = {
     forgotPassword: '/quen-mat-khau',
     paymentResponse: '/thong-tin-thanh-toan',
     myMessage: '/tin-nhan-cua-toi',
+    updateProfile: '/cap-nhap-thong-tin',
+    myCalender: '/lich-kham-cua-toi',
 };
 
 const services = [
@@ -131,11 +133,11 @@ const adminUrl = '/admin/home';
 
 const doctorUrl = '/admin/home';
 
-const hostBe = 'https://192.168.1.4:8443';
+const hostBe = 'http://192.168.1.5:8443';
 
 // const baseUrl = 'https://192.168.1.239:8443/api/';
 // const baseUrl = 'http://172.16.17.194:8080/api/';
-const baseUrl = 'https://192.168.1.4:8443/api/';
+const baseUrl = 'http://192.168.1.5:8443/api/';
 
 const constant = {
     payment_paid: 1,
