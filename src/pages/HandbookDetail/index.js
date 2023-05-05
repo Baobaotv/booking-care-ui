@@ -1,1 +1,1 @@
-export { default } from './HandbookDetail';
+export { default } from './HandbookDetailContainer';

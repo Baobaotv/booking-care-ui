@@ -10,15 +10,13 @@ import styles from './HandbookDetail.module.scss';
 
 const cx = classNames.bind(styles);
 
-function HandbookDetail() {
+function HandbookDetail({ handbook, comments, sendComment, userInfo, deleteComment }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('grid', 'wide')}>
                 <LinkToPage title={'Cẩm nang/ Chi tiết bài viết'}></LinkToPage>
                 <div className={cx('handbook-content')}>
-                    <h3 className={cx('handbook-content-title')}>
-                        8 bác sĩ khám chữa Tim mạch giỏi tại Hà Nội (Phần 1)
-                    </h3>
+                    <h3 className={cx('handbook-content-title')}>{!!handbook ? handbook.title : ''}</h3>
                     <hr></hr>
                     <div className={cx('handbook-content-info-create')}>
                         <p>
@@ -28,9 +26,11 @@ function HandbookDetail() {
                             </Link>
                         </p>
                         <div className={cx('handbook-info-user-create')}>
-                            <span>Nhóm tác giả: Thảo Hoàng </span>
-                            <span>Xuất bản ngày: 2023/03/03</span>
-                            <span>Cập nhập lần cuối ngày: 2023/03/03</span>
+                            <span>Nhóm tác giả: {!!handbook ? handbook.createdBy : 'BookingCare'} </span>
+                        </div>
+                        <div className={cx('handbook-info-user-create')}>
+                            <span>Xuất bản ngày: {!!handbook ? handbook.createdDate : ''}</span>
+                            <span>Cập nhập lần cuối ngày: {!!handbook ? handbook.modifiedDate : ''}</span>
                         </div>
                         <p>
                             Người kiểm duyệt:{' '}
@@ -40,9 +40,7 @@ function HandbookDetail() {
                         </p>
                     </div>
                     <div className={cx('handbook-description')}>
-                        Nội dung tổng hợp danh sách các bác sĩ chuyên khoa tim mạch giỏi, có nhiều kinh nghiệm thăm khám
-                        tại Hà Nội, cùng với các thông tin về địa chỉ thăm khám hiện tại của các bác sĩ để bạn đọc thuận
-                        tiện lựa chọn bác sĩ khám.
+                        <span dangerouslySetInnerHTML={{ __html: !!handbook ? handbook.description : '' }}></span>
                     </div>
                     <div className={cx('handbook-introduce')}>
                         <FontAwesomeIcon icon={faLightbulb} className={cx('handbook-introduce-icon')}></FontAwesomeIcon>
@@ -53,18 +51,28 @@ function HandbookDetail() {
                         </p>
                     </div>
                     <div className={cx('content')}>
-                        Nội dung tổng hợp danh sách các bác sĩ chuyên khoa tim mạch giỏi, có nhiều kinh nghiệm thăm khám
-                        tại Hà Nội, cùng với các thông tin về địa chỉ thăm khám hiện tại của các bác sĩ để bạn đọc thuận
-                        tiện lựa chọn bác sĩ khám.
+                        <span dangerouslySetInnerHTML={{ __html: !!handbook ? handbook.content : '' }}></span>
                     </div>
                 </div>
                 <hr></hr>
                 <div className={cx('handbook-comment')}>
                     <p className={cx('handbook-comment-title')}>Bình luận:</p>
-                    <ItemComment></ItemComment>
-                    <ItemComment></ItemComment>
-                    <ItemComment></ItemComment>
-                    <ItemCommentWrite></ItemCommentWrite>
+                    {!!userInfo ? <ItemCommentWrite sendComment={sendComment}></ItemCommentWrite> : <></>}
+                    {!!comments && comments.length > 0 ? (
+                        comments.map((item) => {
+                            let isSelfComment = userInfo.id === item.idUser;
+                            return (
+                                <ItemComment
+                                    key={item.id}
+                                    data={item}
+                                    isSelfComment={isSelfComment}
+                                    deleteComment={deleteComment}
+                                ></ItemComment>
+                            );
+                        })
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </div>
         </div>
