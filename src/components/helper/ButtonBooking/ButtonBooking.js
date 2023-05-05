@@ -6,7 +6,7 @@ import util from '~/Util';
 
 const cx = classNames.bind(styles);
 
-function ButtonBooking({ title, date, doctorId, workTimeId }) {
+function ButtonBooking({ title, date, doctorId, workTimeId, isFree = false }) {
     const to =
         config.routes.booking +
         '?doctor-id=' +
@@ -15,8 +15,9 @@ function ButtonBooking({ title, date, doctorId, workTimeId }) {
         util.formatDate(date) +
         '&work-time-id=' +
         workTimeId;
+    const cls = !!isFree ? cx('btn-booking') : cx('btn-booking', 'not-free');
     return (
-        <Link to={to} className={cx('btn-booking')}>
+        <Link to={to} className={cls}>
             {title}
         </Link>
     );

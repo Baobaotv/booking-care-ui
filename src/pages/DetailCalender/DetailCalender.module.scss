@@ -1,0 +1,44 @@
+.wrapper {
+    max-width: 1200px;
+    margin: var(--header-height) auto 0;
+}
+
+.calender-info,
+.payment-info {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: rgb(71, 190, 206);
+    margin-bottom: 10px;
+}
+
+table,
+th,
+td {
+    border-spacing: 0;
+}
+
+.header-table {
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.header-table tr {
+    background-color: #eee;
+}
+
+.table-title {
+    width: 30%;
+    border-right: 1px solid rgba($color: #000000, $alpha: 0.2);
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.table-content {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
