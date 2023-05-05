@@ -1,17 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import Booking from './Booking';
-import userService from '~/service/UserService';
+import UpdateBooking from './UpdateBooking';
 import bookingService from '~/service//BookingService';
-import workTimeService from '~/service/WorkTimeService';
+import mediaService from '~/service/MedicalService';
 import paymentService from '~/service/PaymentService';
 import { useSearchParams } from 'react-router-dom';
 import config from '~/config/config';
 
-function BookingContainer() {
+function UpdateBookingContainer() {
     const [searchParams] = useSearchParams();
     const [user, setUser] = useState();
     const [workTime, setWorkTime] = useState();
     const [validateMSG, setValidateMSG] = useState();
+    const [date, setDate] = useState();
+    const [isPayment, setIsPayment] = useState();
     const nameScheduler = useRef();
     const phoneScheduer = useRef();
     const namePatient = useRef();
@@ -21,14 +22,13 @@ function BookingContainer() {
     const reason = useRef();
     const idDoctor = useRef();
     const idWorktime = useRef();
-    const date = useRef();
     const yearOfBirth = useRef();
     const type = useRef();
     const amount = useRef();
     const [typeCheckHealth, setTypeCheckHealth] = useState();
     const [typePay, setTypePay] = useState();
     const [typePersonSchedule, setTypePersonSchedule] = useState('forMe');
-    const [typeSex, setTypeSex] = useState('Name');
+    const [typeSex, setTypeSex] = useState('Nam');
     const form = useRef({
         nameScheduler,
         phoneScheduer,
@@ -39,7 +39,6 @@ function BookingContainer() {
         reason,
         idDoctor,
         idWorktime,
-        date,
         yearOfBirth,
         type,
         amount,
@@ -51,10 +50,10 @@ function BookingContainer() {
         if (!isValid) return;
         const body = getBodyBooking(form.current);
         const userInfo = JSON.parse(localStorage.getItem('token'));
-        if (typePay === 'ON') {
-            handleBookingAndCreatePayment(body, userInfo.token, userInfo.username);
+        if (typePay === 'ON' && isPayment !== 1) {
+            handleUpdateBookingAndCreatePayment(body, userInfo.token, userInfo.username);
         } else {
-            handleBooking(body, userInfo.token);
+            handleUpdateBooking(body, userInfo.token);
         }
     };
 
@@ -66,20 +65,20 @@ function BookingContainer() {
         return true;
     };
 
-    const handleBookingAndCreatePayment = async (body, token, username) => {
-        const result = await bookingService.booking(body, token).then((response) => response);
+    const handleUpdateBookingAndCreatePayment = async (body, token, username) => {
+        const result = await bookingService.updateBooking(body, token).then((response) => response);
         if (result) {
-            localStorage.setItem(username + '_booking_id', result);
+            localStorage.setItem(username + '_booking_id', body.id);
             createPayment();
         } else {
             alert('Đã xảy ra lỗi trong quá trình đặt lịch, xin vui lòng thực hiện lại');
         }
     };
 
-    const handleBooking = async (body, token) => {
-        const result = await bookingService.booking(body, token).then((response) => response);
+    const handleUpdateBooking = async (body, token) => {
+        const result = await bookingService.updateBooking(body, token).then((response) => response);
         if (result) {
-            alert('Đã đặt lịch thành công');
+            alert('Đã cập nhật thành công');
             window.replace('/');
         } else {
             alert('Đã xảy ra lỗi trong quá trình đặt lịch, xin vui lòng thực hiện lại');
@@ -88,6 +87,7 @@ function BookingContainer() {
 
     function getBodyBooking(form) {
         const body = {
+            id: searchParams.get('id'),
             nameScheduler: !!form.nameScheduler.current ? form.nameScheduler.current.value : '',
             phoneScheduer: !!form.phoneScheduer.current ? form.phoneScheduer.current.value : '',
             namePatient: form.namePatient.current.value,
@@ -95,11 +95,8 @@ function BookingContainer() {
             phonePatient: form.phonePatient.current.value,
             location: form.location.current.value,
             reason: form.reason.current.value,
-            idDoctor: searchParams.get('doctor-id'),
-            idWorktime: searchParams.get('work-time-id'),
-            date: searchParams.get('date'),
             yearOfBirth: form.yearOfBirth.current.value,
-            type: typeCheckHealth,
+            type: typeCheckHealth.toLowerCase(),
             amount: form.amount.current.value,
             statusPayment: config.constant.payment_unPaid,
         };
@@ -114,6 +111,11 @@ function BookingContainer() {
             }
             if (!form.phoneScheduer.current.value) {
                 msg.phoneScheduer = 'Vui lòng nhập thông tin';
+            } else {
+                const regexPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+                if (!form.phoneScheduer.current.value.match(regexPhoneNumber)) {
+                    msg.phoneScheduer = 'Số điện thoại không đúng, vui lòng nhập lại';
+                }
             }
         }
         if (!form.namePatient.current.value) {
@@ -121,9 +123,19 @@ function BookingContainer() {
         }
         if (!form.phonePatient.current.value) {
             msg.phonePatient = 'Vui lòng nhập thông tin';
+        } else {
+            const regexPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+            if (!form.phonePatient.current.value.match(regexPhoneNumber)) {
+                msg.phonePatient = 'Số điện thoại không đúng, vui lòng nhập lại';
+            }
         }
         if (!form.yearOfBirth.current.value) {
             msg.yearOfBirth = 'Vui lòng nhập thông tin';
+        } else {
+            let regex = /(?:19|20)\d\d/;
+            if (!regex.test(Number(form.yearOfBirth.current.value))) {
+                msg.yearOfBirth = 'Năm sinh không đúng, vui lòng nhập lại';
+            }
         }
         if (!form.location.current.value) {
             msg.location = 'Vui lòng nhập thông tin';
@@ -147,25 +159,39 @@ function BookingContainer() {
     };
 
     useEffect(() => {
-        const getDoctorById = async (id) => {
-            const result = await userService.getDoctorById(id).then((response) => response);
-            setUser(result);
+        const getDetailMedical = async (id) => {
+            const result = await mediaService.getOneById(id).then((response) => response);
+            form.current.namePatient.current.value = result.namePatient;
+            form.current.phonePatient.current.value = result.phonePatient;
+            if (!!result.nameScheduler && !!result.phoneScheduer) {
+                form.current.nameScheduler.current.value = result.nameScheduler;
+                form.current.phoneScheduer.current.value = result.phoneScheduer;
+            }
+            form.current.location.current.value = result.location;
+            form.current.reason.current.value = result.reason;
+            form.current.yearOfBirth.current.value = result.yearOfBirth;
+            form.current.amount.current.value = result.examinationPrice;
+            setDate(result.date);
+            result.sex === 'Name' ? setTypeSex('Nam') : setTypeSex('Nu');
+            result.type === 'on' ? setTypeCheckHealth('ON') : setTypeCheckHealth('OFF');
+            result.type === 'on' ? setTypePay('ON') : setTypePay('OFF');
+            result.statusPayment === 1 ? setIsPayment(1) : setIsPayment(0);
+            setUser(result.doctor);
+            setWorkTime({
+                id: result.workTimeID,
+                time: result.wordTimeTime,
+            });
         };
-        getDoctorById(searchParams.get('doctor-id'));
-
-        const getWorkTimeById = async (id) => {
-            const result = await workTimeService.getOneById(id).then((response) => response);
-            setWorkTime(result);
-        };
-        getWorkTimeById(searchParams.get('work-time-id'));
+        getDetailMedical(searchParams.get('id'));
     }, []);
 
     return (
-        <Booking
+        <UpdateBooking
             user={user}
             workTime={workTime}
-            date={searchParams.get('date')}
             form={form}
+            date={date}
+            isPayment={isPayment}
             typeCheckHealth={typeCheckHealth}
             onChangeCheckHealth={setTypeCheckHealth}
             onSubmit={onSubmit}
@@ -176,8 +202,8 @@ function BookingContainer() {
             onChangeSex={setTypeSex}
             typePay={typePay}
             onChangeTypePay={setTypePay}
-        ></Booking>
+        ></UpdateBooking>
     );
 }
 
-export default BookingContainer;
+export default UpdateBookingContainer;

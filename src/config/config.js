@@ -9,6 +9,8 @@ const routes = {
     hospital: '/benh-vien',
     hospitalDetail: '/benh-vien/chi-tiet',
     booking: '/dat-lich-kham',
+    updateBooking: '/cap-nhat-lich-kham',
+    updateTimeBooking: '/cap-nhat-thoi-gian-kham-benh',
     handbook: '/cam-nang',
     handbookList: '/cam-nang/danh-sach-bai-viet',
     handbookDetail: '/cam-nang/chi-tiet-bai-viet',
@@ -23,6 +25,7 @@ const routes = {
     myMessage: '/tin-nhan-cua-toi',
     updateProfile: '/cap-nhap-thong-tin',
     myCalender: '/lich-kham-cua-toi',
+    detailCalender: '/chi-tiet-ca-kham',
 };
 
 const services = [
@@ -133,11 +136,11 @@ const adminUrl = '/admin/home';
 
 const doctorUrl = '/admin/home';
 
-const hostBe = 'http://192.168.1.5:8443';
+const hostBe = 'http://192.168.1.4:8443';
 
 // const baseUrl = 'https://192.168.1.239:8443/api/';
 // const baseUrl = 'http://172.16.17.194:8080/api/';
-const baseUrl = 'http://192.168.1.5:8443/api/';
+const baseUrl = 'http://192.168.1.4:8443/api/';
 
 const constant = {
     payment_paid: 1,

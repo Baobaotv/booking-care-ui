@@ -31,10 +31,21 @@ const getAllSheduleIsCompleteByCurrentLogin = async (token) => {
     return response;
 };
 
+const getOneById = async (id, token) => {
+    const response = await fetch(config.baseUrl + 'media/' + id, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(async (response) => await response.json());
+    return response;
+};
+
 const api = {
     deleteById,
     getAllSheduleIsWaitingByCurrentLogin,
     getAllSheduleIsCompleteByCurrentLogin,
+    getOneById,
 };
 
 export default api;

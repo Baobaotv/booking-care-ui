@@ -1,5 +1,6 @@
 import MyCalender from './MyCalender';
 import mediaService from '~/service/MedicalService';
+import bookingService from '~/service/BookingService';
 import { useEffect, useState } from 'react';
 
 function MyCalenderContainer() {
@@ -24,7 +25,21 @@ function MyCalenderContainer() {
         getAllSheduleIsWaitingByCurrentLogin(userInfo.token);
     }, []);
 
-    return <MyCalender completes={sheduleCompletes} waitings={sheduleWaiting}></MyCalender>;
+    const cancelBooking = async (id) => {
+        const userInfo = JSON.parse(localStorage.getItem('token'));
+        let result = await bookingService.cancelBooking(id, userInfo.token);
+        if (result) {
+            alert('Đã huỷ lịch thành công');
+            window.location.reload();
+        } else {
+            alert('Có lỗi xảy ra vui lòng thử lại');
+            window.location.replace('/');
+        }
+    };
+
+    return (
+        <MyCalender completes={sheduleCompletes} waitings={sheduleWaiting} cancelBooking={cancelBooking}></MyCalender>
+    );
 }
 
 export default MyCalenderContainer;

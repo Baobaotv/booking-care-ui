@@ -1,0 +1,166 @@
+.wrapper {
+    margin-top: 73px;
+}
+
+.info-doctor {
+    padding: 10px 15px;
+    background: #f6f6f6;
+}
+
+.wrapper-content {
+    max-width: 700px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.info-doctor-content {
+    display: flex;
+}
+
+.info-doctor-avatar {
+    padding-right: 15px;
+}
+
+.info-doctor-avatar img {
+    border-radius: 50px;
+    width: 100px;
+}
+
+.info-doctor-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+.info-doctor-name {
+    padding-left: 0;
+    color: #45c3d2;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+// info booking schedule
+
+.info-book-schedule {
+    padding-top: 10px;
+}
+
+.info-book-cost {
+    border: 1px solid #f89008;
+    width: 200px;
+    display: block;
+    padding: 10px;
+    box-shadow: 0 0.1rem 2rem 0.5rem rgba(0, 0, 0, 0.05);
+}
+
+.info-book-select-audience {
+    padding: 10px 0 10px 0;
+    display: flex;
+}
+
+.info-book-for-me,
+.info-book-for-other {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+input + label {
+    padding-left: 5px;
+}
+
+.info-book-patient-input-note {
+    color: #666;
+    font-size: 1.3rem;
+    padding-top: 5px;
+}
+
+.info-book-wrapper-input {
+    padding: 5px 0;
+}
+
+.info-book-payment {
+}
+
+.info-book-payment-title {
+    color: #45c3d2;
+    font-weight: 600;
+}
+
+.info-book-payment-content {
+    background: #f6f6f6;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 0px auto;
+}
+
+.info-book-price-medical,
+.info-book-price-book,
+.info-book-total-price {
+    display: flex;
+    margin: 6px 0;
+    justify-content: space-between;
+}
+
+.info-book-note {
+    margin: 5px 0;
+    text-align: center;
+}
+
+.info-book-warning {
+    background: #d4effc;
+    padding: 10px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+}
+
+.info-book-warning-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 5px 0;
+}
+
+.info-book-warning ul {
+    list-style: disc;
+    margin: 10px 0px 10px 25px;
+}
+
+.info-book-btn {
+    background: #45c3d2;
+    color: #fff;
+    border: 1px solid transparent;
+    font-weight: 700;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 4px;
+    text-align: center;
+    padding: 6px 12px;
+
+    &:hover {
+        opacity: 0.8;
+        cursor: pointer;
+    }
+}
+
+.terms-of-use {
+    padding: 10px 0;
+    color: #666;
+    font-size: 1.3rem;
+    line-height: 1.5;
+}
+
+.terms-of-use a {
+    color: #45c3d2;
+    font-style: italic;
+}
+
+.error-msg {
+    color: red;
+    padding: 4px 0;
+}
+
+.title-info {
+    color: #337ab7;
+    font-weight: 600;
+}

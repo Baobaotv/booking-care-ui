@@ -1,5 +1,6 @@
 import config from '~/config';
 
+//not contain wk is sheduled
 const getAllTimeOfDoctorByDate = async (doctorId, date) => {
     const params = {
         'doctor-id': doctorId,
@@ -17,6 +18,17 @@ const getAllTimeOfDoctorByDate = async (doctorId, date) => {
     return response;
 };
 
+// contain wk is sheduled
+const getAllTimeOfDoctor = async (doctorId) => {
+    const response = await fetch(config.baseUrl + 'workTime/get-all-by-doctor?doctor-id=' + doctorId, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(async (response) => await response.json());
+    return response;
+};
+
 const getOneById = async (id) => {
     const response = await fetch(config.baseUrl + 'workTime/' + id, {
         method: 'GET',
@@ -27,9 +39,21 @@ const getOneById = async (id) => {
     return response;
 };
 
+const getAll = async () => {
+    const response = await fetch(config.baseUrl + 'workTime/get-all', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(async (response) => await response.json());
+    return response;
+};
+
 const api = {
     getAllTimeOfDoctorByDate,
+    getAllTimeOfDoctor,
     getOneById,
+    getAll,
 };
 
 export default api;

@@ -20,6 +20,9 @@ import PaymentResponseContainer from '~/pages/PaymentResponse/PaymentResponseCon
 import MyMessageContainer from '~/pages/MyMessage/MyMessageContainer';
 import UpdateProfile from '~/pages/UpdateProfile';
 import MyCalender from '~/pages/MyCalender';
+import DetailCalender from '~/pages/DetailCalender';
+import UpdateBooking from '~/pages/UpdateBooking';
+import UpdateTimeBooking from '~/pages/UpdateTimeBooking';
 
 const publicRoutes = [
     { path: config.routes.home, component: HomeContainer },
@@ -29,6 +32,8 @@ const publicRoutes = [
     { path: config.routes.hospitalDetail, component: DetailHospital },
     { path: config.routes.hospitalDetail, component: DetailHospital },
     { path: config.routes.booking, component: Booking },
+    { path: config.routes.updateBooking, component: UpdateBooking },
+    { path: config.routes.updateTimeBooking, component: UpdateTimeBooking },
     { path: config.routes.handbook, component: Handbook },
     { path: config.routes.handbookList, component: HandbookList },
     { path: config.routes.handbookDetail, component: HandbookDetail },
@@ -42,6 +47,7 @@ const publicRoutes = [
     { path: config.routes.myMessage, component: MyMessageContainer },
     { path: config.routes.updateProfile, component: UpdateProfile },
     { path: config.routes.myCalender, component: MyCalender },
+    { path: config.routes.detailCalender, component: DetailCalender },
 ];
 
 const privateRoutes = [];

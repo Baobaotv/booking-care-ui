@@ -61,6 +61,25 @@ const getDoctorOfSpecialty = async (id, currentPage = config.pageableDefault.pag
     return response;
 };
 
+const getDoctorBySpecialtyIdAndDateAndWorkTimeId = async (specialtyId, workTimeId, date) => {
+    const response = await fetch(
+        config.baseUrl +
+            'user/get-all-by specialty-workTimeId?specialtyId=' +
+            specialtyId +
+            '&workTimeId=' +
+            workTimeId +
+            '&date=' +
+            date,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        },
+    ).then(async (response) => await response.json());
+    return response;
+};
+
 const getDoctorOfHospital = async (id, currentPage = config.pageableDefault.pageDefault) => {
     const response = await fetch(
         config.baseUrl + 'user/hospital/' + id + '?page=' + currentPage + '&size=' + config.pageableDefault.sizeDefault,
@@ -82,6 +101,18 @@ const getDoctorById = async (id, date) => {
             'Content-Type': 'application/json',
         },
     }).then(async (response) => await response.json());
+    return response;
+};
+
+const getDoctorByMedicalId = async (id, token) => {
+    const url = config.baseUrl + 'user/doctor-by-medical/' + id;
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(async (response) => await response);
     return response;
 };
 
@@ -130,6 +161,8 @@ const api = {
     getAllDoctor,
     getInfoCurrentUser,
     updateProfile,
+    getDoctorByMedicalId,
+    getDoctorBySpecialtyIdAndDateAndWorkTimeId,
 };
 
 export default api;
