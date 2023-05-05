@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 
 function ItemHandbookNormal({ data }) {
     return (
-        <Link className={cx('wrapper')} to={config.routes.handbookDetail}>
+        <Link className={cx('wrapper')} to={config.routes.handbookDetail + '?id=' + data.id}>
             <div className={cx('handbook-avatar')}>
                 <img src={!!data ? data.img : images.handbookAvatar} alt="Handbook avatar"></img>
             </div>

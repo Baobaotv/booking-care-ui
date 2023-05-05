@@ -20,6 +20,16 @@ const getFeaturedHandbook = async (body) => {
     return response;
 };
 
+const getOneHandbook = async (id) => {
+    const response = await fetch(config.baseUrl + 'handbook/' + id, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(async (response) => await response.json());
+    return response;
+};
+
 const searchHandbooks = async (
     title,
     specialzedId,
@@ -45,6 +55,7 @@ const api = {
     getListOfRecentHandbook,
     getFeaturedHandbook,
     searchHandbooks,
+    getOneHandbook,
 };
 
 export default api;

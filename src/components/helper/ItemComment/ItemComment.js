@@ -4,24 +4,28 @@ import styles from './ItemComment.module.scss';
 
 const cx = classNames.bind(styles);
 
-function ItemComment() {
+function ItemComment({ data, isSelfComment, deleteComment }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('comment-avatar')}>
-                <img src={images.doctorAvatar} alt="avatar"></img>
+                <img src={!!data ? data.img : images.avatarDefault} alt="avatar"></img>
             </div>
             <div className={cx('comment-info')}>
-                <p className={cx('comment-user-name')}>Bao Quoc</p>
-                <span>Bài viết hay và ý nghĩa quá. Cảm ơn chia sẻ của bác sĩ ạ.</span>
-                <div className={cx('comment-action-wrapper')}>
-                    <span className={cx('comment-action')}>
-                        ...
-                        <div className={cx('comment-action-btns')}>
-                            <p>Ẩn bình luận</p>
-                            <p>Xoá bình luận</p>
-                        </div>
-                    </span>
-                </div>
+                <p className={cx('comment-user-name')}>{!!data ? data.fullName : 'Người dùng'}</p>
+                <span>{!!data ? data.content : 'Bài viết hay và ý nghĩa quá. Cảm ơn chia sẻ của bác sĩ ạ.'}</span>
+                {!!isSelfComment ? (
+                    <div className={cx('comment-action-wrapper')}>
+                        <span className={cx('comment-action')}>
+                            ...
+                            <div className={cx('comment-action-btns')}>
+                                {/* <p>Ẩn bình luận</p> */}
+                                <p onClick={() => deleteComment(data.id)}>Xoá bình luận</p>
+                            </div>
+                        </span>
+                    </div>
+                ) : (
+                    <></>
+                )}
             </div>
         </div>
     );
