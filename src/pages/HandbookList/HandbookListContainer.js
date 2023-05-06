@@ -25,7 +25,7 @@ function HandbookListContainer() {
 
     const onClickSearch = () => {
         optionSearch.current.title = title;
-        optionSearch.current.specialtyId = specialtyId;
+        optionSearch.current.specialtyId = !specialtyId ? '' : specialtyId;
         setCurrentPage(0);
         getHandBook(optionSearch.current.title, optionSearch.current.specialtyId, currentPage);
     };

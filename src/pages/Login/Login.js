@@ -37,6 +37,12 @@ function Login({ type, actionSignIn, actionSignup }) {
                                     placeholder="Mật khẩu của bạn"
                                     type="password"
                                     id="passwordLogin"
+                                    onKeyUp={(e) => {
+                                        if (e.key === 'Enter' || e.keyCode === 13) {
+                                            actionSignIn();
+                                            e.target.value = '';
+                                        }
+                                    }}
                                 ></input>
                             </div>
                             <div className={cx('account-info-action-more')}>

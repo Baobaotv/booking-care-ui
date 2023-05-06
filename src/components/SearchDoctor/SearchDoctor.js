@@ -2,7 +2,17 @@ import classNames from 'classnames/bind';
 import styles from './SearchDoctor.module.scss';
 const cx = classNames.bind(styles);
 
-function SearchDoctor() {
+function SearchDoctor({
+    hospitals,
+    specialtys,
+    doctorName,
+    setDoctorName,
+    hospitalId,
+    setHospitalId,
+    specialtyId,
+    setSpecialtyId,
+    searchDoctor,
+}) {
     return (
         <div className={cx('wrapper')}>
             <h3 className={cx('search-title')}>Tìm kiếm bác sĩ</h3>
@@ -10,28 +20,43 @@ function SearchDoctor() {
                 <div className={cx('search-by-name')}>
                     <label>Tìm kiếm tên bác sĩ</label>
                     <div>
-                        <input placeholder="Tên bệnh viện" className={cx('search-input-name')}></input>
+                        <input
+                            placeholder="Tên bệnh viện"
+                            className={cx('search-input-name')}
+                            value={doctorName}
+                            onChange={(e) => setDoctorName(e.target.value)}
+                        ></input>
                     </div>
                 </div>
                 <div className={cx('search-by-selection')}>
                     <div>
-                        <select>
-                            <option>--Chọn bệnh viện--</option>
-                            <option>Bệnh viện bạch mai</option>
-                            <option>Bệnh viện việt đức</option>
-                            <option>Bệnh viện thận Hà Nôi</option>
-                            <option>Bệnh viện K tân Triều</option>
-                            <option>Bệnh viện quân đội 108</option>
+                        <select onChange={(e) => setHospitalId(e.target.value)} value={!hospitalId ? 0 : hospitalId}>
+                            <option value={0}>--Chọn bệnh viện--</option>
+                            {!!hospitals &&
+                                hospitals.content &&
+                                hospitals.content.map((item) => {
+                                    return (
+                                        <option key={item.id} value={item.id}>
+                                            {item.name}
+                                        </option>
+                                    );
+                                })}
                         </select>
-                        <select>
-                            <option>--Chọn chuyên khoa--</option>
-                            <option>Rằng hàm mặt</option>
-                            <option>Tim mạch</option>
-                            <option>Cơ xương khớp</option>
-                            <option>Nôị tiết</option>
-                            <option>Bệnh viện quân đội 108</option>
+                        <select onChange={(e) => setSpecialtyId(e.target.value)} value={!specialtyId ? 0 : specialtyId}>
+                            <option value={0}>--Chọn chuyên khoa--</option>
+                            {!!specialtys &&
+                                specialtys.content &&
+                                specialtys.content.map((item) => {
+                                    return (
+                                        <option key={item.id} value={item.id}>
+                                            {item.name}
+                                        </option>
+                                    );
+                                })}
                         </select>
-                        <button className={cx('btn-search')}>Tìm kiếm</button>
+                        <button className={cx('btn-search')} onClick={searchDoctor}>
+                            Tìm kiếm
+                        </button>
                     </div>
                 </div>
             </div>
