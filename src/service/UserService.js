@@ -126,6 +126,29 @@ const getAllDoctor = async (currentPage = config.pageableDefault.pageDefault, si
     return response;
 };
 
+const searchDoctor = async (
+    hospitalId,
+    specialtyId,
+    doctorName,
+    currentPage = config.pageableDefault.pageDefault,
+    size = 8,
+) => {
+    const params = {
+        hospitalId: hospitalId,
+        specialtyId: specialtyId,
+        doctorName: doctorName,
+        page: currentPage,
+        size,
+    };
+    const response = await fetch(config.baseUrl + 'user/search-doctor?' + new URLSearchParams(params).toString(), {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(async (response) => await response.json());
+    return response;
+};
+
 const getInfoCurrentUser = async (token) => {
     const response = await fetch(config.baseUrl + 'current-login', {
         method: 'GET',
@@ -163,6 +186,7 @@ const api = {
     updateProfile,
     getDoctorByMedicalId,
     getDoctorBySpecialtyIdAndDateAndWorkTimeId,
+    searchDoctor,
 };
 
 export default api;

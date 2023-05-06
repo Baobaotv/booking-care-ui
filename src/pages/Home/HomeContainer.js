@@ -4,10 +4,12 @@ import userService from '~/service/UserService';
 import hospitalService from '~/service/HospitalService';
 import specialtyService from '~/service/SpecialtyService';
 import messageService from '~/service/MessageService';
+import searchAllService from '~/service/SearchAllService';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
 import { useEffect, useState } from 'react';
 import config from '~/config';
+import { useDebounce } from '~/hooks';
 let stompClient = null;
 
 function HomeContainer() {
@@ -17,6 +19,7 @@ function HomeContainer() {
     const [listSpecialtyFeatured, setListSpecialtyFeatured] = useState([]);
     const [listDoctorFeatured, setListDoctorFeatured] = useState([]);
     const [listHandbookFeatured, setListHandbookFeatured] = useState([]);
+
     const [messages, setMessages] = useState([]);
     const [isShowMessage, setIsShowMessage] = useState(false);
     const userInfo = JSON.parse(localStorage.getItem('token'));

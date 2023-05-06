@@ -9,6 +9,7 @@ import ItemSpecialtySmall from '~/components/Handbook/ItemSpecialtySmall';
 import LinkToPage from '~/components/helper/LinkToPage';
 import ServiceItemHandbook from '~/components/ServiceItemHandbook';
 import SlickButton from '~/components/SlickButton/SlickButton';
+import config from '~/config';
 import styles from './Handbook.module.scss';
 
 const cx = classNames.bind(styles);
@@ -21,7 +22,17 @@ function Handbook({ recentHandbooks, featuredHandbooks, specialties }) {
                 <div className={cx('handbook-title')}>
                     <h2>Bài viết mới nhất</h2>
                     <div className={cx('handbook-title-search')}>
-                        <input placeholder="Tìm kiếm bài viết"></input>
+                        <input
+                            placeholder="Tìm kiếm bài viết"
+                            onKeyUp={(e) => {
+                                if (e.key === 'Enter' || e.keyCode === 13) {
+                                    let title = e.target.value;
+                                    window.location.replace(
+                                        config.routes.handbookList + '?title=' + encodeURIComponent(title),
+                                    );
+                                }
+                            }}
+                        ></input>
                         <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
                     </div>
                 </div>

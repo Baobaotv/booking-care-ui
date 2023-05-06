@@ -138,3 +138,71 @@ div:has(> .search-result) {
     margin: 0;
     padding: 5px;
 }
+
+.clear {
+    background-color: transparent;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.loading {
+    position: absolute;
+    color: rgba(22, 24, 35, 0.34);
+    right: 52px + 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.loading {
+    animation: sprinner 1s linear infinite;
+}
+
+// Css element search
+.search-element {
+    height: 120px;
+}
+
+.search-element-content {
+    display: flex;
+    padding: 3px;
+}
+
+.search-element .img-item {
+    width: 100px;
+    height: 90px;
+    flex: 1;
+}
+
+.search-element .content {
+    flex: 3;
+    padding-left: 6px;
+}
+
+.search-element .img-item .avatar {
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+}
+
+.search-element .content .title {
+    font-size: 1.6rem;
+    color: black;
+    margin: 0px;
+}
+
+.search-element .content .desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: 1.2rem;
+    color: rgb(40, 49, 63);
+}
+
+.search-element .content .desc * {
+    font-size: 1.2rem !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+}

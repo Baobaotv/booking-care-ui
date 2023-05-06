@@ -6,16 +6,43 @@ import hospitalService from '~/service/HospitalService';
 function HospitalContainer() {
     const [currentPage, setCurrentPage] = useState(config.pageableDefault.pageDefault);
     const [hospitals, setHospitals] = useState([]);
+    const [name, setName] = useState('');
+    const [typeSearch, setTypeSearch] = useState('');
+
+    const getAllHospital = async () => {
+        const result = await hospitalService.getAllHospital(currentPage).then((response) => response);
+        setHospitals(result);
+    };
 
     useEffect(() => {
-        const getAllHospital = async () => {
-            const result = await hospitalService.getAllHospital(currentPage).then((response) => response);
-            setHospitals(result);
-        };
-        getAllHospital();
+        if (!typeSearch) {
+            getAllHospital();
+        }
+        if (typeSearch === 'NAME') {
+            searchAllByName();
+        }
     }, [currentPage]);
 
-    return <Hospital hospitals={hospitals} onClickPage={setCurrentPage}></Hospital>;
+    const searchAllByName = async () => {
+        const result = await hospitalService.searchAllByName(name, currentPage).then((response) => response);
+        setHospitals(result);
+    };
+
+    const onClickSearchByName = () => {
+        setCurrentPage(config.pageableDefault.pageDefault);
+        searchAllByName();
+    };
+
+    return (
+        <Hospital
+            hospitals={hospitals}
+            onClickPage={setCurrentPage}
+            searchAllByName={onClickSearchByName}
+            name={name}
+            setName={setName}
+            setTypeSearch={setTypeSearch}
+        ></Hospital>
+    );
 }
 
 export default HospitalContainer;

@@ -108,10 +108,6 @@ function DetailHospital({ hospital, doctorsBooking, onClickPage }) {
                                             ></ServiceItemDoctor>
                                         );
                                     })}
-                                {/* <ServiceItemDoctor></ServiceItemDoctor>
-                                <ServiceItemDoctor></ServiceItemDoctor>
-                                <ServiceItemDoctor></ServiceItemDoctor>
-                                <ServiceItemDoctor></ServiceItemDoctor> */}
                             </div>
                             <div className={cx('hospital-description')}>
                                 <div className={cx('hospital-description-title')}>
@@ -137,7 +133,7 @@ function DetailHospital({ hospital, doctorsBooking, onClickPage }) {
                                         </p>
                                         <ul>
                                             <li>Sáng: Từ 7h30 – 12h00</li>
-                                            <li>Chiều: Từ 13h30 – 16h30</li>
+                                            <li>Chiều: Từ 13h30 – 17h30</li>
                                         </ul>
                                         <p>
                                             <strong>Hình thức thanh toán:&nbsp;</strong>Tiền mặt, Thẻ ngân hàng
@@ -156,6 +152,7 @@ function DetailHospital({ hospital, doctorsBooking, onClickPage }) {
                                     <h3>Vị trí</h3>
                                 </div>
                                 <div className={cx('hospital-location-content')}>
+                                    <div className={cx('map')}></div>
                                     <iframe
                                         title={'Vị trí bệnh viện'}
                                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.3622390355554!2d105.77969978778145!3d21.018187148909558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454ab43c0c4db%3A0xdb6effebd6991106!2sKeangnam%20Landmark%20Tower%2072!5e0!3m2!1sen!2s!4v1677772591187!5m2!1sen!2s"
@@ -183,11 +180,6 @@ function DetailHospital({ hospital, doctorsBooking, onClickPage }) {
                                 doctorsBooking.content.map((item, index) => {
                                     return <InfoDoctorAndBooking data={item} key={index}></InfoDoctorAndBooking>;
                                 })}
-                            {/* <InfoDoctorAndBooking></InfoDoctorAndBooking>
-                            <InfoDoctorAndBooking></InfoDoctorAndBooking>
-                            <InfoDoctorAndBooking></InfoDoctorAndBooking>
-                            <InfoDoctorAndBooking></InfoDoctorAndBooking>
-                            <InfoDoctorAndBooking></InfoDoctorAndBooking> */}
                         </div>
                         <Pagination
                             totalPages={!!doctorsBooking && doctorsBooking.totalPages}

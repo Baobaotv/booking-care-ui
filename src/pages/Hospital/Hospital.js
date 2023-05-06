@@ -7,12 +7,17 @@ import SearchHospital from '~/components/SearchHospital/SearchHospital';
 
 const cx = classNames.bind(styles);
 
-function Hospital({ hospitals, onClickPage }) {
+function Hospital({ hospitals, onClickPage, searchAllByName, name, setName, setTypeSearch }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('grid', 'wide')}>
                 <LinkToPage title={'Cơ sở y tế'}></LinkToPage>
-                <SearchHospital></SearchHospital>
+                <SearchHospital
+                    searchAllByName={searchAllByName}
+                    name={name}
+                    setName={setName}
+                    setTypeSearch={setTypeSearch}
+                ></SearchHospital>
                 <div className={cx('hospital_column')}>
                     {!!hospitals.content &&
                         hospitals.content.map((item, index) => {

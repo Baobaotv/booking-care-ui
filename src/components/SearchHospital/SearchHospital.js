@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './SearchHospital.module.scss';
 const cx = classNames.bind(styles);
 
-function SearchHospital() {
+function SearchHospital({ searchAllByName, name, setName, setTypeSearch }) {
     return (
         <div className={cx('wrapper')}>
             <h3 className={cx('search-title')}>Tìm kiếm</h3>
@@ -10,8 +10,18 @@ function SearchHospital() {
                 <div className={cx('search-by-name')}>
                     <label>Tìm kiếm tên bệnh viện</label>
                     <div>
-                        <input placeholder="Tên bệnh viện" className={cx('search-input-name')}></input>
-                        <button className={cx('btn-search')}>Tìm kiếm</button>
+                        <input
+                            placeholder="Tên bệnh viện"
+                            className={cx('search-input-name')}
+                            value={name}
+                            onChange={(e) => {
+                                setTypeSearch('NAME');
+                                setName(e.target.value);
+                            }}
+                        ></input>
+                        <button className={cx('btn-search')} onClick={searchAllByName}>
+                            Tìm kiếm
+                        </button>
                     </div>
                 </div>
                 <div className={cx('search-by-location')}>
