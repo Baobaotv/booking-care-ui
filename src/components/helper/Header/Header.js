@@ -75,8 +75,8 @@ function Header() {
                                         <div className={cx('update__Thongtin')}>
                                             <ul className={cx('list__thongtin')}>
                                                 <li className={cx('thongtin__item')}>
-                                                    <a href="/admin/home">Chuyển tới giao diện admin</a>
-                                                    <a href="/doctor/home">Chuyển tới giao diện doctor</a>
+                                                    <Link to="/admin/home">Chuyển tới giao diện admin</Link>
+                                                    <Link to="/doctor/home">Chuyển tới giao diện doctor</Link>
                                                 </li>
                                             </ul>
                                         </div>
