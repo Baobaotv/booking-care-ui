@@ -1,0 +1,39 @@
+.wrapper {
+    display: flex;
+    padding: 10px 5px;
+    box-shadow: 0 0.1rem 2rem 0.5rem rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+    &:hover .handbook-title {
+        color: #45c3d2;
+    }
+}
+
+.wrapper-img {
+    width: 250px;
+    height: 150px;
+}
+
+.hospital-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    padding-right: 10px;
+}
+
+.handbook-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    padding-bottom: 4px;
+}
+// .handbook-description * {
+//     font: 14px/1.5 'Montserrat', sans-serif !important;
+// }
+
+.handbook-content {
+    padding-left: 10px;
+    color: #333;
+}
+
+.handbook-content * {
+    padding: 2px;
+}

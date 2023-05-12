@@ -16,8 +16,6 @@ function Map({ lat, lng }) {
 
     function directionsCallback(response) {
         console.log(response);
-        console.log('callback');
-
         if (response !== null) {
             if (response.status === 'OK') {
                 setResponse(response);

@@ -39,6 +39,23 @@ const searchAllByName = async (name, page = config.pageableDefault.pageDefault, 
     return response;
 };
 
+const getNearbyHospital = async (lat, lng) => {
+    const params = {
+        lat: lng,
+        lng: lat,
+    };
+    const response = await fetch(
+        config.baseUrl + 'hospital/get-nearby-hospital?' + new URLSearchParams(params).toString(),
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        },
+    ).then(async (response) => await response.json());
+    return response;
+};
+
 const getOneHospitalById = async (id) => {
     const response = await fetch(config.baseUrl + 'hospital/' + id, {
         method: 'GET',
@@ -54,6 +71,7 @@ const api = {
     getAllHospital,
     getOneHospitalById,
     searchAllByName,
+    getNearbyHospital,
 };
 
 export default api;

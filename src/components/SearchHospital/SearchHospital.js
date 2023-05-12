@@ -1,8 +1,16 @@
 import classNames from 'classnames/bind';
+import { useLoadScript } from '@react-google-maps/api';
+import SearchByDirection from '../SearchByDirection';
 import styles from './SearchHospital.module.scss';
 const cx = classNames.bind(styles);
 
-function SearchHospital({ searchAllByName, name, setName, setTypeSearch }) {
+function SearchHospital({ searchAllByName, name, setName, setTypeSearch, setHospitals }) {
+    const { isLoaded } = useLoadScript({
+        googleMapsClientId: 'gme-mitsuifudosanrealty',
+        region: 'VI',
+        language: 'vi',
+        libraries: ['places'],
+    });
     return (
         <div className={cx('wrapper')}>
             <h3 className={cx('search-title')}>Tìm kiếm</h3>
@@ -24,17 +32,23 @@ function SearchHospital({ searchAllByName, name, setName, setTypeSearch }) {
                         </button>
                     </div>
                 </div>
-                <div className={cx('search-by-location')}>
-                    <label>Tìm kiếm theo vị trí hiện tại </label>
-                    <div className={cx('search-by-location-address')}>
+                {!!isLoaded && (
+                    <div className={cx('search-by-location')}>
+                        <label>Tìm kiếm theo vị trí hiện tại </label>
+                        <SearchByDirection
+                            setTypeSearch={setTypeSearch}
+                            setHospitals={setHospitals}
+                        ></SearchByDirection>
+                        {/* <div className={cx('search-by-location-address')}>
                         <input placeholder="Tên bệnh viện" className={cx('search-input-address')}></input>
-                    </div>
-                    <div>
+                    </div> */}
+                        {/* <div>
                         <input placeholder="Kinh độ " className={cx('search-input-lat')}></input>
                         <input placeholder="Vĩ độ " className={cx('search-input-lon')}></input>
                         <button className={cx('btn-search')}>Tìm kiếm</button>
+                    </div> */}
                     </div>
-                </div>
+                )}
             </div>
         </div>
     );

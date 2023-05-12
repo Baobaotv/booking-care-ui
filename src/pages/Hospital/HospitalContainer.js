@@ -41,6 +41,8 @@ function HospitalContainer() {
             name={name}
             setName={setName}
             setTypeSearch={setTypeSearch}
+            setHospitals={setHospitals}
+            typeSearch={typeSearch}
         ></Hospital>
     );
 }

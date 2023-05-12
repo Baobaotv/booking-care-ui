@@ -7,9 +7,8 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import InfoDoctorAndBooking from '~/components/InfoDoctorAndBooking';
 import Pagination from '~/components/helper/Pagination';
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { useLoadScript } from '@react-google-maps/api';
 import Map from '~/components/Map/Map';
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 const cx = classNames.bind(styles);
 
@@ -165,7 +164,7 @@ function DetailHospital({ hospital, doctorsBooking, onClickPage }) {
                                         {!isLoaded ? (
                                             <div>Loading...</div>
                                         ) : (
-                                            <Map lat={hospital.latitude} lng={hospital.longitude}></Map>
+                                            !!hospital && <Map lat={hospital.latitude} lng={hospital.longitude}></Map>
                                         )}
                                     </div>
                                 </div>
