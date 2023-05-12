@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import InfoDoctorAndBooking from '~/components/InfoDoctorAndBooking';
 import Pagination from '~/components/helper/Pagination';
+import { useLoadScript } from '@react-google-maps/api';
+import Map from '~/components/Map/Map';
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +17,12 @@ const ACTION_BOOK_SCHEDULE = 2;
 
 function DetailHospital({ hospital, doctorsBooking, onClickPage }) {
     const [action, setAction] = useState(ACTION_SHOW_INTRODUCE);
+    const { isLoaded } = useLoadScript({
+        googleMapsClientId: 'gme-mitsuifudosanrealty',
+        region: 'VI',
+        language: 'vi',
+        libraries: ['places'],
+    });
 
     return (
         <div className={cx('wrapper')}>
@@ -152,14 +160,13 @@ function DetailHospital({ hospital, doctorsBooking, onClickPage }) {
                                     <h3>Vị trí</h3>
                                 </div>
                                 <div className={cx('hospital-location-content')}>
-                                    <div className={cx('map')}></div>
-                                    <iframe
-                                        title={'Vị trí bệnh viện'}
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.3622390355554!2d105.77969978778145!3d21.018187148909558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454ab43c0c4db%3A0xdb6effebd6991106!2sKeangnam%20Landmark%20Tower%2072!5e0!3m2!1sen!2s!4v1677772591187!5m2!1sen!2s"
-                                        width={'800'}
-                                        height={'450'}
-                                        style={{ border: 0 }}
-                                    ></iframe>
+                                    <div className={cx('map')}>
+                                        {!isLoaded ? (
+                                            <div>Loading...</div>
+                                        ) : (
+                                            !!hospital && <Map lat={hospital.latitude} lng={hospital.longitude}></Map>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
