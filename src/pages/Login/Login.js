@@ -9,7 +9,24 @@ import styles from './Login.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Login({ type, actionSignIn, actionSignup }) {
+function Login({
+    type,
+    actionSignIn,
+    actionSignup,
+    fullName,
+    setFullName,
+    phone,
+    setPhone,
+    password,
+    setPassword,
+    passwordConfirm,
+    setPasswordConfirm,
+    email,
+    setEmail,
+    userName,
+    setUserName,
+    validateMSG,
+}) {
     const [account, setAccount] = useState(type);
 
     return (
@@ -56,7 +73,7 @@ function Login({ type, actionSignIn, actionSignup }) {
                 </div>
                 <div className={cx('account-information')}>
                     <div className={cx('account-information-content')}>
-                        <h3 className={cx('account-title')}>Đăng nhập vào Bookingcare</h3>
+                        <h3 className={cx('account-title')}>Đăng kí vào Bookingcare</h3>
                         <p className={cx('account-desc')}>
                             Chăm sóc sức khỏe ngày hôm nay cho tôi hy vọng tươi sáng hơn vào ngày mai
                         </p>
@@ -66,25 +83,52 @@ function Login({ type, actionSignIn, actionSignup }) {
                                 <input
                                     className={cx('account-info-input-input')}
                                     placeholder="Họ và tên"
+                                    value={fullName}
+                                    onChange={(e) => setFullName(e.target.value)}
                                     id="fullNameSignUp"
                                 ></input>
+                                {!!validateMSG && !!validateMSG.fullName && (
+                                    <p className={cx('error-msg')}>{validateMSG.fullName}</p>
+                                )}
                             </div>
                             <div className={cx('account-info-input')}>
                                 <label className={cx('account-info-title')}>Email</label>
                                 <input
                                     className={cx('account-info-input-input')}
                                     placeholder="Nhập email của bạn"
-                                    type="password"
+                                    type="text"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     id="emailSignUp"
                                 ></input>
+                                {!!validateMSG && !!validateMSG.email && (
+                                    <p className={cx('error-msg')}>{validateMSG.email}</p>
+                                )}
                             </div>
                             <div className={cx('account-info-input')}>
                                 <label className={cx('account-info-title')}>Số điện thoại</label>
                                 <input
                                     className={cx('account-info-input-input')}
                                     placeholder="Nhập số điện thoại của bạn"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
                                     id="phoneSignUp"
                                 ></input>
+                                {!!validateMSG && !!validateMSG.phone && (
+                                    <p className={cx('error-msg')}>{validateMSG.phone}</p>
+                                )}
+                            </div>
+                            <div className={cx('account-info-input')}>
+                                <label className={cx('account-info-title')}>Tên đăng nhập</label>
+                                <input
+                                    className={cx('account-info-input-input')}
+                                    placeholder="Nhập tên đăng nhập của bạn"
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
+                                ></input>
+                                {!!validateMSG && !!validateMSG.userName && (
+                                    <p className={cx('error-msg')}>{validateMSG.userName}</p>
+                                )}
                             </div>
                             <div className={cx('account-info-input')}>
                                 <label className={cx('account-info-title')}>Mật khẩu</label>
@@ -92,8 +136,13 @@ function Login({ type, actionSignIn, actionSignup }) {
                                     className={cx('account-info-input-input')}
                                     placeholder="Nhập mật khẩu"
                                     type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     id="passwordSignUp"
                                 ></input>
+                                {!!validateMSG && !!validateMSG.password && (
+                                    <p className={cx('error-msg')}>{validateMSG.password}</p>
+                                )}
                             </div>
                             <div className={cx('account-info-input')}>
                                 <label className={cx('account-info-title')}>Xác nhận mật khẩu</label>
@@ -101,13 +150,20 @@ function Login({ type, actionSignIn, actionSignup }) {
                                     className={cx('account-info-input-input')}
                                     placeholder="Xác nhận mật khẩu"
                                     type="password"
+                                    value={passwordConfirm}
+                                    onChange={(e) => setPasswordConfirm(e.target.value)}
                                 ></input>
+                                {!!validateMSG && !!validateMSG.passwordConfirm && (
+                                    <p className={cx('error-msg')}>{validateMSG.passwordConfirm}</p>
+                                )}
                             </div>
                             <div className={cx('account-info-action-more')}>
                                 <Link to={config.routes.forgotPassword}>Quên mật khẩu</Link>
                             </div>
                         </div>
-                        <button className={cx('account-info-btn')}>Đăng kí</button>
+                        <button className={cx('account-info-btn')} onClick={actionSignup}>
+                            Đăng kí
+                        </button>
                     </div>
                 </div>
             </div>

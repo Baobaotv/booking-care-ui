@@ -7,7 +7,7 @@ const signIn = async (body) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
-    }).then(async (response) => await response.json());
+    }).then(async (response) => await response);
     return response;
 };
 
@@ -18,8 +18,8 @@ const signup = async (body) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
-    }).then((response) => response.json());
-    return response.data;
+    }).then(async (response) => await response);
+    return response;
 };
 
 const getListDoctorOnline = async (body) => {

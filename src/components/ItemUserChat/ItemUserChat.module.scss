@@ -11,17 +11,18 @@
 }
 
 .wrapper.selected {
-    background-color: rgb(234,243,255);
+    background-color: rgb(234, 243, 255);
 }
 
 .avatar-user {
     border-radius: 50%;
     height: 45px;
+    width: 45px;
     border: 1px solid #ccc;
 }
 
 .info-user-status {
-    color: rgb(0,132,255);
+    color: rgb(0, 132, 255);
     font-size: 1.2rem;
 }
 
@@ -42,4 +43,9 @@
     font-size: 1.3rem;
     font-weight: 500;
     opacity: 0.6;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }

@@ -59,6 +59,7 @@ function DoctorDetail({ doctor }) {
                                               date={date}
                                               doctorId={doctor.id}
                                               workTimeId={item.id}
+                                              isFree={true}
                                           ></ButtonBooking>
                                       );
                                   })
@@ -70,6 +71,7 @@ function DoctorDetail({ doctor }) {
                                               workTimeId={item.id}
                                               key={index}
                                               date={date}
+                                              isFree={true}
                                               title={item.name + '(' + item.time + ')'}
                                           ></ButtonBooking>
                                       );

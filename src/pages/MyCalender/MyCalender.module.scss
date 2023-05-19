@@ -41,6 +41,11 @@ td {
     padding: 1.5rem !important;
 }
 
+td.td-action {
+    display: flex;
+    align-items: center;
+}
+
 .btn-action {
     font-size: 1.6rem;
     padding: 8px;
@@ -50,10 +55,22 @@ td {
     }
 }
 
+.link-action {
+    height: 30px !important;
+    display: inline-block;
+}
+
 .btn-action + .btn-action {
     border-left: 1px solid rgba($color: #000000, $alpha: 0.3);
 }
 
+.link-action + .btn-action {
+    border-left: 1px solid rgba($color: #000000, $alpha: 0.3);
+}
+
+.link-action + a {
+    border-left: 1px solid rgba($color: #000000, $alpha: 0.3);
+}
 // Css Dialog
 
 .wrapper-dialog {

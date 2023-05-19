@@ -6,7 +6,24 @@ import workTimeService from '~/service/WorkTimeService';
 import paymentService from '~/service/PaymentService';
 import { useSearchParams } from 'react-router-dom';
 import config from '~/config/config';
+import SockJS from 'sockjs-client';
+import { over } from 'stompjs';
+let stompClient = null;
 
+function connectSockJs() {
+    const connect = () => {
+        let socket = new SockJS(config.hostBe + '/ws');
+        stompClient = over(socket);
+        stompClient.connect({}, onConnected, onError);
+    };
+
+    const onConnected = () => {};
+
+    function onError() {
+        console.log('Connect socket to receive comment is fail');
+    }
+    connect();
+}
 function BookingContainer() {
     const [searchParams] = useSearchParams();
     const [user, setUser] = useState();
@@ -25,7 +42,7 @@ function BookingContainer() {
     const yearOfBirth = useRef();
     const type = useRef();
     const amount = useRef();
-    const [typeCheckHealth, setTypeCheckHealth] = useState();
+    const [typeCheckHealth, setTypeCheckHealth] = useState('off');
     const [typePay, setTypePay] = useState();
     const [typePersonSchedule, setTypePersonSchedule] = useState('forMe');
     const [typeSex, setTypeSex] = useState('Name');
@@ -52,11 +69,21 @@ function BookingContainer() {
         const body = getBodyBooking(form.current);
         const userInfo = JSON.parse(localStorage.getItem('token'));
         if (typePay === 'ON') {
-            handleBookingAndCreatePayment(body, userInfo.token, userInfo.username);
+            handleBookingAndCreatePayment(body, userInfo.token, userInfo.username, userInfo.id);
         } else {
             handleBooking(body, userInfo.token);
         }
     };
+
+    function sendNotification(body, userId) {
+        let notificationForm = {
+            doctorId: body.idDoctor,
+            userId: userId,
+            wkTime: workTime.time,
+            date: body.date,
+        };
+        stompClient.send('/app/notification', {}, JSON.stringify(notificationForm));
+    }
 
     const isLogin = () => {
         if (!localStorage.getItem('token')) {
@@ -66,10 +93,11 @@ function BookingContainer() {
         return true;
     };
 
-    const handleBookingAndCreatePayment = async (body, token, username) => {
+    const handleBookingAndCreatePayment = async (body, token, username, userId) => {
         const result = await bookingService.booking(body, token).then((response) => response);
         if (result) {
             localStorage.setItem(username + '_booking_id', result);
+            sendNotification(body, userId);
             createPayment();
         } else {
             alert('Đã xảy ra lỗi trong quá trình đặt lịch, xin vui lòng thực hiện lại');
@@ -80,7 +108,7 @@ function BookingContainer() {
         const result = await bookingService.booking(body, token).then((response) => response);
         if (result) {
             alert('Đã đặt lịch thành công');
-            window.replace('/');
+            window.location.replace('/');
         } else {
             alert('Đã xảy ra lỗi trong quá trình đặt lịch, xin vui lòng thực hiện lại');
         }
@@ -114,17 +142,34 @@ function BookingContainer() {
             }
             if (!form.phoneScheduer.current.value) {
                 msg.phoneScheduer = 'Vui lòng nhập thông tin';
+            } else {
+                const regexPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+                if (!form.phoneScheduer.current.value.match(regexPhoneNumber)) {
+                    msg.phoneScheduer = 'Số điện thoại không đúng, vui lòng nhập lại';
+                }
             }
         }
+
         if (!form.namePatient.current.value) {
             msg.namePatient = 'Hãy ghi rõ Họ Và Tên, viết hoa những chữ cái đầu tiên, ví dụ: Trần Văn Phú';
         }
         if (!form.phonePatient.current.value) {
             msg.phonePatient = 'Vui lòng nhập thông tin';
+        } else {
+            const regexPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+            if (!form.phonePatient.current.value.match(regexPhoneNumber)) {
+                msg.phonePatient = 'Số điện thoại không đúng, vui lòng nhập lại';
+            }
         }
         if (!form.yearOfBirth.current.value) {
             msg.yearOfBirth = 'Vui lòng nhập thông tin';
+        } else {
+            let regex = /(?:19|20)\d\d/;
+            if (!regex.test(Number(form.yearOfBirth.current.value))) {
+                msg.yearOfBirth = 'Năm sinh không đúng, vui lòng nhập lại';
+            }
         }
+
         if (!form.location.current.value) {
             msg.location = 'Vui lòng nhập thông tin';
         }
@@ -158,6 +203,7 @@ function BookingContainer() {
             setWorkTime(result);
         };
         getWorkTimeById(searchParams.get('work-time-id'));
+        connectSockJs();
     }, []);
 
     return (
