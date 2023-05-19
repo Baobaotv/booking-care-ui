@@ -24,6 +24,7 @@ function UpdateProfileContainer() {
     useEffect(() => {
         const getCurrentUser = async (token) => {
             const result = await userService.getInfoCurrentUser(token).then((response) => response);
+            console.log(result);
             fullName.current.value = result.name;
             phone.current.value = result.phone;
             email.current.value = result.email;

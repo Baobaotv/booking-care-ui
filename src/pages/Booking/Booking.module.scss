@@ -18,12 +18,16 @@
 }
 
 .info-doctor-avatar {
-    padding-right: 15px;
+    margin-right: 15px;
+    width: 90px;
+    height: 90px;
 }
 
 .info-doctor-avatar img {
     border-radius: 50px;
-    width: 100px;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }
 
 .info-doctor-title {

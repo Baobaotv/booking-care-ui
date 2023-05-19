@@ -12,7 +12,7 @@ function PaymentResponseContainer() {
     const [statusPayment, setStatusPayment] = useState();
     const [messagePayment, setMessagePayment] = useState();
     useEffect(() => {
-        var search = location.search.substring(1);
+        let search = location.search.substring(1);
         let bodyPayment = JSON.parse(
             '{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}',
         );
@@ -20,30 +20,34 @@ function PaymentResponseContainer() {
         const bookingId = JSON.parse(localStorage.getItem(userInfo.username + '_booking_id'));
         bodyPayment['medicalId'] = bookingId;
         bodyPayment['createdById'] = userInfo.id;
+        bodyPayment['paymentReturnUrl'] = window.location.href;
 
-        if (bodyPayment['vnp_ResponseCode'] === '00') {
-            savePayment(bodyPayment, userInfo.token);
-            setStatusPayment(config.constant.payment_paid);
-        } else if (bodyPayment['vnp_ResponseCode'] === '24') {
-            deleteMedicalById(bookingId, userInfo.token);
-            setStatusPayment(config.constant.payment_error);
-            setMessagePayment('Giao dịch thất bại do quý khác đã hủy giao dịch, quý khách xin vui lòng đặt lại lịch khám.');
-        } else {
-            setStatusPayment(config.constant.payment_error);
-            setMessagePayment('Đã xảy ra lỗi trong quá trình giao dịch, quý khách vui lòng thực hiện thanh toán lịch khám mới')
-        }
+        checkPaymentReturn(bodyPayment, userInfo.token);
     }, []);
 
-    const savePayment = async (body, token) => {
-        const result = await paymentService.savePayment(body, token).then((response) => response);
-        setPaymentResponse(result);
+    const checkPaymentReturn = async (body, token) => {
+        const result = await paymentService.checkPaymentReturn(body, token).then((response) => response);
+        console.log(result);
+        if (result.status !== config.constant.payment_paid) {
+            setStatusPayment(result.status);
+            if (result.status === -1) {
+                setMessagePayment('Giao dịch không hợp lệ, quý khách vui lòng thực hiện lại');
+            } else {
+                setMessagePayment('Giao dịch thất bại, quý khách vui lòng thực hiện thanh toán lịch khám mới');
+            }
+        } else {
+            setStatusPayment(result.status);
+            setPaymentResponse(result.data);
+        }
     };
 
-    const deleteMedicalById = async (id, token) => {
-        const result = await mediacalService.deleteById(id, token).then((response) => response);
-    }
-
-    return <PaymentResponse paymentResponse={paymentResponse} statusPayment= {statusPayment} messagePayment={messagePayment}></PaymentResponse>;
+    return (
+        <PaymentResponse
+            paymentResponse={paymentResponse}
+            statusPayment={statusPayment}
+            messagePayment={messagePayment}
+        ></PaymentResponse>
+    );
 }
 
 export default PaymentResponseContainer;

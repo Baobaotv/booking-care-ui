@@ -1,4 +1,4 @@
-import { faCakeCandles, faCalendar, faCancel, faCircleInfo, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faCancel, faCircleInfo, faCreditCard, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dialog } from '@headlessui/react';
 import classNames from 'classnames/bind';
@@ -26,7 +26,7 @@ function MyCalender({ completes, waitings, cancelBooking }) {
                                     <th>{'Chuyên khoa'}</th>
                                     <th>{'Bác sĩ khám'}</th>
                                     <th>{'Hình thức khám'}</th>
-                                    <th>{'Ngày đặt lịch khám'}</th>
+                                    <th>{'Trạng thái thanh toán'}</th>
                                     <th>{'Thao tác'}</th>
                                 </tr>
                             </thead>
@@ -39,10 +39,13 @@ function MyCalender({ completes, waitings, cancelBooking }) {
                                                 <td>{item.doctor.specializedName}</td>
                                                 <td>{item.doctor.name}</td>
                                                 <td>{item.type}</td>
-                                                <td>{item.createdDate}</td>
-
                                                 <td>
+                                                    {item.statusPayment === 1 ? 'Đã thanh toán' : 'Chưa thanh toán'}
+                                                </td>
+
+                                                <td className={cx('td-action')}>
                                                     <Link
+                                                        className={cx('link-action')}
                                                         to={config.routes.detailCalender + '?id=' + item.id}
                                                         title={'Chi tiết ca khám'}
                                                     >
@@ -52,6 +55,7 @@ function MyCalender({ completes, waitings, cancelBooking }) {
                                                         ></FontAwesomeIcon>
                                                     </Link>
                                                     <Link
+                                                        className={cx('link-action')}
                                                         to={config.routes.updateBooking + '?id=' + item.id}
                                                         title={'Cập nhật thông tin ca khám'}
                                                     >
@@ -61,6 +65,7 @@ function MyCalender({ completes, waitings, cancelBooking }) {
                                                         ></FontAwesomeIcon>
                                                     </Link>
                                                     <Link
+                                                        className={cx('link-action')}
                                                         to={
                                                             config.routes.updateTimeBooking +
                                                             '?id=' +
@@ -75,6 +80,7 @@ function MyCalender({ completes, waitings, cancelBooking }) {
                                                             className={cx('btn-action')}
                                                         ></FontAwesomeIcon>
                                                     </Link>
+
                                                     <FontAwesomeIcon
                                                         title={'Huỷ ca khám'}
                                                         icon={faCancel}
@@ -84,12 +90,23 @@ function MyCalender({ completes, waitings, cancelBooking }) {
                                                             setIsOpen(true);
                                                         }}
                                                     ></FontAwesomeIcon>
+                                                    {item.statusPayment !== 1 && (
+                                                        <FontAwesomeIcon
+                                                            title={'Thanh toán'}
+                                                            icon={faCreditCard}
+                                                            className={cx('btn-action')}
+                                                            onClick={() => {
+                                                                setMedicalId(item.id);
+                                                                setIsOpen(true);
+                                                            }}
+                                                        ></FontAwesomeIcon>
+                                                    )}
                                                 </td>
                                             </tr>
                                         );
                                     })
                                 ) : (
-                                    <tr> Khong</tr>
+                                    <tr> Không có ca khám</tr>
                                 )}
                             </tbody>
                         </table>

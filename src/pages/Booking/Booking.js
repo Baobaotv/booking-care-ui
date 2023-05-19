@@ -46,8 +46,8 @@ function Booking({
                         <label className={cx('info-book-cost')}>
                             <input type="radio" checked="checked" name="price" value="54" readOnly />
                             <span>Giá khám</span>
-                            <div>300.000đ</div>
-                            <input type={'hidden'} value={'300000'} ref={form.current.amount} />
+                            <div>{!!user && user.examinationPrice}</div>
+                            <input type={'hidden'} ref={form.current.amount} value={!!user && user.examinationPrice} />
                         </label>
                     </div>
                     <div className={cx('info-book-select-audience')}>
@@ -188,8 +188,8 @@ function Booking({
                                 <input
                                     type={'radio'}
                                     name="checkHealth"
-                                    checked={typeCheckHealth === 'OFF'}
-                                    onChange={() => onChangeCheckHealth('OFF')}
+                                    checked={typeCheckHealth === 'off'}
+                                    onChange={() => onChangeCheckHealth('off')}
                                 ></input>
                                 <label>Khám tại cơ sở y tế</label>
                             </div>
@@ -197,9 +197,9 @@ function Booking({
                                 <input
                                     type={'radio'}
                                     name="checkHealth"
-                                    checked={typeCheckHealth === 'ON'}
+                                    checked={typeCheckHealth === 'on'}
                                     onChange={() => {
-                                        onChangeCheckHealth('ON');
+                                        onChangeCheckHealth('on');
                                         onChangeTypePay('ON');
                                     }}
                                 ></input>
@@ -210,7 +210,7 @@ function Booking({
                     <div className={cx('info-book-payment')}>
                         <p className={cx('info-book-payment-title')}>Hình thức thanh toán</p>
                         <div className={cx('info-book-select-audience')}>
-                            {typeCheckHealth === 'OFF' && (
+                            {typeCheckHealth === 'off' && (
                                 <div className={cx('info-book-for-me')}>
                                     <input
                                         type={'radio'}

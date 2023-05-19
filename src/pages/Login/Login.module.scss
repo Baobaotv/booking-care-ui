@@ -1,6 +1,7 @@
 .wrapper {
     display: flex;
-    height: 100vh;
+    min-height: 120vh;
+    max-height: 150vh;
     min-height: 700px;
 }
 
@@ -131,4 +132,9 @@
     display: none;
     color: var(--white-color);
     margin: 0 15px;
+}
+
+.error-msg {
+    color: red;
+    padding: 4px 0;
 }

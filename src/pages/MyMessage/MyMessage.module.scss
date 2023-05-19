@@ -36,19 +36,18 @@ header {
 }
 
 .message-content-icon {
-    color: rgb(0,132,255);
+    color: rgb(0, 132, 255);
 }
 
 .info-user {
     display: flex;
     align-items: center;
-   
 }
-
 
 .info-user img {
     border-radius: 50%;
     height: 40px;
+    width: 40px;
     border: 1px solid #ccc;
 }
 
@@ -75,7 +74,6 @@ header {
     overflow-y: scroll;
     padding: 0 6px;
 }
-
 
 .message-input {
     display: flex;

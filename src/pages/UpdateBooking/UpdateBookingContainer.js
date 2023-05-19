@@ -5,7 +5,24 @@ import mediaService from '~/service/MedicalService';
 import paymentService from '~/service/PaymentService';
 import { useSearchParams } from 'react-router-dom';
 import config from '~/config/config';
+import SockJS from 'sockjs-client';
+import { over } from 'stompjs';
+let stompClient = null;
 
+function connectSockJs() {
+    const connect = () => {
+        let socket = new SockJS(config.hostBe + '/ws');
+        stompClient = over(socket);
+        stompClient.connect({}, onConnected, onError);
+    };
+
+    const onConnected = () => {};
+
+    function onError() {
+        console.log('Connect socket to receive comment is fail');
+    }
+    connect();
+}
 function UpdateBookingContainer() {
     const [searchParams] = useSearchParams();
     const [user, setUser] = useState();
@@ -29,6 +46,7 @@ function UpdateBookingContainer() {
     const [typePay, setTypePay] = useState();
     const [typePersonSchedule, setTypePersonSchedule] = useState('forMe');
     const [typeSex, setTypeSex] = useState('Nam');
+    const [typeCheckHealthOld, setTypeCheckHealthOld] = useState();
     const form = useRef({
         nameScheduler,
         phoneScheduer,
@@ -43,6 +61,17 @@ function UpdateBookingContainer() {
         type,
         amount,
     });
+
+    function sendNotification(body, userId) {
+        let notificationForm = {
+            doctorId: user.id,
+            userId: userId,
+            wkTime: workTime.time,
+            date: date,
+        };
+        stompClient.send('/app/notification', {}, JSON.stringify(notificationForm));
+    }
+
     const onSubmit = () => {
         if (!isLogin()) return;
 
@@ -51,9 +80,9 @@ function UpdateBookingContainer() {
         const body = getBodyBooking(form.current);
         const userInfo = JSON.parse(localStorage.getItem('token'));
         if (typePay === 'ON' && isPayment !== 1) {
-            handleUpdateBookingAndCreatePayment(body, userInfo.token, userInfo.username);
+            handleUpdateBookingAndCreatePayment(body, userInfo.token, userInfo.username, userInfo.id);
         } else {
-            handleUpdateBooking(body, userInfo.token);
+            handleUpdateBooking(body, userInfo.token, userInfo.id);
         }
     };
 
@@ -65,21 +94,27 @@ function UpdateBookingContainer() {
         return true;
     };
 
-    const handleUpdateBookingAndCreatePayment = async (body, token, username) => {
+    const handleUpdateBookingAndCreatePayment = async (body, token, username, userId) => {
         const result = await bookingService.updateBooking(body, token).then((response) => response);
         if (result) {
             localStorage.setItem(username + '_booking_id', body.id);
+            if (typeCheckHealthOld === 'off' && typeCheckHealth === 'ON') {
+                sendNotification(body, userId);
+            }
             createPayment();
         } else {
             alert('Đã xảy ra lỗi trong quá trình đặt lịch, xin vui lòng thực hiện lại');
         }
     };
 
-    const handleUpdateBooking = async (body, token) => {
+    const handleUpdateBooking = async (body, token, userId) => {
         const result = await bookingService.updateBooking(body, token).then((response) => response);
         if (result) {
+            if (typeCheckHealthOld === 'off' && typeCheckHealth === 'ON') {
+                sendNotification(body, userId);
+            }
             alert('Đã cập nhật thành công');
-            window.replace('/');
+            window.location.replace('/');
         } else {
             alert('Đã xảy ra lỗi trong quá trình đặt lịch, xin vui lòng thực hiện lại');
         }
@@ -98,7 +133,7 @@ function UpdateBookingContainer() {
             yearOfBirth: form.yearOfBirth.current.value,
             type: typeCheckHealth.toLowerCase(),
             amount: form.amount.current.value,
-            statusPayment: config.constant.payment_unPaid,
+            statusPayment: isPayment,
         };
         return body;
     }
@@ -181,8 +216,10 @@ function UpdateBookingContainer() {
                 id: result.workTimeID,
                 time: result.wordTimeTime,
             });
+            setTypeCheckHealthOld(result.type);
         };
         getDetailMedical(searchParams.get('id'));
+        connectSockJs();
     }, []);
 
     return (

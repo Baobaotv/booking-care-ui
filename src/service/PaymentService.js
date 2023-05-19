@@ -16,7 +16,19 @@ const savePayment = async (body, token) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            "Authorization" : `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+    }).then(async (response) => await response.json());
+    return response;
+};
+
+const checkPaymentReturn = async (body, token) => {
+    const response = await fetch(config.baseUrl + 'payment/return', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(body),
     }).then(async (response) => await response.json());
@@ -26,6 +38,7 @@ const savePayment = async (body, token) => {
 const api = {
     createPayment,
     savePayment,
+    checkPaymentReturn,
 };
 
 export default api;
