@@ -43,7 +43,7 @@ function GlobalEvent({ children }) {
         if (!!userInfo && !!userInfo.token) {
             meId = userInfo.id;
             console.log('connect');
-            ws.current = new WebSocket('wss://192.168.1.4:' + PORT + MAPPING);
+            ws.current = new WebSocket('ws://192.168.1.5:8080' + MAPPING);
             ws.current.onmessage = processWsMessage;
             ws.current.onopen = handleWhenOpenWs;
             ws.current.onclose = logMessage;
@@ -169,6 +169,14 @@ function GlobalEvent({ children }) {
         if (signal.data) {
             console.log('Handle exit');
             remoteVideo.current.srcObject = null;
+            localStream.current.getTracks().forEach(function (track) {
+                track.stop();
+            });
+            modal.current.style.display = 'none';
+            document.getElementById('modal-notification').style.display = 'block';
+            document.getElementById('modal-video').style.display = 'none';
+            connections.current[peerId].close();
+            delete connections.current[peerId];
         }
     }
 
@@ -231,6 +239,14 @@ function GlobalEvent({ children }) {
                 receiver: signal.sender,
                 sender: signal.receiver,
             });
+
+            modal.current.style.display = 'none';
+            document.getElementById('modal-notification').style.display = 'block';
+            document.getElementById('modal-video').style.display = 'none';
+            if (!!connections && !!connections.current[peerId]) {
+                connections.current[peerId].close();
+                delete connections.current[peerId];
+            }
         });
 
         btnAccept.current.addEventListener('click', function () {
