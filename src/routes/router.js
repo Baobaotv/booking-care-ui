@@ -23,6 +23,9 @@ import MyCalender from '~/pages/MyCalender';
 import DetailCalender from '~/pages/DetailCalender';
 import UpdateBooking from '~/pages/UpdateBooking';
 import UpdateTimeBooking from '~/pages/UpdateTimeBooking';
+import ForgotPassword from '~/pages/ForgotPassword/ForgotPasswordContainer';
+import ResetPassword from '~/pages/ResetPassword';
+import ChangePassword from '~/pages/ChangePassword';
 
 const publicRoutes = [
     { path: config.routes.home, component: HomeContainer },
@@ -46,8 +49,11 @@ const publicRoutes = [
     { path: config.routes.paymentResponse, component: PaymentResponseContainer, layout: EmptyLayout },
     { path: config.routes.myMessage, component: MyMessageContainer },
     { path: config.routes.updateProfile, component: UpdateProfile },
+    { path: config.routes.changePassword, component: ChangePassword },
     { path: config.routes.myCalender, component: MyCalender },
     { path: config.routes.detailCalender, component: DetailCalender },
+    { path: config.routes.forgotPassword, component: ForgotPassword, layout: EmptyLayout },
+    { path: config.routes.resetPassword, component: ResetPassword, layout: EmptyLayout },
 ];
 
 const privateRoutes = [];

@@ -11,6 +11,8 @@ function InputBooking({ placeholder, icon, type, value }, ref) {
             <FontAwesomeIcon icon={icon} className={cx('input-icon')}></FontAwesomeIcon>
             {type === 'textarea' ? (
                 <textarea placeholder={placeholder} ref={ref}></textarea>
+            ) : type === 'password' ? (
+                <input ref={ref} placeholder={placeholder} type={'password'}></input>
             ) : (
                 <input ref={ref} placeholder={placeholder}></input>
             )}

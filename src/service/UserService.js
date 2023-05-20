@@ -173,6 +173,42 @@ const updateProfile = async (data, token) => {
     return response.data;
 };
 
+const createUrlResetPassword = async (body) => {
+    const response = await fetch(config.baseUrl + 'user/create-url-reset-pass', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify(body),
+    }).then(async (response) => await response);
+    return response;
+};
+
+const resetPassword = async (body) => {
+    const response = await fetch(config.baseUrl + 'user/reset-password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify(body),
+    }).then(async (response) => await response);
+    return response;
+};
+
+const changePassword = async (body, token) => {
+    const response = await fetch(config.baseUrl + 'user/change-password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+    }).then((response) => response.json());
+    return response.data;
+};
+
 const api = {
     signIn,
     signup,
@@ -187,6 +223,9 @@ const api = {
     getDoctorByMedicalId,
     getDoctorBySpecialtyIdAndDateAndWorkTimeId,
     searchDoctor,
+    createUrlResetPassword,
+    resetPassword,
+    changePassword,
 };
 
 export default api;

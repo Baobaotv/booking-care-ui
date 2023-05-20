@@ -92,6 +92,9 @@ function Header() {
                                                 <li className={cx('thongtin__item')}>
                                                     <Link to={config.routes.myMessage}>Tin nhắn</Link>
                                                 </li>
+                                                <li className={cx('thongtin__item')}>
+                                                    <Link to={config.routes.changePassword}>Đổi mật khẩu</Link>
+                                                </li>
                                             </ul>
                                         </div>
                                     )}
