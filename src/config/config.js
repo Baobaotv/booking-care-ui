@@ -26,6 +26,8 @@ const routes = {
     updateProfile: '/cap-nhap-thong-tin',
     myCalender: '/lich-kham-cua-toi',
     detailCalender: '/chi-tiet-ca-kham',
+    resetPassword: '/reset-mat-khau',
+    changePassword: '/doi-mat-khau',
 };
 
 const services = [
