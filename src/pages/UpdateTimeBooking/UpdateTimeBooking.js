@@ -14,7 +14,7 @@ import InfoDoctorAndUpdateBooking from '~/components/InfoDoctorAndUpdateBooking'
 
 const cx = classNames.bind(styles);
 
-function UpdateTimeBooking({ doctor, workTimes, updateTimeBooking }) {
+function UpdateTimeBooking({ medica, doctor, workTimes, updateTimeBooking }) {
     let [isOpen, setIsOpen] = useState(false);
     const [searchParams] = useSearchParams();
     const [date, setDate] = useState(searchParams.get('date'));
@@ -31,12 +31,13 @@ function UpdateTimeBooking({ doctor, workTimes, updateTimeBooking }) {
         updateTimeBooking(bodyUpdate);
     };
 
-    const onClickWorkTimeFree = (workTimeId, doctorId) => {
+    const onClickWorkTimeFree = (workTimeId, doctorId, workTimeTime) => {
         setBodyUpdate({
             idWorktime: workTimeId,
             idDoctor: doctorId,
             date: date,
             id: searchParams.get('id'),
+            workTimeTime: workTimeTime,
         });
         setIsOpenDialogConfirm(true);
     };
@@ -122,7 +123,7 @@ function UpdateTimeBooking({ doctor, workTimes, updateTimeBooking }) {
                                                   doctorId={doctor.id}
                                                   workTimeId={item.id}
                                                   isFree={true}
-                                                  onClick={() => onClickWorkTimeFree(item.id, doctor.id)}
+                                                  onClick={() => onClickWorkTimeFree(item.id, doctor.id, item.time)}
                                               ></BtnUpdateBooking>
                                           );
                                       } else {
@@ -134,6 +135,7 @@ function UpdateTimeBooking({ doctor, workTimes, updateTimeBooking }) {
                                                   doctorId={doctor.id}
                                                   workTimeId={item.id}
                                                   isFree={false}
+                                                  isPayment={!!medica && medica.statusPayment === 1}
                                                   onClick={() => {
                                                       setIsSuccess(false);
                                                       setIsOpen(true);
@@ -156,7 +158,7 @@ function UpdateTimeBooking({ doctor, workTimes, updateTimeBooking }) {
                                                   date={date}
                                                   title={item.name + '(' + item.time + ')'}
                                                   isFree={true}
-                                                  onClick={() => onClickWorkTimeFree(item.id, doctor.id)}
+                                                  onClick={() => onClickWorkTimeFree(item.id, doctor.id, item.time)}
                                               ></BtnUpdateBooking>
                                           );
                                       } else {
@@ -168,6 +170,7 @@ function UpdateTimeBooking({ doctor, workTimes, updateTimeBooking }) {
                                                   date={date}
                                                   title={item.name + '(' + item.time + ')'}
                                                   isFree={false}
+                                                  isPayment={!!medica && medica.statusPayment === 1}
                                                   onClick={() => {
                                                       setIsSuccess(false);
                                                       setIsOpen(true);

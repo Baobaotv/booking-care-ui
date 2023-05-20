@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './Map.module.scss';
 function Map({ lat, lng }) {
     const cx = classNames.bind(styles);
-    const center = useMemo(() => ({ lat: lng, lng: lat }), []);
+    const center = useMemo(() => ({ lat: lat, lng: lng }), []);
     const [searchResult, setSearchResult] = useState('');
     const [option, setOption] = useState();
     const [response, setResponse] = useState();
