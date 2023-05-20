@@ -46,7 +46,7 @@ function InfoDoctorAndUpdateBooking({ data, date, onClick }) {
                                       doctorId={data.id}
                                       workTimeId={item.id}
                                       isFree={true}
-                                      onClick={() => onClick(item.id, doctorId)}
+                                      onClick={() => onClick(item.id, doctorId, item.time)}
                                   ></BtnUpdateBooking>
                               );
                           })
@@ -59,7 +59,7 @@ function InfoDoctorAndUpdateBooking({ data, date, onClick }) {
                                       doctorId={data.id}
                                       workTimeId={item.id}
                                       isFree={true}
-                                      onClick={() => onClick(item.id, doctorId)}
+                                      onClick={() => onClick(item.id, doctorId, item.time)}
                                   ></BtnUpdateBooking>
                               );
                           })}
