@@ -65,6 +65,7 @@ function InfoDoctorAndBooking({ data }) {
                                       date={date}
                                       doctorId={data.id}
                                       workTimeId={item.id}
+                                      isFree={true}
                                   ></ButtonBooking>
                               );
                           })
@@ -76,6 +77,7 @@ function InfoDoctorAndBooking({ data }) {
                                       date={date}
                                       doctorId={data.id}
                                       workTimeId={item.id}
+                                      isFree={true}
                                   ></ButtonBooking>
                               );
                           })}

@@ -13,9 +13,9 @@ function ItemHospitalLocation({ data, type }) {
     } else {
         to =
             ' lat - ' +
-            document.getElementById('your-lng').value +
+            document.getElementById('your-lat').value +
             ' & lng - ' +
-            document.getElementById('your-lat').value;
+            document.getElementById('your-lng').value;
     }
     content.to = config.routes.hospitalDetail + '?id=' + data.id;
     content.title = data.name;

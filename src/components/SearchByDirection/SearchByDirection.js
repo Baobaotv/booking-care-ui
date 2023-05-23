@@ -21,12 +21,11 @@ function SearchByDirection({ setTypeSearch, setHospitals }) {
             return;
         }
         await setIndex(0);
-        console.log('click');
         let result = await hospitalService.getNearbyHospital(lat, lng).then((response) => response);
         console.log(result);
         if (!result) return;
 
-        setConditions(result);
+        await setConditions(result);
         setResultToOption();
         setTypeSearch('LOCATION');
     };
@@ -35,8 +34,8 @@ function SearchByDirection({ setTypeSearch, setHospitals }) {
         if (index < conditions.length) {
             setOption({
                 origin: {
-                    lat: conditions[index].longitude,
-                    lng: conditions[index].latitude,
+                    lat: conditions[index].latitude,
+                    lng: conditions[index].longitude,
                 },
                 destination: {
                     lat: lat,
@@ -44,7 +43,6 @@ function SearchByDirection({ setTypeSearch, setHospitals }) {
                 },
                 travelMode: 'DRIVING',
             });
-            console.log(option);
             setIndex(index + 1);
         } else {
             if (index === conditions.length) {
@@ -60,6 +58,7 @@ function SearchByDirection({ setTypeSearch, setHospitals }) {
     }
 
     const directionsCallback = async (response) => {
+        console.log(response);
         if (response !== null) {
             if (response.status === 'OK') {
                 setOption({});
@@ -75,11 +74,10 @@ function SearchByDirection({ setTypeSearch, setHospitals }) {
 
     const findResult = (location, legs) => {
         for (let i = 0; i < conditions.length; i++) {
-            if (conditions[i].latitude === location.lng() && conditions[i].longitude === location.lat()) {
+            if (conditions[i].latitude === location.lat() && conditions[i].longitude === location.lng()) {
                 conditions[i].duration = legs.duration.text;
                 conditions[i].distance = legs.distance.text;
                 console.log(conditions[i]);
-                console.log(conditions);
             }
         }
     };
@@ -92,11 +90,11 @@ function SearchByDirection({ setTypeSearch, setHospitals }) {
             setLng(place.geometry.location.lng());
             console.log();
             console.log(place.formatted_address);
-            setOption({
-                origin: center,
-                destination: place.formatted_address,
-                travelMode: 'DRIVING',
-            });
+            // setOption({
+            //     origin: center,
+            //     destination: place.formatted_address,
+            //     travelMode: 'DRIVING',
+            // });
         } else {
             alert('Please enter text');
         }

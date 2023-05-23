@@ -31,7 +31,7 @@ function DetailHospital({ hospital, doctorsBooking, onClickPage }) {
                 <div className={cx('hospital-information')}>
                     <div className={cx('hospital-information-content')}>
                         <div className={cx('hospital-avatar')}>
-                            <img src={images.hospitalAvatar} alt={'Avatar'}></img>
+                            <img src={!hospital ? images.hospitalAvatar : hospital.img} alt={'Avatar'}></img>
                         </div>
                         <div className={cx('hospital-information-title')}>
                             <h1>{!!hospital && hospital.name}</h1>
