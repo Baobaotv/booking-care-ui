@@ -43,7 +43,7 @@ function GlobalEvent({ children }) {
         if (!!userInfo && !!userInfo.token) {
             meId = userInfo.id;
             console.log('connect');
-            ws.current = new WebSocket('ws://localhost:8080' + MAPPING);
+            ws.current = new WebSocket('ws://165.232.161.206:8080' + MAPPING);
             ws.current.onmessage = processWsMessage;
             ws.current.onopen = handleWhenOpenWs;
             ws.current.onclose = logMessage;
