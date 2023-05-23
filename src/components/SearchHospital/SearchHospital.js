@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 
 function SearchHospital({ searchAllByName, name, setName, setTypeSearch, setHospitals }) {
     const { isLoaded } = useLoadScript({
-        googleMapsClientId: 'gme-mitsuifudosanrealty',
+        googleMapsApiKey: 'AIzaSyCj66MWiAybK9pgxDBNSC3-rf5BrO5oV2o',
         region: 'VI',
         language: 'vi',
         libraries: ['places'],
