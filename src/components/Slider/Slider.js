@@ -13,21 +13,6 @@ import ServiceItem from './ServiceItem';
 import images from '~/assets/images';
 const cx = classNames.bind(styles);
 
-const searchResults = [
-    {
-        to: '/chuyen-khoa',
-        title: 'Bác sĩ Nguyễn Văn A',
-    },
-    {
-        to: '/cam-nang',
-        title: 'Triệu chứng thường gặp của bệnh tiểu đường',
-    },
-    {
-        to: '/benh-vien',
-        title: 'Bệnh viện đã khoa Việt Đức',
-    },
-];
-
 function Slider() {
     const inputRef = useRef();
     const [searchValue, setSearchValue] = useState('');
@@ -100,7 +85,10 @@ function Slider() {
     };
 
     return (
-        <div className={cx('slider')}>
+        <div className={cx('slider')} id={'sliderId'}>
+            <div className={cx('wrapper-result-tippy')}>
+                <div className={cx('show-tippy')} id={'show-tippy'}></div>
+            </div>
             <div className={cx('slider-content')}>
                 <h1 className={cx('slider_content-heading')}>
                     Nền Tảng Y Tế
@@ -115,6 +103,7 @@ function Slider() {
                     render={(attrs) => renderItems(attrs)}
                     onClickOutside={handleHideResult}
                     popperOptions={{ strategy: 'fixed' }}
+                    appendTo={() => document.getElementById('show-tippy')}
                     zIndex={99999}
                 >
                     <div className={cx('slider-search')}>

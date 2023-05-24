@@ -95,7 +95,7 @@
     text-align: left;
     min-height: 50px;
     max-height: 60vh;
-    width: inherit;
+    width: 100%;
     overflow: auto;
     border-radius: 4px;
 }
@@ -205,4 +205,12 @@ div:has(> .search-result) {
     font-size: 1.2rem !important;
     font-weight: 400 !important;
     margin: 0 !important;
+}
+
+.wrapper-result-tippy {
+    width: 38%;
+}
+
+.show-tippy > div {
+    width: 38%;
 }

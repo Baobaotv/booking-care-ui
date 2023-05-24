@@ -11,10 +11,22 @@ import ServiceItemHandbook from '~/components/ServiceItemHandbook';
 import SlickButton from '~/components/SlickButton/SlickButton';
 import config from '~/config';
 import styles from './Handbook.module.scss';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const cx = classNames.bind(styles);
 
 function Handbook({ recentHandbooks, featuredHandbooks, specialties }) {
+    let settings = {
+        infinite: false,
+        speed: 1000,
+        arrows: true,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        prevArrow: <SlickButton type="prev"></SlickButton>,
+        nextArrow: <SlickButton type="next"></SlickButton>,
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('grid', 'wide')}>
@@ -44,14 +56,26 @@ function Handbook({ recentHandbooks, featuredHandbooks, specialties }) {
                 <div className={cx('handbook-title')}>
                     <h2>Bài viết nổi bật</h2>
                 </div>
-                <div className={cx('hand-book-latest-posts')}>
-                    {!!featuredHandbooks &&
+                <div className={cx('hand-book-show-posts')}>
+                    <Slider {...settings}>
+                        {!!featuredHandbooks &&
+                            featuredHandbooks.map((item, index) => {
+                                return (
+                                    <ServiceItemHandbook
+                                        key={index}
+                                        data={item}
+                                        layout={'handbook'}
+                                    ></ServiceItemHandbook>
+                                );
+                            })}
+                    </Slider>
+                    {/* {!!featuredHandbooks &&
                         featuredHandbooks.map((item, index) => {
                             return (
                                 <ServiceItemHandbook key={index} data={item} layout={'handbook'}></ServiceItemHandbook>
                             );
                         })}
-                    <SlickButton type="next"></SlickButton>
+                    <SlickButton type="next"></SlickButton> */}
                 </div>
                 <div className={cx('handbook-title')}>
                     <h2>Danh mục cẩm nang</h2>

@@ -23,18 +23,6 @@ function Home({
     messages,
     sendMessage,
 }) {
-    // navigator.mediaDevices
-    //     .getUserMedia({ video: true, audio: false })
-    //     .then(function (stream) {
-    //         console.log('Stream OK');
-    //         let localStream = stream;
-    //         let selfView = document.getElementById('self');
-    //         selfView.srcObject = localStream;
-    //         selfView.autoplay = true;
-    //     })
-    //     .catch(function (error) {
-    //         console.log('Stream NOT OK: ' + error.name + ': ' + error.message);
-    //     });
     return (
         <>
             <SliderCustom></SliderCustom>

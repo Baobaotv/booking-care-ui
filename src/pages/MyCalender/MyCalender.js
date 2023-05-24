@@ -153,7 +153,7 @@ function MyCalender({ completes, waitings, cancelBooking }) {
                                         );
                                     })
                                 ) : (
-                                    <tr> Khong</tr>
+                                    <tr> Không có ca khám</tr>
                                 )}
                             </tbody>
                         </table>

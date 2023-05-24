@@ -71,33 +71,22 @@ function Header() {
                                     id="test"
                                 >
                                     {userInfo.username}
-                                    {userInfo.roles.includes('ROLE_ADMIN') || userInfo.roles.includes('ROLE_DOCTOR') ? (
-                                        <div className={cx('update__Thongtin')}>
-                                            <ul className={cx('list__thongtin')}>
-                                                <li className={cx('thongtin__item')}>
-                                                    <Link to="/admin/home">Chuyển tới giao diện admin</Link>
-                                                    <Link to="/doctor/home">Chuyển tới giao diện doctor</Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    ) : (
-                                        <div className={cx('update__Thongtin')}>
-                                            <ul className={cx('list__thongtin')}>
-                                                <li className={cx('thongtin__item')}>
-                                                    <Link to={config.routes.updateProfile}>Cập Nhật Thông Tin</Link>
-                                                </li>
-                                                <li className={cx('thongtin__item')}>
-                                                    <Link to={config.routes.myCalender}>Xem Lịch Khám</Link>
-                                                </li>
-                                                <li className={cx('thongtin__item')}>
-                                                    <Link to={config.routes.myMessage}>Tin nhắn</Link>
-                                                </li>
-                                                <li className={cx('thongtin__item')}>
-                                                    <Link to={config.routes.changePassword}>Đổi mật khẩu</Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    )}
+                                    <div className={cx('update__Thongtin')}>
+                                        <ul className={cx('list__thongtin')}>
+                                            <li className={cx('thongtin__item')}>
+                                                <Link to={config.routes.updateProfile}>Cập Nhật Thông Tin</Link>
+                                            </li>
+                                            <li className={cx('thongtin__item')}>
+                                                <Link to={config.routes.myCalender}>Xem Lịch Khám</Link>
+                                            </li>
+                                            <li className={cx('thongtin__item')}>
+                                                <Link to={config.routes.myMessage}>Tin nhắn</Link>
+                                            </li>
+                                            <li className={cx('thongtin__item')}>
+                                                <Link to={config.routes.changePassword}>Đổi mật khẩu</Link>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </Link>
                                 <input type="hidden" id="idUser" />
                                 <button

@@ -32,49 +32,49 @@ const routes = {
 
 const services = [
     {
-        to: '/chuyen-khoa',
+        to: '/',
         title: 'Khám chuyên khoa',
         img: require('~/assets/images/service-khamchuyenkhoa.png'),
     },
     {
-        to: '/kham-tu-xa',
+        to: '/',
         title: 'Khám từ xa',
         img: require('~/assets/images/service-khamtuxa.png'),
     },
     {
-        to: '/kham-tong-quat',
+        to: '/',
         title: 'Khám tổng quát',
         img: require('~/assets/images/service-khamtongquat.png'),
     },
     {
-        to: '/xet-nghiem-y-hoc',
+        to: '/',
         title: 'Xét nghiệm y học',
         img: require('~/assets/images/service-xetnghiem.png'),
     },
     {
-        to: '/suc-khoa-tinh-than',
+        to: '/',
         title: 'Sức khoẻ tinh thần',
         img: require('~/assets/images/service-suckhoetinhthan.png'),
     },
     {
-        to: '/Kham-nha-khoa',
+        to: '/',
         title: 'Khám nha khoa',
         img: require('~/assets/images/service-nhakhoa.png'),
     },
     {
-        to: '/goi-phau-thuat',
+        to: '/',
         title: 'Gói phẫu thuật',
         img: require('~/assets/images/service-goiphauthuat.jpg'),
     },
 
     {
-        to: '/san-pham-y-te',
+        to: '/',
         title: 'Sản phẩm y tế',
         img: require('~/assets/images/service-sanphamyte.png'),
     },
 
     {
-        to: '/suc-khoe-doanh-nghiep',
+        to: '/',
         title: 'Sức khoẻ doanh nghiệp',
         img: require('~/assets/images/service-suckhoedoanhnghiep.jpg'),
     },
