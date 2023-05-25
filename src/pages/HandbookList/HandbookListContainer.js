@@ -16,9 +16,11 @@ function HandbookListContainer() {
         specialtyId: searchParams.get('specialty-id'),
     });
 
-    const getHandBook = async (title, specilatyId, currentPage) => {
+    const getHandBook = async (title, specialtyId, currentPage) => {
+        specialtyId = !!specialtyId ? specialtyId : '';
+        title = !!title ? title : '';
         const result = await handbookService
-            .searchHandbooks(title, specilatyId, currentPage)
+            .searchHandbooks(title, specialtyId, currentPage)
             .then((response) => response);
         setHandbooks(result);
     };
@@ -31,6 +33,7 @@ function HandbookListContainer() {
     };
 
     useEffect(() => {
+        getHandBook(searchParams.get('title'), searchParams.get('specialty-id'));
         const getAllSpecialty = async () => {
             const result = await specialtyService.getAllSpecialty(0, 20).then((response) => response);
             setSpecialtyList(result);

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ForgotPassword from './ForgotPassword';
 import userService from '~/service/UserService';
 
