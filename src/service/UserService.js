@@ -64,7 +64,7 @@ const getDoctorOfSpecialty = async (id, currentPage = config.pageableDefault.pag
 const getDoctorBySpecialtyIdAndDateAndWorkTimeId = async (specialtyId, workTimeId, date) => {
     const response = await fetch(
         config.baseUrl +
-            'user/get-all-by specialty-workTimeId?specialtyId=' +
+            'user/get-all-by-specialty-workTimeId?specialtyId=' +
             specialtyId +
             '&workTimeId=' +
             workTimeId +

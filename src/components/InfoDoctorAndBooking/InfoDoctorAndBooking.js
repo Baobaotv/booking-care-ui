@@ -99,7 +99,7 @@ function InfoDoctorAndBooking({ data }) {
                     </div>
                     <div className={cx('hospital-info-cost')}>
                         <p> Giá khám: </p>
-                        <span>800.000Đ</span>
+                        <span>{data.examinationPrice}</span>
                     </div>
                 </div>
             </div>

@@ -192,7 +192,9 @@ function UpdateTimeBooking({ medica, doctor, workTimes, updateTimeBooking }) {
                             </div>
                             <div className={cx('doctor-booking-info-price')}>
                                 <span className={cx('doctor-booking-info-price-title')}>Giá khám:</span>
-                                <span className={cx('doctor-booking-info-price-value')}>500.000đ</span>
+                                <span className={cx('doctor-booking-info-price-value')}>
+                                    {!!doctor && doctor.examinationPrice}
+                                </span>
                             </div>
                         </div>
                     </div>
