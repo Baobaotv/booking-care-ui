@@ -275,14 +275,14 @@ function GlobalEvent({ children }) {
     window.onload = init;
 
     function eventCallOff() {
+        localStream.current.getTracks().forEach(function (track) {
+            track.stop();
+        });
         sendMessage({
             type: 'exit',
             receiver: peerId,
             sender: meId,
             data: peerId + 'exit',
-        });
-        localStream.current.getTracks().forEach(function (track) {
-            track.stop();
         });
         modal.current.style.display = 'none';
         document.getElementById('modal-notification').style.display = 'block';

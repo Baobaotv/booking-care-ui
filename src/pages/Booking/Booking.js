@@ -46,7 +46,13 @@ function Booking({
                         <label className={cx('info-book-cost')}>
                             <input type="radio" checked="checked" name="price" value="54" readOnly />
                             <span>Giá khám</span>
-                            <div>{!!user && user.examinationPrice}</div>
+                            <div>
+                                {!!user &&
+                                    user.examinationPrice.toLocaleString('it-IT', {
+                                        style: 'currency',
+                                        currency: 'VND',
+                                    })}
+                            </div>
                             <input type={'hidden'} ref={form.current.amount} value={!!user && user.examinationPrice} />
                         </label>
                     </div>

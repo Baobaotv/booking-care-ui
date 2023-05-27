@@ -193,7 +193,11 @@ function UpdateTimeBooking({ medica, doctor, workTimes, updateTimeBooking }) {
                             <div className={cx('doctor-booking-info-price')}>
                                 <span className={cx('doctor-booking-info-price-title')}>Giá khám:</span>
                                 <span className={cx('doctor-booking-info-price-value')}>
-                                    {!!doctor && doctor.examinationPrice}
+                                    {!!doctor &&
+                                        doctor.examinationPrice.toLocaleString('it-IT', {
+                                            style: 'currency',
+                                            currency: 'VND',
+                                        })}
                                 </span>
                             </div>
                         </div>

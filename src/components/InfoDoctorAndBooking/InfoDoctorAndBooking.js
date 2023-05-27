@@ -99,7 +99,13 @@ function InfoDoctorAndBooking({ data }) {
                     </div>
                     <div className={cx('hospital-info-cost')}>
                         <p> Giá khám: </p>
-                        <span>{data.examinationPrice}</span>
+                        <span>
+                            {!!data.examinationPrice &&
+                                data.examinationPrice.toLocaleString('it-IT', {
+                                    style: 'currency',
+                                    currency: 'VND',
+                                })}
+                        </span>
                     </div>
                 </div>
             </div>
