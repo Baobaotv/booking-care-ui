@@ -45,7 +45,7 @@ function BookingContainer() {
     const [typeCheckHealth, setTypeCheckHealth] = useState('off');
     const [typePay, setTypePay] = useState();
     const [typePersonSchedule, setTypePersonSchedule] = useState('forMe');
-    const [typeSex, setTypeSex] = useState('Name');
+    const [typeSex, setTypeSex] = useState('Nam');
     const form = useRef({
         nameScheduler,
         phoneScheduer,

@@ -125,8 +125,8 @@ function Booking({
                             <input
                                 type={'radio'}
                                 name="gender"
-                                checked={typeSex === 'Name'}
-                                onChange={() => onChangeSex('Name')}
+                                checked={typeSex === 'Nam'}
+                                onChange={() => onChangeSex('Nam')}
                             ></input>
                             <label>Nam</label>
                         </div>
