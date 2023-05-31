@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 
 function SearchHospital({ searchAllByName, name, setName, setTypeSearch, setHospitals }) {
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyBKyKM9Ni3ph5yXc-bx7PJRJPbuwQXn928',
+        googleMapsApiKey: process.env.REACT_APP_MAP_API_KEY,
         region: 'VI',
         language: 'vi',
         libraries: ['places'],

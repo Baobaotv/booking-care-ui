@@ -5,8 +5,7 @@ import images from '~/assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile, faVideo } from '@fortawesome/free-solid-svg-icons';
 import ItemMessageChat from '~/components/ItemMessageChat/ItemMessageChat';
-import { stompClient } from '~/components/GlobalEvent';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 

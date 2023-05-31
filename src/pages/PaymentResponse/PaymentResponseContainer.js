@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PaymentResponse from './PaymentResponse';
 import paymentService from '~/service/PaymentService';
-import mediacalService from '~/service/MedicalService';
 import config from '~/config/config';
 
 function PaymentResponseContainer() {
-    const [searchParams] = useSearchParams();
     const location = useLocation();
     const [paymentResponse, setPaymentResponse] = useState();
     const [statusPayment, setStatusPayment] = useState();

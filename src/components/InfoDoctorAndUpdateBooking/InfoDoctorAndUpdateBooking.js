@@ -1,14 +1,13 @@
 import { faCalendarDays, faHandPointUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import images from '~/assets/images';
 import BtnUpdateBooking from '~/components/helper/BtnUpdateBooking';
 import styles from './InfoDoctorAndUpdateBooking.module.scss';
 const cx = classNames.bind(styles);
 
 function InfoDoctorAndUpdateBooking({ data, date, onClick }) {
-    const [worTimeOfDoctor, setWorTimeOfDoctor] = useState([]);
     const doctorId = data.id;
 
     return (

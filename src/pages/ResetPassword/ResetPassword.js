@@ -1,7 +1,5 @@
 import classNames from 'classnames/bind';
 import styles from './ResetPassword.module.scss';
-import { Link } from 'react-router-dom';
-import config from '~/config/config';
 
 const cx = classNames.bind(styles);
 function ResetPassword({ password, setPassword, passwordConfirm, setPasswordConfirm, validateMSG, actionReset }) {

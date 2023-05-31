@@ -18,7 +18,7 @@ const ACTION_BOOK_SCHEDULE = 2;
 function DetailHospital({ hospital, doctorsBooking, onClickPage }) {
     const [action, setAction] = useState(ACTION_SHOW_INTRODUCE);
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyBKyKM9Ni3ph5yXc-bx7PJRJPbuwQXn928',
+        googleMapsApiKey: process.env.REACT_APP_MAP_API_KEY,
         region: 'VI',
         language: 'vi',
         libraries: ['places'],

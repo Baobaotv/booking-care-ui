@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ResetPassword from './ResetPassword';
 import userService from '~/service/UserService';
-import config from '~/config/config';
 import { useSearchParams } from 'react-router-dom';
 
 function ResetPasswordContainer() {

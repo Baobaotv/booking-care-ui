@@ -1,7 +1,5 @@
 import classNames from 'classnames/bind';
 import styles from './ForgotPassword.module.scss';
-import { Link } from 'react-router-dom';
-import config from '~/config/config';
 
 const cx = classNames.bind(styles);
 function ForgotPassword({ username, setUserName, email, setEmail, validateMSG, actionReset }) {

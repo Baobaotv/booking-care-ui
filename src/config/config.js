@@ -138,11 +138,11 @@ const adminUrl = '/admin/home';
 
 const doctorUrl = '/admin/home';
 
-const hostBe = 'http://165.232.161.206:8080';
+const hostBe = `http://${process.env.REACT_APP_HOST}:8080`;
 
 // const baseUrl = 'https://192.168.1.239:8443/api/';
 // const baseUrl = 'http://172.16.17.194:8080/api/';
-const baseUrl = 'http://165.232.161.206:8080/api/';
+const baseUrl = `http://${process.env.REACT_APP_HOST}:8080/api/`;
 
 const constant = {
     payment_paid: 1,

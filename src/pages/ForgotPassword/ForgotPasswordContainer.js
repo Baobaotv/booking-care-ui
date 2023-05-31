@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ForgotPassword from './ForgotPassword';
 import userService from '~/service/UserService';
-import config from '~/config/config';
 
 function ForgotPasswordContainer() {
     const [username, setUserName] = useState();

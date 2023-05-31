@@ -11,7 +11,6 @@ import {
     faVideoSlash,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import config from '~/config';
 const cx = classNames.bind(styles);
 
 let stompClient = null;
@@ -22,7 +21,6 @@ function GlobalEvent({ children }) {
     const peerConnectionConfig = {
         iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
     };
-    const PORT = 8443;
 
     var ws = useRef();
     var localStream = useRef();
@@ -43,7 +41,7 @@ function GlobalEvent({ children }) {
         if (!!userInfo && !!userInfo.token) {
             meId = userInfo.id;
             console.log('connect');
-            ws.current = new WebSocket('ws://165.232.161.206:8080' + MAPPING);
+            ws.current = new WebSocket(`ws://${process.env.REACT_APP_HOST}:8080` + MAPPING);
             ws.current.onmessage = processWsMessage;
             ws.current.onopen = handleWhenOpenWs;
             ws.current.onclose = logMessage;
