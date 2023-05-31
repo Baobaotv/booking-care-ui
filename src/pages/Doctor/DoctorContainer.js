@@ -1,5 +1,5 @@
 import Doctor from './Doctor';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import userService from '~/service/UserService';
 import hospitalService from '~/service/HospitalService';
 import specialtyService from '~/service/SpecialtyService';
