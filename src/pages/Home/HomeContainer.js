@@ -69,7 +69,7 @@ function HomeContainer() {
 
     function connectSockJs(userInfo, messages, setMessages) {
         let receiveMessages = (message) => {
-            if (!!messages && !!message[1]) {
+            if (!!messages && !!messages[1]) {
                 messages[1].push(JSON.parse(message.body));
                 let newMessage = [messages[0], messages[1]];
                 setMessages(newMessage);
