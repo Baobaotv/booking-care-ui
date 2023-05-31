@@ -41,7 +41,7 @@ function GlobalEvent({ children }) {
         if (!!userInfo && !!userInfo.token) {
             meId = userInfo.id;
             console.log('connect');
-            ws.current = new WebSocket(`ws://${process.env.REACT_APP_HOST}:8080` + MAPPING);
+            ws.current = new WebSocket(`wss://${process.env.REACT_APP_HOST}` + MAPPING);
             ws.current.onmessage = processWsMessage;
             ws.current.onopen = handleWhenOpenWs;
             ws.current.onclose = logMessage;
