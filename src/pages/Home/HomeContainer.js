@@ -8,9 +8,14 @@ import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
 import { useEffect, useState } from 'react';
 import config from '~/config';
+import { useAppDispatch, useAppSelector } from '~/store/hook';
+import { setMessage } from '~/store/message';
 let stompClient = null;
+let userInfo;
 
 function HomeContainer() {
+    const dispatch = useAppDispatch();
+    const { messageData } = useAppSelector((state) => state.mess);
     const [listOfRecentHandbook, setListOfRecentHandbook] = useState([]);
     const [listDoctorOnline, setListDoctorOnline] = useState([]);
     const [listHospitalFeatured, setListHospitalFeatured] = useState([]);
@@ -18,9 +23,7 @@ function HomeContainer() {
     const [listDoctorFeatured, setListDoctorFeatured] = useState([]);
     const [listHandbookFeatured, setListHandbookFeatured] = useState([]);
 
-    const [messages, setMessages] = useState([]);
     const [isShowMessage, setIsShowMessage] = useState(false);
-    const userInfo = JSON.parse(localStorage.getItem('token'));
 
     useEffect(() => {
         const getListOfRecentHandbook = async () => {
@@ -53,6 +56,10 @@ function HomeContainer() {
         getFeaturedSpecialty();
         getFeaturedDoctor();
         getFeaturedHandbook();
+        userInfo = JSON.parse(localStorage.getItem('token'));
+        if (!!userInfo) {
+            connectSockJs(userInfo, messageData, dispatch(setMessage(messageData)));
+        }
     }, []);
 
     useEffect(() => {
@@ -62,17 +69,23 @@ function HomeContainer() {
             const result = await messageService
                 .getListMessageByUserId(userId, userInfo.token)
                 .then((response) => response);
-            setMessages(result);
+
+            dispatch(setMessage(result));
         };
         onSelectUser(0);
     }, [isShowMessage]);
 
-    function connectSockJs(userInfo, messages, setMessages) {
+    console.log('length', messageData.length);
+
+    function connectSockJs(userInfo) {
         let receiveMessages = (message) => {
-            if (!!messages && !!messages[1]) {
-                messages[1].push(JSON.parse(message.body));
-                let newMessage = [messages[0], messages[1]];
-                setMessages(newMessage);
+            console.log('thinh', messageData);
+            if (messageData && messageData[1]) {
+                console.log('bao', messageData);
+                let newArr = [...messageData[1]];
+                newArr.push(JSON.parse(message.body));
+                let newMessage = [messageData[0], newArr];
+                dispatch(setMessage(newMessage));
             }
             setIsShowMessage(true);
             let elem = document.getElementById('message-list');
@@ -81,7 +94,10 @@ function HomeContainer() {
 
         const connect = (userInfo) => {
             if (!!userInfo) {
-                var socket = new SockJS(config.hostBe + '/ws');
+                let socket = new SockJS(config.hostBe + '/ws');
+                if (!!stompClient) {
+                    stompClient = null;
+                }
                 stompClient = over(socket);
                 stompClient.connect({}, onConnected, onError);
             }
@@ -97,10 +113,6 @@ function HomeContainer() {
         connect(userInfo);
     }
 
-    useEffect(() => {
-        connectSockJs(userInfo, messages, setMessages);
-    }, [userInfo]);
-
     const sendMessage = (content, receverId) => {
         var chatMessage = {
             senderId: userInfo.id,
@@ -112,9 +124,9 @@ function HomeContainer() {
         } else {
             stompClient.send('/app/sendToUSer', {}, JSON.stringify(chatMessage));
         }
-        messages[1].push(chatMessage);
-        let newMessage = [messages[0], messages[1]];
-        setMessages(newMessage);
+        messageData[1].push(chatMessage);
+        let newMessage = [messageData[0], messageData[1]];
+        dispatch(setMessage(newMessage));
         let elem = document.getElementById('message-list');
         elem.scrollTop = elem.scrollHeight;
     };
@@ -129,7 +141,7 @@ function HomeContainer() {
             featuredHandbooks={listHandbookFeatured}
             isShowMessage={isShowMessage}
             onShowMessage={setIsShowMessage}
-            messages={messages}
+            messages={messageData}
             sendMessage={sendMessage}
         ></Home>
     );
