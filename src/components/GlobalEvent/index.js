@@ -306,7 +306,7 @@ function GlobalEvent({ children }) {
             {children}
             <div className={cx('modal')} ref={modal}>
                 <div className={cx('modal-notification')} id={'modal-notification'}>
-                    <p className={cx('modal-notification-title')}>{'Nguyễn Xuân Bảo đang gọi cho bạn'}</p>
+                    <p className={cx('modal-notification-title')}>{'Bạn có một cuộc gọi tới'}</p>
                     <p className={cx('modal-notification-desc')}>{'Cuộc gọi sẽ bắt đầu ngay khi bạn chấp nhận'}</p>
                     <div className={cx('modal-notification-icon')}>
                         <div className={cx('wrapper-icon-cancel')} ref={btnCancel}>

@@ -23,5 +23,6 @@ const images = {
     specialtyDetailBackground: require('~/assets/images/specialty-detail-background.jpeg'),
     loginBackground: require('~/assets/images/login-background.webp'),
     avatarDefault: require('~/assets/images/avatar-default.jpeg'),
+    avatarDefaultDoctor: require('~/assets/images/avatar-default-doctor.webp'),
 };
 export default images;

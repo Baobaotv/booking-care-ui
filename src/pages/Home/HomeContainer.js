@@ -6,7 +6,7 @@ import specialtyService from '~/service/SpecialtyService';
 import messageService from '~/service/MessageService';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import config from '~/config';
 import { useAppDispatch, useAppSelector } from '~/store/hook';
 import { setMessage } from '~/store/message';
@@ -24,6 +24,7 @@ function HomeContainer() {
     const [listHandbookFeatured, setListHandbookFeatured] = useState([]);
 
     const [isShowMessage, setIsShowMessage] = useState(false);
+    const messages = useRef();
 
     useEffect(() => {
         const getListOfRecentHandbook = async () => {
@@ -57,9 +58,6 @@ function HomeContainer() {
         getFeaturedDoctor();
         getFeaturedHandbook();
         userInfo = JSON.parse(localStorage.getItem('token'));
-        if (!!userInfo) {
-            connectSockJs(userInfo, messageData, dispatch(setMessage(messageData)));
-        }
     }, []);
 
     useEffect(() => {
@@ -70,21 +68,25 @@ function HomeContainer() {
                 .getListMessageByUserId(userId, userInfo.token)
                 .then((response) => response);
 
+            messages.current = result;
             dispatch(setMessage(result));
         };
         onSelectUser(0);
     }, [isShowMessage]);
 
-    console.log('length', messageData.length);
+    useEffect(() => {
+        if (!!userInfo) {
+            connectSockJs(userInfo, messageData, dispatch(setMessage(messageData)));
+        }
+    }, [userInfo]);
 
     function connectSockJs(userInfo) {
         let receiveMessages = (message) => {
-            console.log('thinh', messageData);
-            if (messageData && messageData[1]) {
-                console.log('bao', messageData);
-                let newArr = [...messageData[1]];
+            if (messages.current && messages.current[1]) {
+                let newArr = [...messages.current[1]];
                 newArr.push(JSON.parse(message.body));
-                let newMessage = [messageData[0], newArr];
+                let newMessage = [messages.current[0], newArr];
+                messages.current = [...newMessage];
                 dispatch(setMessage(newMessage));
             }
             setIsShowMessage(true);
@@ -124,8 +126,10 @@ function HomeContainer() {
         } else {
             stompClient.send('/app/sendToUSer', {}, JSON.stringify(chatMessage));
         }
-        messageData[1].push(chatMessage);
-        let newMessage = [messageData[0], messageData[1]];
+        let oldMessage = [...messages.current[1]];
+        oldMessage.push(chatMessage);
+        let newMessage = [messages.current[0], oldMessage];
+        messages.current = [...newMessage];
         dispatch(setMessage(newMessage));
         let elem = document.getElementById('message-list');
         elem.scrollTop = elem.scrollHeight;
@@ -141,7 +145,7 @@ function HomeContainer() {
             featuredHandbooks={listHandbookFeatured}
             isShowMessage={isShowMessage}
             onShowMessage={setIsShowMessage}
-            messages={messageData}
+            messages={messages.current}
             sendMessage={sendMessage}
         ></Home>
     );

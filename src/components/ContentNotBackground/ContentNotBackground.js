@@ -8,6 +8,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import styles from './ContentNotBackground.module.scss';
+import config from '~/config';
 const cx = classNames.bind(styles);
 
 function ContentNotBackground({ listDataItem, online, title, type, _slider }) {
@@ -26,7 +27,10 @@ function ContentNotBackground({ listDataItem, online, title, type, _slider }) {
             <div className={cx('grid', 'wide')}>
                 <div className={cx('content__heading')}>
                     <p className={cx('heading')}>{title}</p>
-                    <Link to={'/bac-si'} className={cx('heading__search')}>
+                    <Link
+                        to={type === 'doctor' ? config.routes.doctor : config.routes.specialty}
+                        className={cx('heading__search')}
+                    >
                         Xem thêm
                     </Link>
                 </div>
