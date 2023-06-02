@@ -7,6 +7,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import styles from './ContentWithBackground.module.scss';
+import { Link } from 'react-router-dom';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 function ContentWithBackground({ listDataItem, online, title, type, slideNumber }) {
@@ -28,9 +30,18 @@ function ContentWithBackground({ listDataItem, online, title, type, slideNumber 
                 <div className={cx('content__heading')}>
                     <h2 className={cx('heading')}>{title}</h2>
                     <div className={cx('content-btn')}>
-                        <a href="/chuyen-khoa" className={cx('heading__search')}>
+                        <Link
+                            to={
+                                type === 'doctor'
+                                    ? config.routes.doctor
+                                    : type === 'handbook'
+                                    ? config.routes.handbook
+                                    : config.routes.hospital
+                            }
+                            className={cx('heading__search')}
+                        >
                             Xem Thêm{' '}
-                        </a>
+                        </Link>
                     </div>
                 </div>
 

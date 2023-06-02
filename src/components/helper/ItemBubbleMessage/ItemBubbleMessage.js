@@ -14,7 +14,7 @@ function ItemBubbleMessage({ isShow, onShowMessage }) {
             }}
         >
             <p className={cx('title')}>{'Trung tâm tư vấn online'}</p>
-            <img className={cx('avatar')} alt={'avatar'} src={images.avatarDefault}></img>
+            <img className={cx('avatar')} alt={'avatar'} src={images.avatarDefaultDoctor}></img>
         </div>
     );
 }

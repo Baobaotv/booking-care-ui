@@ -6,11 +6,16 @@ import specialtyService from '~/service/SpecialtyService';
 import messageService from '~/service/MessageService';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import config from '~/config';
+import { useAppDispatch, useAppSelector } from '~/store/hook';
+import { setMessage } from '~/store/message';
 let stompClient = null;
+let userInfo;
 
 function HomeContainer() {
+    const dispatch = useAppDispatch();
+    const { messageData } = useAppSelector((state) => state.mess);
     const [listOfRecentHandbook, setListOfRecentHandbook] = useState([]);
     const [listDoctorOnline, setListDoctorOnline] = useState([]);
     const [listHospitalFeatured, setListHospitalFeatured] = useState([]);
@@ -18,9 +23,8 @@ function HomeContainer() {
     const [listDoctorFeatured, setListDoctorFeatured] = useState([]);
     const [listHandbookFeatured, setListHandbookFeatured] = useState([]);
 
-    const [messages, setMessages] = useState([]);
     const [isShowMessage, setIsShowMessage] = useState(false);
-    const userInfo = JSON.parse(localStorage.getItem('token'));
+    const messages = useRef();
 
     useEffect(() => {
         const getListOfRecentHandbook = async () => {
@@ -53,6 +57,7 @@ function HomeContainer() {
         getFeaturedSpecialty();
         getFeaturedDoctor();
         getFeaturedHandbook();
+        userInfo = JSON.parse(localStorage.getItem('token'));
     }, []);
 
     useEffect(() => {
@@ -62,17 +67,27 @@ function HomeContainer() {
             const result = await messageService
                 .getListMessageByUserId(userId, userInfo.token)
                 .then((response) => response);
-            setMessages(result);
+
+            messages.current = result;
+            dispatch(setMessage(result));
         };
         onSelectUser(0);
     }, [isShowMessage]);
 
-    function connectSockJs(userInfo, messages, setMessages) {
+    useEffect(() => {
+        if (!!userInfo) {
+            connectSockJs(userInfo, messageData, dispatch(setMessage(messageData)));
+        }
+    }, [userInfo]);
+
+    function connectSockJs(userInfo) {
         let receiveMessages = (message) => {
-            if (!!messages && !!messages[1]) {
-                messages[1].push(JSON.parse(message.body));
-                let newMessage = [messages[0], messages[1]];
-                setMessages(newMessage);
+            if (messages.current && messages.current[1]) {
+                let newArr = [...messages.current[1]];
+                newArr.push(JSON.parse(message.body));
+                let newMessage = [messages.current[0], newArr];
+                messages.current = [...newMessage];
+                dispatch(setMessage(newMessage));
             }
             setIsShowMessage(true);
             let elem = document.getElementById('message-list');
@@ -81,7 +96,10 @@ function HomeContainer() {
 
         const connect = (userInfo) => {
             if (!!userInfo) {
-                var socket = new SockJS(config.hostBe + '/ws');
+                let socket = new SockJS(config.hostBe + '/ws');
+                if (!!stompClient) {
+                    stompClient = null;
+                }
                 stompClient = over(socket);
                 stompClient.connect({}, onConnected, onError);
             }
@@ -97,10 +115,6 @@ function HomeContainer() {
         connect(userInfo);
     }
 
-    useEffect(() => {
-        connectSockJs(userInfo, messages, setMessages);
-    }, [userInfo]);
-
     const sendMessage = (content, receverId) => {
         var chatMessage = {
             senderId: userInfo.id,
@@ -112,9 +126,11 @@ function HomeContainer() {
         } else {
             stompClient.send('/app/sendToUSer', {}, JSON.stringify(chatMessage));
         }
-        messages[1].push(chatMessage);
-        let newMessage = [messages[0], messages[1]];
-        setMessages(newMessage);
+        let oldMessage = [...messages.current[1]];
+        oldMessage.push(chatMessage);
+        let newMessage = [messages.current[0], oldMessage];
+        messages.current = [...newMessage];
+        dispatch(setMessage(newMessage));
         let elem = document.getElementById('message-list');
         elem.scrollTop = elem.scrollHeight;
     };
@@ -129,7 +145,7 @@ function HomeContainer() {
             featuredHandbooks={listHandbookFeatured}
             isShowMessage={isShowMessage}
             onShowMessage={setIsShowMessage}
-            messages={messages}
+            messages={messages.current}
             sendMessage={sendMessage}
         ></Home>
     );

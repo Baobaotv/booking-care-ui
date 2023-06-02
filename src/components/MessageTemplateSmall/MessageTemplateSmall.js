@@ -24,7 +24,7 @@ function MessageTemplateSmall({ isShow, onShowMessage, messages, sendMessage }) 
         <div className={clsWrapper}>
             <header>
                 <div className={cx('header-chat')}>
-                    <img src={images.avatarDefault} alt={'avatar-user'} className={cx('header-avatar')}></img>
+                    <img src={images.avatarDefaultDoctor} alt={'avatar-user'} className={cx('header-avatar')}></img>
                     <p id="fullName" className={cx('fullName')}>
                         {'Tư vấn online'}
                     </p>
@@ -45,7 +45,7 @@ function MessageTemplateSmall({ isShow, onShowMessage, messages, sendMessage }) 
                             messageList.map((item, index) => {
                                 return (
                                     <ItemMessageChat
-                                        img={images.avatarDefault}
+                                        img={images.avatarDefaultDoctor}
                                         key={index}
                                         position={0 === item.senderId ? 'left' : 'right'}
                                         content={item.content}
