@@ -108,9 +108,27 @@ function GlobalEvent({ children }) {
     }
 
     function handleLogout(signal) {
-        peerId = signal.sender;
-        if (peerId === uuidInBig) {
-            remoteVideo.current.srcObject = null;
+        if (peerId === signal.sender) {
+            if (!!remoteVideo.current) {
+                remoteVideo.current.srcObject = null;
+            }
+            if (!!selfVideo.current) {
+                selfVideo.current.srcObject = null;
+            }
+
+            if (!!localStream.current) {
+                localStream.current.getTracks().forEach(function (track) {
+                    track.stop();
+                });
+            }
+            modal.current.style.display = 'none';
+            document.getElementById('modal-notification').style.display = 'block';
+            document.getElementById('modal-video').style.display = 'none';
+            if (!!connections.current[peerId]) {
+                connections.current[peerId].close();
+                delete connections.current[peerId];
+            }
+            window.location.reload();
         }
     }
 
@@ -166,15 +184,26 @@ function GlobalEvent({ children }) {
     function handleExit(signal) {
         if (signal.data) {
             console.log('Handle exit');
-            remoteVideo.current.srcObject = null;
-            localStream.current.getTracks().forEach(function (track) {
-                track.stop();
-            });
+            if (!!remoteVideo.current) {
+                remoteVideo.current.srcObject = null;
+            }
+            if (!!selfVideo.current) {
+                selfVideo.current.srcObject = null;
+            }
+
+            if (!!localStream.current) {
+                localStream.current.getTracks().forEach(function (track) {
+                    track.stop();
+                });
+            }
             modal.current.style.display = 'none';
             document.getElementById('modal-notification').style.display = 'block';
             document.getElementById('modal-video').style.display = 'none';
-            connections.current[peerId].close();
-            delete connections.current[peerId];
+            if (!!connections.current[peerId]) {
+                connections.current[peerId].close();
+                delete connections.current[peerId];
+            }
+            window.location.reload();
         }
     }
 
@@ -226,10 +255,19 @@ function GlobalEvent({ children }) {
     }
 
     function handleCancel(signal) {
-        alert('da bi huy');
+        alert('Người nghe đang bận');
     }
 
     function handleCallToUser(signal) {
+        let lstConection = connections.current;
+        if (Object.keys(lstConection).length > 0) {
+            sendMessage({
+                type: 'cancel-caller',
+                receiver: signal.sender,
+                sender: signal.receiver,
+            });
+        }
+
         modal.current.style.display = 'block';
         btnCancel.current.addEventListener('click', function () {
             sendMessage({
