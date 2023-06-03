@@ -25,7 +25,6 @@ function GlobalEvent({ children }) {
     var ws = useRef();
     var localStream = useRef();
     var connections = useRef({});
-    var uuidInBig;
 
     const selfVideo = useRef();
     const remoteVideo = useRef();
@@ -34,14 +33,15 @@ function GlobalEvent({ children }) {
     const btnAccept = useRef();
     const [showCam, setShowCam] = useState(true);
     const [turnOnMic, setTurnOnMic] = useState(true);
-    let peerId = null;
+    const [showScreen, setShowScreen] = useState(true);
+    let peerId = useRef();
     let meId;
 
     function init() {
         if (!!userInfo && !!userInfo.token) {
             meId = userInfo.id;
             console.log('connect');
-            ws.current = new WebSocket(`ws://${process.env.REACT_APP_HOST_DOMAIN}` + MAPPING);
+            ws.current = new WebSocket(`wss://${process.env.REACT_APP_HOST_DOMAIN}` + MAPPING);
             ws.current.onmessage = processWsMessage;
             ws.current.onopen = handleWhenOpenWs;
             ws.current.onclose = logMessage;
@@ -86,18 +86,18 @@ function GlobalEvent({ children }) {
     }
 
     function handleInit(signal) {
-        peerId = signal.sender;
-        var connection = getRTCPeerConnectionObject(peerId);
+        peerId.current = signal.sender;
+        var connection = getRTCPeerConnectionObject(peerId.current);
 
         // make an offer, and send the SDP to sender.
         connection
             .createOffer()
             .then(function (sdp) {
                 connection.setLocalDescription(sdp);
-                console.log('Creating an offer for', peerId);
+                console.log('Creating an offer for', peerId.current);
                 sendMessage({
                     type: 'offer',
-                    receiver: peerId,
+                    receiver: peerId.current,
                     sender: meId,
                     data: sdp,
                 });
@@ -108,7 +108,7 @@ function GlobalEvent({ children }) {
     }
 
     function handleLogout(signal) {
-        if (peerId === signal.sender) {
+        if (peerId.current === signal.sender) {
             if (!!remoteVideo.current) {
                 remoteVideo.current.srcObject = null;
             }
@@ -124,21 +124,21 @@ function GlobalEvent({ children }) {
             modal.current.style.display = 'none';
             document.getElementById('modal-notification').style.display = 'block';
             document.getElementById('modal-video').style.display = 'none';
-            if (!!connections.current[peerId]) {
-                connections.current[peerId].close();
-                delete connections.current[peerId];
+            if (!!connections.current[peerId.current]) {
+                connections.current[peerId.current].close();
+                delete connections.current[peerId.current];
             }
             window.location.reload();
         }
     }
 
     function handleOffer(signal) {
-        peerId = signal.sender;
-        var connection = getRTCPeerConnectionObject(peerId);
+        peerId.current = signal.sender;
+        var connection = getRTCPeerConnectionObject(peerId.current);
         connection
             .setRemoteDescription(new RTCSessionDescription(signal.data))
             .then(function () {
-                console.log('Setting remote description by offer from ' + peerId);
+                console.log('Setting remote description by offer from ' + peerId.current);
                 // create an answer for the peedId.
                 connection
                     .createAnswer()
@@ -147,7 +147,7 @@ function GlobalEvent({ children }) {
                         connection.setLocalDescription(sdp);
                         sendMessage({
                             type: 'answer',
-                            receiver: peerId,
+                            receiver: peerId.current,
                             sender: userInfo.id,
                             data: sdp,
                         });
@@ -199,9 +199,9 @@ function GlobalEvent({ children }) {
             modal.current.style.display = 'none';
             document.getElementById('modal-notification').style.display = 'block';
             document.getElementById('modal-video').style.display = 'none';
-            if (!!connections.current[peerId]) {
-                connections.current[peerId].close();
-                delete connections.current[peerId];
+            if (!!connections.current[peerId.current]) {
+                connections.current[peerId.current].close();
+                delete connections.current[peerId.current];
             }
             window.location.reload();
         }
@@ -279,9 +279,9 @@ function GlobalEvent({ children }) {
             modal.current.style.display = 'none';
             document.getElementById('modal-notification').style.display = 'block';
             document.getElementById('modal-video').style.display = 'none';
-            if (!!connections && !!connections.current[peerId]) {
-                connections.current[peerId].close();
-                delete connections.current[peerId];
+            if (!!connections && !!connections.current[peerId.current]) {
+                connections.current[peerId.current].close();
+                delete connections.current[peerId.current];
             }
         });
 
@@ -316,15 +316,15 @@ function GlobalEvent({ children }) {
         });
         sendMessage({
             type: 'exit',
-            receiver: peerId,
+            receiver: peerId.current,
             sender: meId,
-            data: peerId + 'exit',
+            data: peerId.current + 'exit',
         });
         modal.current.style.display = 'none';
         document.getElementById('modal-notification').style.display = 'block';
         document.getElementById('modal-video').style.display = 'none';
-        connections.current[peerId].close();
-        delete connections.current[peerId];
+        connections.current[peerId.current].close();
+        delete connections.current[peerId.current];
     }
 
     function changStatusCam() {
@@ -338,6 +338,63 @@ function GlobalEvent({ children }) {
         audioTrack.enabled = !turnOnMic;
         setTurnOnMic(!turnOnMic);
     }
+
+    const changeVideoScreen = async () => {
+        if (!!showScreen) {
+            const constraints = { video: { cursor: 'always' }, audio: false };
+            const screenCaptureStream = await navigator.mediaDevices.getDisplayMedia(constraints);
+            let videoTrack = screenCaptureStream.getVideoTracks()[0];
+            localStream.current = screenCaptureStream;
+            selfVideo.current.srcObject = localStream.current;
+            connections.current[peerId.current].getSenders().forEach(function (rtpSender) {
+                if (rtpSender.track.kind === 'video') {
+                    rtpSender
+                        .replaceTrack(videoTrack)
+                        .then(function () {
+                            console.log('Replaced video track from camera to screen');
+                        })
+                        .catch(function (error) {
+                            console.log('Could not replace video track: ' + error);
+                        });
+                }
+            });
+        } else {
+            const cameraStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            if (!!localStream.current) {
+                localStream.current.getTracks().forEach(function (track) {
+                    track.stop();
+                });
+            }
+            localStream.current = cameraStream;
+            selfVideo.current.srcObject = localStream.current;
+            let videoTrack = cameraStream.getVideoTracks()[0];
+            let audioTrack = cameraStream.getAudioTracks()[0];
+            connections.current[peerId.current].getSenders().forEach(function (rtpSender) {
+                if (rtpSender.track.kind === 'video') {
+                    rtpSender
+                        .replaceTrack(videoTrack)
+                        .then(function () {
+                            console.log('Replaced video track from camera to screen');
+                        })
+                        .catch(function (error) {
+                            console.log('Could not replace video track: ' + error);
+                        });
+                }
+                if (rtpSender.track.kind === 'audio') {
+                    rtpSender
+                        .replaceTrack(audioTrack)
+                        .then(function () {
+                            console.log('Replaced video track from camera to screen');
+                        })
+                        .catch(function (error) {
+                            console.log('Could not replace video track: ' + error);
+                        });
+                }
+            });
+        }
+
+        setShowScreen(!showScreen);
+    };
 
     return (
         <React.Fragment>
@@ -377,7 +434,11 @@ function GlobalEvent({ children }) {
                             icon={!showCam ? faVideo : faVideoSlash}
                             onClick={changStatusCam}
                         ></FontAwesomeIcon>
-                        <FontAwesomeIcon className={cx('modal-action-icon')} icon={faDisplay}></FontAwesomeIcon>
+                        <FontAwesomeIcon
+                            className={showScreen ? cx('modal-action-icon') : cx('modal-action-icon', 'disable')}
+                            icon={faDisplay}
+                            onClick={changeVideoScreen}
+                        ></FontAwesomeIcon>
                     </div>
                 </div>
             </div>
