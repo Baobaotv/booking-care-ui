@@ -16,8 +16,10 @@ function MyMessageContainer() {
     const [statusUpdate, setStatusUpdate] = useState(true);
     const messages = useRef([]);
     // const [messages, setMessages] = useState([]);
-    const [selectedId, setSelectedId] = useState();
+    const selectedId = useRef();
     const userInfo = JSON.parse(localStorage.getItem('token'));
+
+    const temporaryMessage = useRef();
 
     const getInteractiveOfCurrentUser = async (token) => {
         const result = await interactiveService.getInteractiveOfCurrentUser(token).then((response) => response);
@@ -31,14 +33,14 @@ function MyMessageContainer() {
     useEffect(() => {
         console.log('test');
         getInteractiveOfCurrentUser(userInfo.token);
-    }, [messages.current, statusUpdate]);
+    }, [messages.current, statusUpdate, temporaryMessage.current]);
 
     function connectSockJs(userInfo) {
         let receiveMessages = (message) => {
             if (window.location.href !== window.location.origin + config.routes.myMessage) {
                 return;
             }
-            if (!!JSON.parse(message.body) && JSON.parse(message.body).senderId === selectedId) {
+            if (!!JSON.parse(message.body) && JSON.parse(message.body).senderId === selectedId.current) {
                 let oldMessages = [...messages.current[1]];
                 oldMessages.push(JSON.parse(message.body));
                 let newMessage = [messages.current[0], oldMessages];
@@ -48,6 +50,12 @@ function MyMessageContainer() {
                     document.getElementById('message-list').scrollHeight;
             } else {
                 setStatusUpdate(!statusUpdate);
+                let test =
+                    !!messageData && messageData.length > 0
+                        ? [...messageData, JSON.parse(message.body)]
+                        : [JSON.parse(message.body)];
+                temporaryMessage.current = [...test];
+                dispatch(setMessage(test));
             }
         };
 
@@ -72,7 +80,8 @@ function MyMessageContainer() {
     const onSelectUser = async (userId) => {
         const result = await messageservice.getListMessageByUserId(userId, userInfo.token).then((response) => response);
         messages.current = result;
-        setSelectedId(userId);
+        selectedId.current = userId;
+        setStatusUpdate(!statusUpdate);
     };
 
     const sendMessage = (content, receverId) => {
@@ -97,7 +106,7 @@ function MyMessageContainer() {
     return (
         <>
             <MyMessage
-                selectedId={selectedId}
+                selectedId={selectedId.current}
                 interactives={interactives}
                 messages={messages.current}
                 userInfo={userInfo}
