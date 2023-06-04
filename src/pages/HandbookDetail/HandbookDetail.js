@@ -61,11 +61,13 @@ function HandbookDetail({ handbook, comments, sendComment, userInfo, deleteComme
                     {!!comments && comments.length > 0 ? (
                         comments.map((item) => {
                             let isSelfComment = userInfo.id === item.idUser;
+                            let isDoctor = userInfo.id === item.createdById;
+                            let isAdmin = userInfo.roles.includes('ROLE_ADMIN');
                             return (
                                 <ItemComment
                                     key={item.id}
                                     data={item}
-                                    isSelfComment={isSelfComment}
+                                    isSelfComment={isSelfComment || isDoctor || isAdmin}
                                     deleteComment={deleteComment}
                                 ></ItemComment>
                             );

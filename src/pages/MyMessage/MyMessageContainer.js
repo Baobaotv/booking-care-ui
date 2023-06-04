@@ -13,6 +13,7 @@ function MyMessageContainer() {
     const dispatch = useAppDispatch();
     const { messageData } = useAppSelector((state) => state.mess);
     const [interactives, setInteractives] = useState();
+    const [statusUpdate, setStatusUpdate] = useState(true);
     const messages = useRef([]);
     // const [messages, setMessages] = useState([]);
     const [selectedId, setSelectedId] = useState();
@@ -28,20 +29,26 @@ function MyMessageContainer() {
     }, []);
 
     useEffect(() => {
+        console.log('test');
         getInteractiveOfCurrentUser(userInfo.token);
-    }, [messages.current]);
+    }, [messages.current, statusUpdate]);
 
     function connectSockJs(userInfo) {
         let receiveMessages = (message) => {
             if (window.location.href !== window.location.origin + config.routes.myMessage) {
                 return;
             }
-            let oldMessages = [...messages.current[1]];
-            oldMessages.push(JSON.parse(message.body));
-            let newMessage = [messages.current[0], oldMessages];
-            messages.current = [...newMessage];
-            dispatch(setMessage(newMessage));
-            document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
+            if (!!JSON.parse(message.body) && JSON.parse(message.body).senderId === selectedId) {
+                let oldMessages = [...messages.current[1]];
+                oldMessages.push(JSON.parse(message.body));
+                let newMessage = [messages.current[0], oldMessages];
+                messages.current = [...newMessage];
+                dispatch(setMessage(newMessage));
+                document.getElementById('message-list').scrollTop =
+                    document.getElementById('message-list').scrollHeight;
+            } else {
+                setStatusUpdate(!statusUpdate);
+            }
         };
 
         const connect = (userInfo) => {

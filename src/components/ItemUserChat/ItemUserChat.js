@@ -19,13 +19,13 @@ function ItemUserChat({ data, selectedId, onSelectUser }) {
                     <p className={cx('user-name')}>{!!data ? data.fullName : 'Nguyen Van A'}</p>
                     <span className={cx('message')}>{!!data ? data.lastMessage : 'Oki b'}</span>
                 </div>
-                {!!data && data.status === 0 ? (
+                {/* {!!data && data.status === 0 ? (
                     <div className={cx('info-user-status')}>
                         <FontAwesomeIcon icon={faCircle}></FontAwesomeIcon>
                     </div>
                 ) : (
                     <></>
-                )}
+                )} */}
             </div>
         </div>
     );
