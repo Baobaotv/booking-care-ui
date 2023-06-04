@@ -1,43 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import MyMessage from './MyMessage';
 import interactiveService from '~/service/InteractiveService';
 import messageservice from '~/service/MessageService';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
 import config from '~/config';
+import { useAppDispatch, useAppSelector } from '~/store/hook';
+import { setMessage } from '~/store/message';
 let stompClient = null;
 
-function connectSockJs(userInfo, messages, setMessages) {
-    let receiveMessages = (message) => {
-        messages[1].push(JSON.parse(message.body));
-        let newMessage = [messages[0], messages[1]];
-        setMessages(newMessage);
-        let elem = document.getElementById('message-list');
-        elem.scrollTop = elem.scrollHeight;
-        return message;
-    };
-
-    const connect = (userInfo) => {
-        if (!!userInfo) {
-            var socket = new SockJS(config.hostBe + '/ws');
-            stompClient = over(socket);
-            stompClient.connect({}, onConnected, onError);
-        }
-    };
-
-    const onConnected = () => {
-        stompClient.subscribe('/topic/' + userInfo.id, receiveMessages);
-    };
-
-    function onError() {
-        console.log('Conect socket is fail');
-    }
-    connect(userInfo);
-}
-
 function MyMessageContainer() {
+    const dispatch = useAppDispatch();
+    const { messageData } = useAppSelector((state) => state.mess);
     const [interactives, setInteractives] = useState();
-    const [messages, setMessages] = useState([]);
+    const messages = useRef([]);
+    // const [messages, setMessages] = useState([]);
     const [selectedId, setSelectedId] = useState();
     const userInfo = JSON.parse(localStorage.getItem('token'));
 
@@ -47,13 +24,47 @@ function MyMessageContainer() {
     };
 
     useEffect(() => {
-        connectSockJs(userInfo, messages, setMessages);
+        connectSockJs(userInfo);
+    }, []);
+
+    useEffect(() => {
         getInteractiveOfCurrentUser(userInfo.token);
-    }, [messages]);
+    }, [messages.current]);
+
+    function connectSockJs(userInfo) {
+        let receiveMessages = (message) => {
+            if (window.location.href !== window.location.origin + config.routes.myMessage) {
+                return;
+            }
+            let oldMessages = [...messages.current[1]];
+            oldMessages.push(JSON.parse(message.body));
+            let newMessage = [messages.current[0], oldMessages];
+            messages.current = [...newMessage];
+            dispatch(setMessage(newMessage));
+            document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
+        };
+
+        const connect = (userInfo) => {
+            if (!!userInfo) {
+                var socket = new SockJS(config.hostBe + '/ws');
+                stompClient = over(socket);
+                stompClient.connect({}, onConnected, onError);
+            }
+        };
+
+        const onConnected = () => {
+            stompClient.subscribe('/topic/' + userInfo.id, receiveMessages);
+        };
+
+        function onError() {
+            console.log('Conect socket is fail');
+        }
+        connect(userInfo);
+    }
 
     const onSelectUser = async (userId) => {
         const result = await messageservice.getListMessageByUserId(userId, userInfo.token).then((response) => response);
-        setMessages(result);
+        messages.current = result;
         setSelectedId(userId);
     };
 
@@ -68,11 +79,12 @@ function MyMessageContainer() {
         } else {
             stompClient.send('/app/sendToUSer', {}, JSON.stringify(chatMessage));
         }
-        messages[1].push(chatMessage);
-        let newMessage = [messages[0], messages[1]];
-        setMessages(newMessage);
-        let elem = document.getElementById('message-list');
-        elem.scrollTop = elem.scrollHeight;
+        let oldMessage = [...messages.current[1]];
+        oldMessage.push(chatMessage);
+        let newMessage = [messages.current[0], oldMessage];
+        messages.current = [...newMessage];
+        dispatch(setMessage(newMessage));
+        document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
     };
 
     return (
@@ -80,7 +92,7 @@ function MyMessageContainer() {
             <MyMessage
                 selectedId={selectedId}
                 interactives={interactives}
-                messages={messages}
+                messages={messages.current}
                 userInfo={userInfo}
                 onSelectUser={onSelectUser}
                 sendMessage={sendMessage}
