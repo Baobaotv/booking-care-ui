@@ -58,6 +58,9 @@ function HomeContainer() {
         getFeaturedDoctor();
         getFeaturedHandbook();
         userInfo = JSON.parse(localStorage.getItem('token'));
+        if (!!userInfo) {
+            connectSockJs(userInfo, messageData, dispatch(setMessage(messageData)));
+        }
     }, []);
 
     useEffect(() => {
@@ -74,22 +77,25 @@ function HomeContainer() {
         onSelectUser(0);
     }, [isShowMessage]);
 
-    useEffect(() => {
-        if (!!userInfo) {
-            connectSockJs(userInfo, messageData, dispatch(setMessage(messageData)));
-        }
-    }, [userInfo]);
+    // useEffect(() => {
+
+    // }, [userInfo]);
 
     function connectSockJs(userInfo) {
         let receiveMessages = (message) => {
+            if (window.location.href !== window.location.origin + '/') {
+                return;
+            }
             if (messages.current && messages.current[1]) {
                 let newArr = [...messages.current[1]];
                 newArr.push(JSON.parse(message.body));
                 let newMessage = [messages.current[0], newArr];
                 messages.current = [...newMessage];
                 dispatch(setMessage(newMessage));
+            } else {
+                setIsShowMessage(true);
             }
-            setIsShowMessage(true);
+
             let elem = document.getElementById('message-list');
             elem.scrollTop = elem.scrollHeight;
         };

@@ -6,17 +6,18 @@ import GlobalStyles from './components/GlobalStyle';
 import GlobalEvent from './components/GlobalEvent';
 import store from './store';
 import { Provider } from 'react-redux';
+import GlobalSocket from './components/GlobalSocket';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <GlobalStyles>
-            <Provider store={store}>
-                <GlobalEvent>
+    <GlobalStyles>
+        <Provider store={store}>
+            <GlobalEvent>
+                <GlobalSocket>
                     <App />
-                </GlobalEvent>
-            </Provider>
-        </GlobalStyles>
-    </React.StrictMode>,
+                </GlobalSocket>
+            </GlobalEvent>
+        </Provider>
+    </GlobalStyles>,
 );
 
 // If you want to start measuring performance in your app, pass a function
