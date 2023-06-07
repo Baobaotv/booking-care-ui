@@ -66,7 +66,7 @@ function UpdateTimeBookingContainer() {
     }
 
     const updateTimeBooking = async (body) => {
-        let newBody = body;
+        let newBody = { ...body };
         delete newBody['workTimeTime'];
         const userInfo = JSON.parse(localStorage.getItem('token'));
         const result = await bookingService.updateTimeBooking(newBody, userInfo.token);
