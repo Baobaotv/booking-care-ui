@@ -43,7 +43,7 @@ function UpdateBookingContainer() {
     const type = useRef();
     const amount = useRef();
     const [typeCheckHealth, setTypeCheckHealth] = useState();
-    const [typePay, setTypePay] = useState();
+    const [typePay, setTypePay] = useState('OFF');
     const [typePersonSchedule, setTypePersonSchedule] = useState('forMe');
     const [typeSex, setTypeSex] = useState('Nam');
     const [typeCheckHealthOld, setTypeCheckHealthOld] = useState();

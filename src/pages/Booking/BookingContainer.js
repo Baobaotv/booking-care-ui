@@ -43,7 +43,7 @@ function BookingContainer() {
     const type = useRef();
     const amount = useRef();
     const [typeCheckHealth, setTypeCheckHealth] = useState('off');
-    const [typePay, setTypePay] = useState();
+    const [typePay, setTypePay] = useState('OFF');
     const [typePersonSchedule, setTypePersonSchedule] = useState('forMe');
     const [typeSex, setTypeSex] = useState('Nam');
     const form = useRef({
