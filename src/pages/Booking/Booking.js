@@ -241,7 +241,13 @@ function Booking({
                     <div className={cx('info-book-payment-content')}>
                         <div className={cx('info-book-price-medical')}>
                             <p>Giá khám</p>
-                            <p>300.000 đ</p>
+                            <p>
+                                {!!user &&
+                                    user.examinationPrice.toLocaleString('it-IT', {
+                                        style: 'currency',
+                                        currency: 'VND',
+                                    })}
+                            </p>
                         </div>
                         <div className={cx('info-book-price-book')}>
                             <p>Phí đặt lịch</p>
@@ -250,7 +256,13 @@ function Booking({
                         <hr></hr>
                         <div className={cx('info-book-total-price')}>
                             <p>Tổng cộng</p>
-                            <p>300.000 đ</p>
+                            <p>
+                                {!!user &&
+                                    user.examinationPrice.toLocaleString('it-IT', {
+                                        style: 'currency',
+                                        currency: 'VND',
+                                    })}
+                            </p>
                         </div>
                     </div>
                     <p className={cx('info-book-note')}>
