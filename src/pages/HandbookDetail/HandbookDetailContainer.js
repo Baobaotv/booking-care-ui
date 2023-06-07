@@ -43,6 +43,9 @@ function HandbookDetailContainer() {
     }, [comments]);
 
     function sendComment(content) {
+        if (content === '' || content.trim().length === 0) {
+            return;
+        }
         let comment = {
             idUser: userInfo.id,
             idHandbook: searchParams.get('id'),

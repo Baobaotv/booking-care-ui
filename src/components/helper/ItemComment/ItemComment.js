@@ -8,7 +8,7 @@ function ItemComment({ data, isSelfComment, deleteComment }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('comment-avatar')}>
-                <img src={!!data ? data.img : images.avatarDefault} alt="avatar"></img>
+                <img src={!!data && !!data.img ? data.img : images.avatarDefault} alt="avatar"></img>
             </div>
             <div className={cx('comment-info')}>
                 <p className={cx('comment-user-name')}>{!!data ? data.fullName : 'Người dùng'}</p>
