@@ -148,10 +148,6 @@ function DetailCalender({ medical }) {
                                     <td className={cx('table-content')}>{medical.payment.vnpTmnCode}</td>
                                 </tr>
                                 <tr>
-                                    <td className={cx('table-title')}>{'vnp_transaction_no'}</td>
-                                    <td className={cx('table-content')}>{medical.payment.vnpTransactionNo}</td>
-                                </tr>
-                                <tr>
                                     <td className={cx('table-title')}>{'vnp_txn_ref'}</td>
                                     <td className={cx('table-content')}>{medical.payment.vnpTxnRef}</td>
                                 </tr>
