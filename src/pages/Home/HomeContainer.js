@@ -122,6 +122,9 @@ function HomeContainer() {
     }
 
     const sendMessage = (content, receverId) => {
+        if (content === '' || content.trim().length === 0) {
+            return;
+        }
         var chatMessage = {
             senderId: userInfo.id,
             receiverId: receverId,
