@@ -9,7 +9,7 @@ import config from '~/config';
 import styles from './MyCalender.module.scss';
 const cx = classNames.bind(styles);
 
-function MyCalender({ completes, waitings, cancelBooking }) {
+function MyCalender({ completes, waitings, cancelBooking, createPayment }) {
     const [isOpen, setIsOpen] = useState(false);
     const [medicalId, setMedicalId] = useState();
     return (
@@ -96,8 +96,7 @@ function MyCalender({ completes, waitings, cancelBooking }) {
                                                             icon={faCreditCard}
                                                             className={cx('btn-action')}
                                                             onClick={() => {
-                                                                setMedicalId(item.id);
-                                                                setIsOpen(true);
+                                                                createPayment(item.id, item.examinationPrice);
                                                             }}
                                                         ></FontAwesomeIcon>
                                                     )}

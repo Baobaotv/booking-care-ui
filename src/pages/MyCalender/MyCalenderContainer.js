@@ -1,6 +1,7 @@
 import MyCalender from './MyCalender';
 import mediaService from '~/service/MedicalService';
 import bookingService from '~/service/BookingService';
+import paymentService from '~/service/PaymentService';
 import { useEffect, useState } from 'react';
 
 function MyCalenderContainer() {
@@ -37,8 +38,25 @@ function MyCalenderContainer() {
         }
     };
 
+    const createPayment = async (id, price) => {
+        const userInfo = JSON.parse(localStorage.getItem('token'));
+
+        localStorage.setItem(userInfo.username + '_booking_id', id);
+        const body = {
+            amount: price,
+            bankCode: '',
+        };
+        const result = await paymentService.createPayment(body).then((response) => response);
+        if (result.code === '00') window.location.replace(result.data);
+    };
+
     return (
-        <MyCalender completes={sheduleCompletes} waitings={sheduleWaiting} cancelBooking={cancelBooking}></MyCalender>
+        <MyCalender
+            completes={sheduleCompletes}
+            waitings={sheduleWaiting}
+            cancelBooking={cancelBooking}
+            createPayment={createPayment}
+        ></MyCalender>
     );
 }
 
