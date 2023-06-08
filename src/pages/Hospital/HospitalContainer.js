@@ -26,6 +26,9 @@ function HospitalContainer() {
     const searchAllByName = async () => {
         const result = await hospitalService.searchAllByName(name, currentPage).then((response) => response);
         setHospitals(result);
+        if (typeSearch !== 'NAME') {
+            setTypeSearch('NAME');
+        }
     };
 
     const onClickSearchByName = () => {

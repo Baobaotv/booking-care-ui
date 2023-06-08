@@ -41,8 +41,8 @@ const searchAllByName = async (name, page = config.pageableDefault.pageDefault, 
 
 const getNearbyHospital = async (lat, lng) => {
     const params = {
-        lat: lng,
-        lng: lat,
+        lat: lat,
+        lng: lng,
     };
     const response = await fetch(
         config.baseUrl + 'hospital/get-nearby-hospital?' + new URLSearchParams(params).toString(),
